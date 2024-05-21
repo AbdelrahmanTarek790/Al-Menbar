@@ -1,0 +1,144 @@
+import { Button } from "@/components/ui/button"
+import main1 from "../assets/main1.png"
+import back1 from "../assets/back1.png"
+import main2 from "../assets/main2.png"
+import main3 from "../assets/main3.png"
+
+import main4 from "../assets/main4.png"
+import main5 from "../assets/main5.png"
+import main6 from "../assets/main6.png"
+import { Each } from "@/utils/Each"
+import { List } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Link } from "react-router-dom"
+export const HomeLoggedOut = () => {
+    const List1 = [
+        {
+            img: main3,
+            title: "دروس دينيــــة شاملـــة",
+            description: "تعليمًا شاملاً في المواد  الأساسية مثل العقيدة، الفقه، التفسير، والحديث.",
+        },
+        {
+            img: main2,
+            title: "أستخدام الذكاء الأصطناعي",
+            description: "تجربة تعلم حديثة وسهلة عن طريق استخدام الذكاء الاصطناعي في التعلم.",
+        },
+        {
+            img: main4,
+            title: "مجانية ومفتوحة للجميـع",
+            description: "متاحة مجاناً للأشخاص الذين تزيد أعمارهم عن 16 عامًا ويجيدون القراءة.",
+        },
+        {
+            img: main5,
+            title: "متابعة الطلاب بشكل دائم",
+            description: "تقوم الاكاديمية دائماً بتقييم أداء الطلاب وتقديم تقارير دورية.",
+        },
+    ]
+    return (
+        <div className="overflow-hidden">
+            <div className="flex justify-evenly font-cairo item-center mt-16 relative">
+                <img src={back1} alt="" className="absolute z-[-1] left-[-400px] w-[800px] opacity-35   top-[-400px] origin-center" />
+                <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   bottom-[-400px] origin-center" />
+                <div>
+                    <img src={main1} className="w-[561px]" alt="" />
+                </div>
+                <div className="flex flex-col justify-around text-right">
+                    <p className="text-6xl font-extrabold text-[#2A3E34]">أكاديمية المنبــر</p>
+                    <div className="w-[500px]">
+                        <p className="text-[#3A5A40] text-xl font-bold">
+                            المنبر هي اكاديمية لتعليم العلوم الإسلامية الشرعية بــاستخــدام الذكــاء الاصطنــاعــي لتسهيــل العمليــة التعليمية،
+                            وجعلها اكثر تفاعلية مع الطالب.
+                        </p>
+                        <div className="flex justify-center gap-5 mt-4">
+                            <Link to={"/login"}>
+                                <Button className="rounded-full bg-[#2a3e34] text-xl  px-7 hover:bg-[#395346]">تسجيل الدخول</Button>
+                            </Link>
+                            <Link to={"/register"}>
+                                <Button className="rounded-full bg-[#466746] text-xl px-7">إنشاء حساب</Button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="h-auto bg-[#2a3e34] mt-3 pb-4">
+                <p className="text-center text-white font-cairo text-3xl font-bold pt-8">ماذا تقدم أكاديمية منبـر</p>
+                <div className="flex text-center justify-evenly mt-8 flex-wrap h-auto">
+                    <Each
+                        of={List1}
+                        render={(item, index) => (
+                            <div className="w-[263px] h-[254px]">
+                                <img src={item.img} alt="" className="w-[152px] h-[152px] mx-auto" />
+                                <p className="text-white text-xl  font-bold mt-4">{item.title}</p>
+                                <p className="text-white text-base mt-1">{item.description}</p>
+                            </div>
+                        )}
+                    ></Each>
+                </div>
+            </div>
+            <div className="flex flex-col items-center font-cairo">
+                <div className="flex justify-center gap-32 flex-row-reverse font-cairo item-center mt-16">
+                    <img src={back1} alt="" className="absolute z-[-1] left-[-620px] w-[1000px] opacity-35    origin-center" />
+
+                    <div>
+                        <img src={main6} className="w-[561px]" alt="" />
+                    </div>
+                    <div className="flex flex-col justify-center gap-8 items-end text-right">
+                        <p className="text-4xl font-bold text-[#466746]">رسالة أكاديمية المنبر</p>
+                        <div className="w-[470px]">
+                            <p className="text-[#2A3E34] text-xl">
+                                أكاديمية المنبر هي الوجهة المثالية لتعلم <span className="font-bold">العلوم الشرعية الإسلامية</span> بسهولة ويسر. تأتي
+                                رسالة المنبر كجواب على تحديات العصر الحديث، حيث يعاني الكثيرون من البعد عن دراسة العلوم الشرعية، اعتقاداً منهم
+                                بصعوبتها او تلاهيهم بملهيات الحياة. تسعى المنبر لتغيير هذه النظرة وتحقيق تقدم حقيقي في تعلم العلوم الشرعية
+                                <span className="font-bold">
+                                    باستخدام احدث الاساليب التكنولوجية والنفسية لخلق رحلة تعلم أكثر متعة وشمولية وتفاعلية.
+                                </span>
+                            </p>
+                            <div className="flex justify-center  mt-4">
+                                <Button className="rounded-full bg-[#466746] text-xl px-7">إنشاء حساب</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p className="text-[#2A3E34] font-extrabold text-5xl   mt-6">تعلم على يد خيرة الشيوخ</p>
+                <div className="flex flex-wrap items-center justify-evenly mt-10 w-full  font-cairo ">
+                    <Each
+                        of={Array.of(1, 1, 1, 1)}
+                        render={(item, index) => (
+                            <div className="w-[300px] flex flex-col items-center text-center">
+                                <img
+                                    src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
+                                    alt=""
+                                    className="w-[200px] h-[200px] rounded-full"
+                                />
+                                <p className="text-[#2A3E34] text-xl font-bold">الشيخ مصطفى العدوي</p>
+                                <p className="text-[#3A5A40] text-lg">أستاذ وعالم في العلم الشرعي</p>
+                                <p className="text-[#2A3E34] text-lg font-bold">يُدرِس العقيدة</p>
+                            </div>
+                        )}
+                    ></Each>
+                </div>
+                <Button className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">تعرف على المزيد</Button>
+                <div
+                    className="w-[60%] min-w-[800px] flex h-[450px] rounded-3xl mt-24 mb-24"
+                    style={{ boxShadow: "0px 0px 30px -15px rgba(0,0,0,0.64)" }}
+                >
+                    <div className="w-[70%] h-full flex flex-col justify-center gap-5  items-center text-right">
+                        <div className="text-[#2a3e34]">
+                            <p className="text-4xl font-extrabold">اشترك في قائمتنا البريدية</p>
+                            <p className="text-2xl mt-3">لمتابعة اخر الدروس المرفوعة والاطلاع على كل جديد</p>
+                        </div>
+                        <Input placeholder="البريد الإلكتروني" className="w-[70%] mt-4" />
+                        <Button className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">اشترك</Button>
+                    </div>
+                    <div className="w-[30%] h-full bg-[#2A3E34] rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
+                        <p className="text-4xl font-extrabold">!تواصل معنا</p>
+                        <p className="text-2xl">للحصول على الدعم والإجابة على جميع استفساراتك</p>
+                        <Button className="rounded-full bg-white text-[#466746] hover:bg-[#e3eee3] text-xl font-extrabold  w-fit px-10">
+                            اتصل بنا
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

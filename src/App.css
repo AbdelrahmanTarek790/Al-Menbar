@@ -1,0 +1,27 @@
+/* import font */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap");
+
+@font-face {
+  font-family: "Deco";
+  /*Can be any text*/
+  src: local("DecoTypeThuluth"),
+    url("assets/fonts/DecoTypeThuluth.ttf") format("truetype");
+}
+
+#root {
+  min-height: 720px;
+  height: 100vh;
+}
+
+input:focus {
+  outline: none !important;
+  offset: 0 !important;
+}
+
+input:focus-visible {
+  outline: none !important;
+}
+
+p {
+  font-family: "Cairo", sans-serif;
+}
