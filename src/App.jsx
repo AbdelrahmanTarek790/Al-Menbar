@@ -31,7 +31,7 @@ function App() {
     //     }
     // }, [])
     return (
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <BrowserRouter>
                 <NavBar></NavBar>
                 <div className="min-h-[720px] overflow-hidden">
