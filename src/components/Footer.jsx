@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 
 export const Footer = () => {
     return (
-        <footer className=" flex flex-col h-14 w-full py-3 gap-4 border-t bg-[#2a3e34] px-16 sm:static sm:h-56 sm:border-0 text-primary-foreground ">
-            <div className="flex justify-around items-center h-full">
+        <footer className=" flex flex-col h-auto w-full py-3 gap-4 border-t bg-[#2a3e34] px-16 sm:static lg:h-56 sm:border-0 text-primary-foreground ">
+            <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-around  items-center h-full">
                 <div className="flex gap-3 text-3xl">
                     <i className="fa-brands fa-facebook-f"></i>
                     <i className="fa-brands fa-instagram"></i>
@@ -17,7 +17,7 @@ export const Footer = () => {
                         <Link>خطوات التسجيل</Link>
                         <Link>الرئيسية</Link>
                     </div>
-                    <div className=" flex gap-4">
+                    <div className=" flex gap-4  justify-center w-full lg:w-auto">
                         <Link>تواصل معنا</Link>
                         <Link>المناهج</Link>
                     </div>

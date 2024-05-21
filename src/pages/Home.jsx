@@ -36,20 +36,20 @@ export const HomeLoggedOut = () => {
     ]
     return (
         <div className="overflow-hidden">
-            <div className="flex justify-evenly font-cairo item-center mt-16 relative">
+            <div className="flex justify-center lg:justify-evenly font-cairo item-center mt-16 relative">
                 <img src={back1} alt="" className="absolute z-[-1] left-[-400px] w-[800px] opacity-35   top-[-400px] origin-center" />
                 <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   bottom-[-400px] origin-center" />
                 <div>
-                    <img src={main1} className="w-[561px]" alt="" />
+                    <img src={main1} className="hidden lg:block w-[561px]" alt="" />
                 </div>
-                <div className="flex flex-col justify-around text-right">
-                    <p className="text-6xl font-extrabold text-[#2A3E34]">أكاديمية المنبــر</p>
-                    <div className="w-[500px]">
+                <div className="flex flex-col items-center  justify-around gap-8 lg:gap-0 lg:text-right">
+                    <p className="text-4xl lg:text-6xl font-extrabold text-[#2A3E34]">أكاديمية المنبــر</p>
+                    <div className="w-[95%] lg:w-[500px] text-center lg:text-right">
                         <p className="text-[#3A5A40] text-xl font-bold">
                             المنبر هي اكاديمية لتعليم العلوم الإسلامية الشرعية بــاستخــدام الذكــاء الاصطنــاعــي لتسهيــل العمليــة التعليمية،
                             وجعلها اكثر تفاعلية مع الطالب.
                         </p>
-                        <div className="flex justify-center gap-5 mt-4">
+                        <div className="flex justify-center flex-wrap gap-5 mt-4">
                             <Link to={"/login"}>
                                 <Button className="rounded-full bg-[#2a3e34] text-xl  px-7 hover:bg-[#395346]">تسجيل الدخول</Button>
                             </Link>
@@ -76,15 +76,15 @@ export const HomeLoggedOut = () => {
                 </div>
             </div>
             <div className="flex flex-col items-center font-cairo">
-                <div className="flex justify-center gap-32 flex-row-reverse font-cairo item-center mt-16">
+                <div className="flex justify-center lg:gap-32 flex-row-reverse font-cairo item-center mt-16">
                     <img src={back1} alt="" className="absolute z-[-1] left-[-620px] w-[1000px] opacity-35    origin-center" />
 
                     <div>
-                        <img src={main6} className="w-[561px]" alt="" />
+                        <img src={main6} className="w-[561px] hidden lg:block" alt="" />
                     </div>
-                    <div className="flex flex-col justify-center gap-8 items-end text-right">
+                    <div className="flex flex-col justify-center gap-8 lg:items-end text-center lg:text-right">
                         <p className="text-4xl font-bold text-[#466746]">رسالة أكاديمية المنبر</p>
-                        <div className="w-[470px]">
+                        <div className="w-auto lg:w-[470px]">
                             <p className="text-[#2A3E34] text-xl">
                                 أكاديمية المنبر هي الوجهة المثالية لتعلم <span className="font-bold">العلوم الشرعية الإسلامية</span> بسهولة ويسر. تأتي
                                 رسالة المنبر كجواب على تحديات العصر الحديث، حيث يعاني الكثيرون من البعد عن دراسة العلوم الشرعية، اعتقاداً منهم
@@ -99,7 +99,7 @@ export const HomeLoggedOut = () => {
                         </div>
                     </div>
                 </div>
-                <p className="text-[#2A3E34] font-extrabold text-5xl   mt-6">تعلم على يد خيرة الشيوخ</p>
+                <p className="text-[#2A3E34] font-extrabold text-4xl lg:text-5xl text-center  mt-6">تعلم على يد خيرة الشيوخ</p>
                 <div className="flex flex-wrap items-center justify-evenly mt-10 w-full  font-cairo ">
                     <Each
                         of={Array.of(1, 1, 1, 1)}
@@ -119,10 +119,10 @@ export const HomeLoggedOut = () => {
                 </div>
                 <Button className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">تعرف على المزيد</Button>
                 <div
-                    className="w-[60%] min-w-[800px] flex h-[450px] rounded-3xl mt-24 mb-24"
+                    className="w-[90%]  lg:w-[60%] lg:min-w-[800px] flex lg:h-[450px] rounded-3xl flex-col lg:flex-row mt-24 mb-24"
                     style={{ boxShadow: "0px 0px 30px -15px rgba(0,0,0,0.64)" }}
                 >
-                    <div className="w-[70%] h-full flex flex-col justify-center gap-5  items-center text-right">
+                    <div className="w-full lg:w-[70%] py-5 lg:py-0 h-full flex flex-col justify-center gap-5 text-center  items-center lg:text-right">
                         <div className="text-[#2a3e34]">
                             <p className="text-4xl font-extrabold">اشترك في قائمتنا البريدية</p>
                             <p className="text-2xl mt-3">لمتابعة اخر الدروس المرفوعة والاطلاع على كل جديد</p>
@@ -130,7 +130,7 @@ export const HomeLoggedOut = () => {
                         <Input placeholder="البريد الإلكتروني" className="w-[70%] mt-4" />
                         <Button className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">اشترك</Button>
                     </div>
-                    <div className="w-[30%] h-full bg-[#2A3E34] rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
+                    <div className="w-full lg:w-[30%] py-5 lg:py-0 h-full bg-[#2A3E34] rounded-b-3xl lg:rounded-b-none lg:rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
                         <p className="text-4xl font-extrabold">!تواصل معنا</p>
                         <p className="text-2xl">للحصول على الدعم والإجابة على جميع استفساراتك</p>
                         <Button className="rounded-full bg-white text-[#466746] hover:bg-[#e3eee3] text-xl font-extrabold  w-fit px-10">
