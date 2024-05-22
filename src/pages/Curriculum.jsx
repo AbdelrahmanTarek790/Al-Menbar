@@ -50,8 +50,8 @@ export const Curriculum = () => {
                     render={(item, index) => (
                         <div className={` bg-[#2A3E34]  gap-14  w-[90%] lg:w-[420px] rounded-3xl`}>
                             <div className={`  text-center  text-white flex flex-col items-center justify-center`}>
-                                <p className=" text-9xl  mt-4 font-deco ">{item.title}</p>
-                                <div className={` h-[2px] bg-white  mt-20 w-[90%] `}></div>
+                                <p className=" text-9xl  mt-8 lg:mt-4 font-deco ">{item.title}</p>
+                                <div className={` h-[2px] bg-white mt-8  lg:mt-20 w-[90%] `}></div>
                                 <p className=" text-xl mt-4 font-bold">{item.bookname}</p>
                                 <p className=" text-lg mt-2 font-bold">{item.subject}</p>
                                 <p className=" text-base mt-1 w-[90%] mb-4">{item.description}</p>
