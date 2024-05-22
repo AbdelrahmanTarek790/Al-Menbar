@@ -28,10 +28,6 @@ export const SignUp = () => {
                     <Input className="w-[80%] text-black text-right" type="phone" placeholder="رقم الهاتف"></Input>
                 </div>
 
-                <div className="">
-                    <p className="text-left  text-sm font-bold mt-2 ml-14 cursor-pointer">لا تتذكر كلمة السر ؟</p>
-                </div>
-
                 <div className="flex justify-center gap-5 mt-10">
                     <Button className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]">إنشاء حساب جديد</Button>
                 </div>

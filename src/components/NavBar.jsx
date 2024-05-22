@@ -3,7 +3,7 @@ import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
 import { Bell, ChevronDown, Home, MoveDownIcon, Package2, PanelLeft } from "lucide-react"
 
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,8 +15,15 @@ import {
 import { Button } from "./ui/button"
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "./ui/drawer"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import { useEffect, useState } from "react"
 
 export const NavBar = () => {
+    // const location = useLocation()
+    // useEffect(() => {
+    //     setActive(location.pathname)
+    //     // setBreadcrumb(location.pathname.split("/").filter((item) => item !== "edit"))
+    // }, [location])
+    // const [active, setActive] = useState(location.pathname)
     // console.log(state);
 
     return (
@@ -85,13 +92,7 @@ export const NavBar = () => {
                 </SheetTrigger>
                 <SheetContent side="left" className="sm:max-w-xs  text-right flex flex-col justify-between">
                     <nav className="flex flex-col gap-6 text-lg font-medium text-right items-end  mt-6">
-                        {/* <Link
-                            to={"/"}
-                            className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-                        >
-                            <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />
-                            <span className="sr-only">CodePeak</span>
-                        </Link> */}
+                     
                         <Each
                             of={ListLogged}
                             render={(item) => (
