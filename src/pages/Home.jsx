@@ -42,7 +42,7 @@ export const HomeLoggedOut = () => {
                 <div>
                     <img src={main1} className="hidden lg:block w-[561px]" alt="" />
                 </div>
-                <div className="flex flex-col items-center  justify-around gap-8 lg:gap-0 lg:text-right">
+                <div className="flex flex-col items-center mb-7 lg:mb-0  justify-around gap-8 lg:gap-0 lg:text-right">
                     <p className="text-4xl lg:text-6xl font-extrabold text-[#2A3E34]">أكاديمية المنبــر</p>
                     <div className="w-[95%] lg:w-[500px] text-center lg:text-right">
                         <p className="text-[#3A5A40] text-xl font-bold">

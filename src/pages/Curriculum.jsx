@@ -42,13 +42,13 @@ export const Curriculum = () => {
             <img src={back1} alt="" className="absolute z-[-1] right-[-500px] w-[800px] opacity-35   top-[600px] origin-center" />
             <p className="text-center text-4xl  lg:text-5xl font-extrabold text-[#2A3E34]">العلوم الشرعية</p>
             <div
-                className="grid grid-cols-1 lg:grid-cols-2 gap-10 justify-center items-center mt-20
+                className="grid grid-cols-1 lg:grid-cols-2 gap-10 justify-center items-center place-items-center mt-20
             "
             >
                 <Each
                     of={List}
                     render={(item, index) => (
-                        <div className={` bg-[#2A3E34]  gap-14    lg:w-[420px] rounded-3xl`}>
+                        <div className={` bg-[#2A3E34]  gap-14  w-[90%] lg:w-[420px] rounded-3xl`}>
                             <div className={`  text-center  text-white flex flex-col items-center justify-center`}>
                                 <p className=" text-9xl  mt-4 font-deco ">{item.title}</p>
                                 <div className={` h-[2px] bg-white  mt-20 w-[90%] `}></div>
