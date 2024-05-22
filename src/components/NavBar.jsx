@@ -91,23 +91,45 @@ export const NavBar = () => {
                     </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="sm:max-w-xs  text-right flex flex-col justify-between">
-                    <nav className="flex flex-col gap-6 text-lg font-medium text-right items-end  mt-6">
-                     
-                        <Each
-                            of={ListLogged}
-                            render={(item) => (
-                                <Link
-                                    to={item.url}
-                                    className={` ${
-                                        // active === item.url
-                                        //     ? "flex items-center gap-4 px-2.5 text-foreground"
-                                        " flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground transition-all text-right"
-                                    } `}
-                                >
-                                    {item.text}
-                                </Link>
-                            )}
-                        ></Each>
+                    <nav className="flex flex-col-reverse gap-6 text-lg font-medium text-right items-end  mt-6">
+                        
+                        <Show>
+                            <Show.When isTrue={false}>
+                                <Each
+                                    of={ListLogged}
+                                    render={(item) => (
+                                        <Link
+                                            to={item.url}
+                                            className={` ${
+                                                // active === item.url
+                                                //     ? "flex items-center gap-4 px-2.5 text-foreground"
+                                                " flex items-center gap-4 px-2.5 text-foreground hover:text-foreground transition-all text-right"
+                                            } `}
+                                        >
+                                            {item.text}
+                                        </Link>
+                                    )}
+                                ></Each>
+                            </Show.When>
+                            <Show.Else>
+                                <Each
+                                    of={ListLoggedOut}
+                                    render={(item) => (
+                                        <Link
+                                            to={item.url}
+                                            className={` ${
+                                                // active === item.url
+                                                //     ? "flex items-center gap-4 px-2.5 text-foreground"
+                                                " flex items-center gap-4 px-2.5 text-foreground  hover:text-foreground transition-all text-right"
+                                            } `}
+                                        >
+                                            {item.text}
+                                        </Link>
+                                    )}
+                                ></Each>
+                            </Show.Else>
+                        </Show>
+                        
                     </nav>
                     <div className="flex gap-3 flex-col items-center">
                         <Link

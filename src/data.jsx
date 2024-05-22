@@ -36,12 +36,12 @@ export const ListLoggedOut = [
     {
         icon: Home,
         text: "الشيوخ",
-        url: "/",
+        url: "/tutors",
     },
     {
         icon: Home,
         text: "المناهج",
-        url: "/",
+        url: "/curriculum",
     },
     {
         icon: Home,

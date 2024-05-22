@@ -10,6 +10,8 @@ import { Footer } from "./components/Footer"
 import { HomeLoggedOut } from "./pages/Home"
 import { Login } from "./pages/Login"
 import { SignUp } from "./pages/SignUp"
+import { Tutors } from "./pages/Tutors"
+import { Curriculum } from "./pages/Curriculum"
 
 function App() {
     // const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")))
@@ -39,6 +41,8 @@ function App() {
                         <Route path="/" element={<HomeLoggedOut></HomeLoggedOut>} />
                         <Route path="/login" element={<Login></Login>} />
                         <Route path="/register" element={<SignUp></SignUp>} />
+                        <Route path="/tutors" element={<Tutors></Tutors>} />
+                        <Route path="/curriculum" element={<Curriculum></Curriculum>} />
 
                         {/* <Route path="/customers" element={<Users2 />} />
                         <Route path="/products" element={<Package />} />
