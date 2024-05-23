@@ -24,7 +24,7 @@ export const Contact = () => {
                     </div>
                     <div className="flex flex-col items-center text-right gap-4">
                         <Label className="mt-10 text-right w-[80%] font-bold text-[#2A3E34]">الرسالة</Label>
-                        <Textarea className="w-[80%] text-black text-right h-[222px]" type="text" placeholder="الرسالة"></Textarea>
+                        <Textarea className="w-[80%] text-black text-right h-[222px] max-h-[250px]" type="text" placeholder="الرسالة"></Textarea>
                     </div>
                     <div className="flex justify-center gap-5 mt-10">
                         <Button className="rounded-lg bg-[#466746] text-base text-white  font-bold px-10 hover:bg-[#395346]">إرسال</Button>

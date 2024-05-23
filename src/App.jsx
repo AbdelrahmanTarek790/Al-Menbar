@@ -13,11 +13,15 @@ import { SignUp } from "./pages/SignUp"
 import { Tutors } from "./pages/Tutors"
 import { Curriculum } from "./pages/Curriculum"
 import { Contact } from "./pages/Contact"
+import { useEffect, useState } from "react"
+import { useStore } from "./context/storeContext"
+import { Show } from "./utils/Show"
+import { HomeLogged } from "./pages/LoggedPages/HomeLogged"
 
 function App() {
-    // const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")))
+    const [isLoggedIn, setIsLoggedIn] = useState(Boolean(localStorage.getItem("token")))
     // const [loading, setLoading] = useState(true)
-    // const { setState, state } = useStore()
+    const { setState, state } = useStore()
     // useEffect(() => {
     //     if (isLoggedIn) {
     //         const token = localStorage.getItem("token")
@@ -33,23 +37,50 @@ function App() {
     //         })
     //     }
     // }, [])
+    useEffect(() => {
+        setState({ isLoggedIn })
+    })
+    // console.log(isLoggedIn)
     return (
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <BrowserRouter>
                 <NavBar></NavBar>
                 <div className="min-h-[720px] overflow-hidden">
-                    <Routes>
-                        <Route path="/" element={<HomeLoggedOut></HomeLoggedOut>} />
-                        <Route path="/login" element={<Login></Login>} />
-                        <Route path="/register" element={<SignUp></SignUp>} />
-                        <Route path="/tutors" element={<Tutors></Tutors>} />
-                        <Route path="/curriculum" element={<Curriculum></Curriculum>} />
-                        <Route path="/contact-us" element={<Contact></Contact>} />
+                    <Show>
+                        <Show.When
+                            isTrue={isLoggedIn}
+                            children={
+                                <Routes>
+                                    <Route path="/" element={<HomeLogged></HomeLogged>} />
+                                    <Route path="/login" element={<Login></Login>} />
+                                    <Route path="/register" element={<SignUp></SignUp>} />
+                                    <Route path="/tutors" element={<Tutors></Tutors>} />
+                                    <Route path="/curriculum" element={<Curriculum></Curriculum>} />
+                                    <Route path="/contact-us" element={<Contact></Contact>} />
 
-                        {/* <Route path="/customers" element={<Users2 />} />
-                        <Route path="/products" element={<Package />} />
-                        <Route path="/orders" element={<ShoppingCart />} /> */}
-                    </Routes>
+                                    {/* <Route path="/customers" element={<Users2 />} />
+                      <Route path="/products" element={<Package />} />
+                      <Route path="/orders" element={<ShoppingCart />} /> */}
+                                </Routes>
+                            }
+                        ></Show.When>
+                        <Show.Else
+                            children={
+                                <Routes>
+                                    <Route path="/" element={<HomeLoggedOut></HomeLoggedOut>} />
+                                    <Route path="/login" element={<Login></Login>} />
+                                    <Route path="/register" element={<SignUp></SignUp>} />
+                                    <Route path="/tutors" element={<Tutors></Tutors>} />
+                                    <Route path="/curriculum" element={<Curriculum></Curriculum>} />
+                                    <Route path="/contact-us" element={<Contact></Contact>} />
+
+                                    {/* <Route path="/customers" element={<Users2 />} />
+              <Route path="/products" element={<Package />} />
+              <Route path="/orders" element={<ShoppingCart />} /> */}
+                                </Routes>
+                            }
+                        ></Show.Else>
+                    </Show>
                 </div>
                 <Footer></Footer>
                 <Toaster />
