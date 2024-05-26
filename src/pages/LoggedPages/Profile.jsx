@@ -11,7 +11,7 @@ export const Profile = () => {
     }, [location])
 
     return (
-        <div className="flex justify-between h-full">
+        <div className="flex justify-end  h-full">
             <MyProfile></MyProfile>
             <Sidebar></Sidebar>
         </div>

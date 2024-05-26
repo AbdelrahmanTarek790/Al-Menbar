@@ -12,7 +12,7 @@ import { patchMethod, putMethod } from "@/utils/ApiMethods"
 
 const dateFormat = "YYYY-MM-DD"
 export const MyProfile = () => {
-    const { state,setState } = useStore()
+    const { state, setState } = useStore()
     const [data, setData] = useState(state)
     const [active, setActive] = useState(true)
     useEffect(() => {
@@ -22,17 +22,17 @@ export const MyProfile = () => {
         setData({ ...data, birthDate: dateString })
     }
     const submitHandler = () => {
-        console.log(data);
+        console.log(data)
         patchMethod("/students/update-me", data, state.token).then((res) => {
             if (res.status === "Success") {
                 setActive(!active)
-                setState({...data,token:state.token,isLoggedIn:true})
+                setState({ ...data, token: state.token, isLoggedIn: true })
             }
             console.log(res)
         })
     }
     return (
-        <div className="w-full flex flex-col items-end px-5 py-8  text-right">
+        <div className=" flex flex-col items-end px-5 py-8  text-right">
             <p className="text-2xl font-bold text-primary">بيانات الحساب</p>
             <div className={` h-[2px] bg-[#2A3E34] w-[90%] lg:w-[1000px] mt-8`}></div>
             <img

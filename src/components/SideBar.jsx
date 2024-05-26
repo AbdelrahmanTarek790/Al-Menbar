@@ -15,9 +15,9 @@ export const Sidebar = () => {
     const [active, setActive] = React.useState(location.pathname)
 
     return (
-        <aside className="min-h-[720px] w-[250px]  z-10 hidden  flex-col border-l bg-background sm:flex">
+        <aside className="min-h-[720px] min-w-[250px] max-w-[250px]  z-10 hidden  flex-col border-l bg-background sm:flex">
             <nav className="flex flex-col gap-4 py-4  items-end">
-             
+        
                 <Each
                     of={ProfList}
                     render={(item, index) => (
