@@ -3,22 +3,22 @@ export const ListLogged = [
     {
         icon: LineChart,
         text: "الدعم الأكاديمي",
-        url: "/analytics",
+        url: "/support",
     },
     {
         icon: Users2,
         text: "المكتبة",
-        url: "/customers",
+        url: "/library",
     },
     {
         icon: Package,
         text: "الجدول الدراسي",
-        url: "/products",
+        url: "/schedule",
     },
     {
         icon: ShoppingCart,
         text: "مقرراتي الدراسية",
-        url: "/orders",
+        url: "/courses",
     },
     {
         icon: Home,

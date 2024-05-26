@@ -3,7 +3,28 @@ import back1 from "../assets/back2.png"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { postMethod } from "@/utils/ApiMethods"
+import { useState } from "react"
+import { useToast } from "@/components/ui/use-toast"
 export const Login = () => {
+    const [data, setData] = useState({ email: "", password: "" })
+    const { toast } = useToast()
+
+    const handleLogin = async () => {
+        // console.log(data)
+        const res = await postMethod("/students/login", data)
+        // console.log(res)
+      
+        toast({
+            title: res.status === "success" ? "Login Successfully" : res.message,
+            variant: res.status === "success" ? "" : "destructive",
+        })
+        if (res?.status === "success") {
+            localStorage.setItem("token", res.token)
+            window.location.href = "/"
+        }
+        // console.log(res)
+    }
     return (
         <div className="flex items-center justify-center  relative  py-24">
             <img src={back1} alt="" className="absolute z-[-1] left-[0px] opacity-35  top-[300px] origin-center" />
@@ -13,18 +34,34 @@ export const Login = () => {
                 <p className="text-center text-4xl  font-extrabold mt-14">تسجيل الدخول</p>
                 <div className="flex flex-col items-center text-right gap-4">
                     <Label className="mt-10 text-right w-[80%]">البريد الإلكتروني</Label>
-                    <Input className="w-[80%] text-black text-right" type="email" placeholder="البريد الالكتروني"></Input>
+                    <Input
+                        className="w-[80%] text-black text-right"
+                        type="email"
+                        onChange={(e) => {
+                            setData({ ...data, email: e.target.value })
+                        }}
+                        placeholder="البريد الالكتروني"
+                    ></Input>
                 </div>
                 <div className="flex flex-col items-center text-right gap-4">
                     <Label className="mt-10 text-right w-[80%]">كلمة السر</Label>
-                    <Input className="w-[80%] text-black text-right" type="password" placeholder="كلمة السر"></Input>
+                    <Input
+                        className="w-[80%] text-black text-right"
+                        type="password"
+                        onChange={(e) => {
+                            setData({ ...data, password: e.target.value })
+                        }}
+                        placeholder="كلمة السر"
+                    ></Input>
                 </div>
                 <div className="">
                     <p className="text-left  text-sm font-bold mt-2 ml-14 cursor-pointer">لا تتذكر كلمة السر ؟</p>
                 </div>
 
                 <div className="flex justify-center gap-5 mt-10">
-                    <Button className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]">تسجيل الدخول</Button>
+                    <Button className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]" onClick={handleLogin}>
+                        تسجيل الدخول
+                    </Button>
                 </div>
 
                 <div className="relative mt-16 flex justify-center">

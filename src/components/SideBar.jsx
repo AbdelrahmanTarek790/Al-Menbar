@@ -1,10 +1,9 @@
 import * as React from "react"
-import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from "lucide-react"
+import { ChevronLeftIcon, Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from "lucide-react"
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { Each } from "@/utils/Each"
-import { List } from "@/data"
 
 export const Sidebar = () => {
     // const nav = useParams()
@@ -16,43 +15,29 @@ export const Sidebar = () => {
     const [active, setActive] = React.useState(location.pathname)
 
     return (
-        <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-            <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
-                <Link
-                    to={"/"}
-                    className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
-                >
-                    <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
-                    <span className="sr-only">Acme Inc</span>
-                </Link>
-
+        <aside className="min-h-[720px] w-[250px]  z-10 hidden  flex-col border-l bg-background sm:flex">
+            <nav className="flex flex-col gap-4 py-4  items-end">
+             
                 <Each
-                    of={List}
-                    render={(item) => {
-                        return (
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Link
-                                            to={item.url}
-                                            className={`${
-                                                active === item.url ? "bg-accent text-accent-foreground" : "text-muted-foreground"
-                                            } flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8 md:text-base`}
-                                        >
-                                            {/* <Home className="h-5 w-5" />
-                                             */}
-                                            <item.icon className="h-5 w-5" />
-                                            <span className="sr-only">{item.text}</span>
-                                        </Link>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="right">{item.text}</TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        )
-                    }}
+                    of={ProfList}
+                    render={(item, index) => (
+                        <Link
+                            to={item.url}
+                            className={`${
+                                active === item.url ? " font-bold " : " "
+                            }" flex w-[90%] items-center mr-4 justify-end font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
+                        >
+                            <span>{item.title}</span>
+
+                            <ChevronLeftIcon className={active === item.url ? "" : "opacity-0"}></ChevronLeftIcon>
+
+                            {/* <Settings className="h-5 w-5" />
+                                        <span className="sr-only">Settings</span> */}
+                        </Link>
+                    )}
                 ></Each>
             </nav>
-            <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
+            {/* <nav className="mt-auto flex flex-col items-end gap-4 px-2 sm:py-4">
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger asChild>
@@ -67,7 +52,13 @@ export const Sidebar = () => {
                         <TooltipContent side="right">Settings</TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-            </nav>
+            </nav> */}
         </aside>
     )
 }
+
+const ProfList = [
+    { title: "حسابي", url: "/profile" },
+    { title: "شهاداتي", url: "/profile/certifications" },
+    { title: "درجات الاختبارات", url: "/profile/degrees" },
+]

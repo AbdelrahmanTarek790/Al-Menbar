@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BaseUrl2 = "https://pmsbackend.codepeak.live/api/v1"
+const BaseUrl2 = "https://menbar-backend.onrender.com/api/v1"
 // const baseUrl = "https://pharmacy.codepeak.live/api"
 const baseUrl = import.meta.env.VITE_BASE_URL
 // console.log(baseUrl);
@@ -103,6 +103,24 @@ export const putMethodMultipart = async (url, data, token) => {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
+            },
+        })
+        .then((res) => {
+            result = res.data
+        })
+        .catch((err) => {
+            result = err.response?.data
+        })
+    return result
+}
+
+export const patchMethod = async (url, data, token) => {
+    let result = {}
+    await axios
+        .patch(baseUrl + url, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
             },
         })
         .then((res) => {
