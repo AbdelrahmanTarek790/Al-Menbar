@@ -8,7 +8,6 @@ import { Each } from "@/utils/Each"
 export const Sidebar = () => {
     // const nav = useParams()
     const location = useLocation()
-    // console.log(location.pathname)
     React.useEffect(() => {
         setActive(location.pathname)
     }, [location])

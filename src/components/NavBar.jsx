@@ -100,7 +100,7 @@ export const NavBar = () => {
                     <SheetContent side="left" className="sm:max-w-xs  text-right flex flex-col justify-between">
                         <nav className="flex flex-col-reverse gap-6 text-lg font-medium text-right items-end  mt-6">
                             <Show>
-                                <Show.When isTrue={false}>
+                                <Show.When isTrue={state.isLoggedIn}>
                                     <Each
                                         of={ListLogged}
                                         render={(item) => (
@@ -136,17 +136,24 @@ export const NavBar = () => {
                                 </Show.Else>
                             </Show>
                         </nav>
-                        <div className="flex gap-3 flex-col items-center">
-                            <Link
-                                to="/register"
-                                className="text-xl font-semibold bg-[#dad7cd] px-5 py-1 rounded-full text-[#2a3e34] hover:bg-[#cecbc0] font-cairo transition-all"
-                            >
-                                إنشاء حساب
-                            </Link>
-                            <Link to="/login" className="text-xl font-semibold font-cairo">
-                                تسجيل الدخول
-                            </Link>
-                        </div>
+                        <Show>
+                            <Show.When
+                                isTrue={!state.isLoggedIn}
+                                children={
+                                    <div className="flex gap-3 flex-col items-center">
+                                        <Link
+                                            to="/register"
+                                            className="text-xl font-semibold bg-[#dad7cd] px-5 py-1 rounded-full text-[#2a3e34] hover:bg-[#cecbc0] font-cairo transition-all"
+                                        >
+                                            إنشاء حساب
+                                        </Link>
+                                        <Link to="/login" className="text-xl font-semibold font-cairo">
+                                            تسجيل الدخول
+                                        </Link>
+                                    </div>
+                                }
+                            ></Show.When>
+                        </Show>
                     </SheetContent>
                 </Sheet>
             </div>
