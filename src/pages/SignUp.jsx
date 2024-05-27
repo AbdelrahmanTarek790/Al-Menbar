@@ -75,7 +75,7 @@ export const SignUp = () => {
 
     return (
         <div className="flex items-center justify-center relative py-24">
-            <img src={back1} alt="" className="absolute z-[-1] left-[0px] opacity-35 top-[300px] origin-center" />
+            <img src={back1} alt="" className="absolute z-[-1] left-[0px] opacity-35 bottom-[0] origin-center" />
             <img src={back1} alt="" className="absolute z-[-1] right-[-150px] opacity-70 top-[-100px] origin-center rotate-180" />
 
             <div className="w-[90vw] max-w-[550px] lg:w-[550px] bg-[#2A3E34] rounded-3xl text-white font-cairo">
