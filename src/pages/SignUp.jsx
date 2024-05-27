@@ -47,9 +47,7 @@ export const SignUp = () => {
             birthDate: dateString,
         })
     }
-    useEffect(() => {
-        console.log(planetpulse.getAllCountries())
-    }, [])
+
     const handleSubmit = () => {
         setLoading(true)
         postMethod("/students/signup", data).then((res) => {
