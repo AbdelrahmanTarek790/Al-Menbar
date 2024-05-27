@@ -8,10 +8,14 @@ import dayjs from "dayjs"
 import { useState } from "react"
 import { postMethod } from "@/utils/ApiMethods"
 import { useToast } from "@/components/ui/use-toast"
+import { Show } from "@/utils/Show"
+import { Loader2 } from "lucide-react"
 const dateFormat = "YYYY-MM-DD"
 
 export const SignUp = () => {
     const { toast } = useToast()
+    const [loading, setLoading] = useState(false)
+
     const [data, setData] = useState({
         Fname: "",
         Lname: "",
@@ -42,12 +46,14 @@ export const SignUp = () => {
     }
 
     const handleSubmit = () => {
+        setLoading(true)
         postMethod("/students/signup", data).then((res) => {
             if (res.status === "error") {
                 toast({
                     title: Object.values(res.error.errors)[0].message,
                     variant: "destructive",
                 })
+                setLoading(false)
                 return
             }
             console.log(res)
@@ -57,9 +63,11 @@ export const SignUp = () => {
                 toast({
                     title: "تم إنشاء الحساب بنجاح",
                     variant: "",
-                })
+                }) 
+                setLoading(false)
                 window.location.href = "/"
             }
+           
         })
     }
 
@@ -192,7 +200,11 @@ export const SignUp = () => {
                 </div>
 
                 <div className="flex justify-center gap-5 mt-10">
-                    <Button className="rounded-lg bg-white text-base text-[#466746] font-bold px-10 hover:bg-[#f6fffa]" onClick={handleSubmit}>
+                    <Button className="rounded-lg bg-white text-base text-[#466746] font-bold px-10 hover:bg-[#f6fffa]" disabled={loading} onClick={handleSubmit}>
+                        <Show>
+                            <Show.When isTrue={loading} children={<Loader2 className="animate-spin mr-2"></Loader2>}></Show.When>
+                        </Show>
+                       
                         إنشاء حساب جديد
                     </Button>
                 </div>

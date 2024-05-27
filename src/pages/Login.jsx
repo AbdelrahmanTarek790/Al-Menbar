@@ -6,12 +6,16 @@ import { Link } from "react-router-dom"
 import { postMethod } from "@/utils/ApiMethods"
 import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
+import { Loader2 } from "lucide-react"
+import { Show } from "@/utils/Show"
 export const Login = () => {
     const [data, setData] = useState({ email: "", password: "" })
+    const [loading, setLoading] = useState(false)
     const { toast } = useToast()
 
     const handleLogin = async () => {
         // console.log(data)
+        setLoading(true)
         const res = await postMethod("/students/login", data)
         // console.log(res)
       
@@ -20,9 +24,11 @@ export const Login = () => {
             variant: res.status === "success" ? "" : "destructive",
         })
         if (res?.status === "success") {
+
             localStorage.setItem("token", res.token)
             window.location.href = "/"
         }
+        setLoading(false)
         // console.log(res)
     }
     return (
@@ -30,7 +36,7 @@ export const Login = () => {
             <img src={back1} alt="" className="absolute z-[-1] left-[0px] opacity-35  top-[300px] origin-center" />
             <img src={back1} alt="" className="absolute z-[-1] right-[-150px] opacity-70 top-[-100px] origin-center rotate-180" />
 
-            <div className="w-[95vw] max-w-[550px] lg:w-[550px] bg-[#2A3E34] h-[650px] rounded-3xl sm:rounded-[100px] text-white font-cairo">
+            <div className="w-[95vw] max-w-[500px] lg:w-[550px] bg-[#2A3E34] h-[650px] rounded-3xl ] text-white font-cairo">
                 <p className="text-center text-4xl  font-extrabold mt-14">تسجيل الدخول</p>
                 <div className="flex flex-col items-center text-right gap-4">
                     <Label className="mt-10 text-right w-[80%]">البريد الإلكتروني</Label>
@@ -59,7 +65,10 @@ export const Login = () => {
                 </div>
 
                 <div className="flex justify-center gap-5 mt-10">
-                    <Button className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]" onClick={handleLogin}>
+                    <Button className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]" disabled={loading} onClick={handleLogin}>
+                    <Show>
+                            <Show.When isTrue={loading} children={<Loader2 className="animate-spin mr-2"></Loader2>}></Show.When>
+                        </Show>
                         تسجيل الدخول
                     </Button>
                 </div>
