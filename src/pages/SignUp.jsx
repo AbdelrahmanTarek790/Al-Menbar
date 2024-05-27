@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { DatePicker } from "antd"
 import dayjs from "dayjs"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { postMethod } from "@/utils/ApiMethods"
 import { useToast } from "@/components/ui/use-toast"
 import { Show } from "@/utils/Show"
@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Each } from "@/utils/Each"
 const dateFormat = "YYYY-MM-DD"
 import planetpulse from "planetpulse"
+import CountryFlag from "react-country-flag"
 export const SignUp = () => {
     const { toast } = useToast()
     const [loading, setLoading] = useState(false)
@@ -46,7 +47,9 @@ export const SignUp = () => {
             birthDate: dateString,
         })
     }
-
+    useEffect(() => {
+        console.log(planetpulse.getAllCountries())
+    }, [])
     const handleSubmit = () => {
         setLoading(true)
         postMethod("/students/signup", data).then((res) => {
@@ -196,7 +199,22 @@ export const SignUp = () => {
                                 })
                             }}
                         />{" "}
-                        <Input
+                        <div className="flex items-center w-[25%] text-black text-right relative">
+                            <CountryFlag
+                                countryCode={planetpulse.getCountryByName(data.country)?.code}
+                                svg
+                                className="absolute right-2 z-10"
+                                style={{ width: "1.5em", height: "1.5em", marginRight: "5px" }}
+                            />
+                            <Input
+                                className="w-full text-black text-left"
+                                type="text"
+                                placeholder="كود البلد"
+                                disabled
+                                value={data.phone.countryCode}
+                            />
+                        </div>
+                        {/* <Input
                             className="w-[25%] text-black text-right"
                             type="text"
                             placeholder="كود البلد"
@@ -211,7 +229,7 @@ export const SignUp = () => {
                             //         },
                             //     })
                             // }}
-                        />
+                        /> */}
                     </div>
                 </div>
 
