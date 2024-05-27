@@ -10,8 +10,10 @@ import { postMethod } from "@/utils/ApiMethods"
 import { useToast } from "@/components/ui/use-toast"
 import { Show } from "@/utils/Show"
 import { Loader2 } from "lucide-react"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Each } from "@/utils/Each"
 const dateFormat = "YYYY-MM-DD"
-
+import planetpulse from "planetpulse"
 export const SignUp = () => {
     const { toast } = useToast()
     const [loading, setLoading] = useState(false)
@@ -63,11 +65,10 @@ export const SignUp = () => {
                 toast({
                     title: "تم إنشاء الحساب بنجاح",
                     variant: "",
-                }) 
+                })
                 setLoading(false)
                 window.location.href = "/"
             }
-           
         })
     }
 
@@ -138,25 +139,47 @@ export const SignUp = () => {
                         onChange={handleChange}
                     />
                 </div>
+                <div className="flex flex-col items-center text-right gap-4">
+                    <Label className="mt-6 text-right w-[80%]">البلد</Label>
+                    <Select
+                        value={data.country}
+                        onValueChange={(e) => {
+                            setData({
+                                ...data,
+                                country: e,
+                                phone: {
+                                    ...data.phone,
+                                    countryCode: planetpulse.getCountryByName(e).dialling_code,
+                                },
+                            })
+                        }}
+                    >
+                        <SelectTrigger className="w-[80%] text-black text-right">
+                            <SelectValue id="mariage-state" placeholder="البلد" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <Each
+                                    of={planetpulse.getAllCountries()}
+                                    render={(country, index) => <SelectItem value={country.name}>{country.name}</SelectItem>}
+                                ></Each>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {/* <Input
+                    planetpulse.getAllCountries()
+                        className="w-[80%] text-black text-right"
+                        type="text"
+                        name="country"
+                        placeholder="البلد"
+                        value={data.country}
+                        onChange={handleChange}
+                    /> */}
+                </div>
 
                 <div className="flex flex-col items-center text-right gap-4">
                     <Label className="mt-6 text-right w-[80%]">رقم الهاتف</Label>
                     <div className="w-[80%] flex gap-2">
-                        <Input
-                            className="w-[25%] text-black text-right"
-                            type="text"
-                            placeholder="كود البلد"
-                            value={data.phone.countryCode}
-                            onChange={(e) => {
-                                setData({
-                                    ...data,
-                                    phone: {
-                                        ...data.phone,
-                                        countryCode: e.target.value,
-                                    },
-                                })
-                            }}
-                        />
                         <Input
                             className="w-[75%] text-black text-right"
                             type="phone"
@@ -172,20 +195,24 @@ export const SignUp = () => {
                                     },
                                 })
                             }}
+                        />{" "}
+                        <Input
+                            className="w-[25%] text-black text-right"
+                            type="text"
+                            placeholder="كود البلد"
+                            disabled
+                            value={data.phone.countryCode}
+                            // onChange={(e) => {
+                            //     setData({
+                            //         ...data,
+                            //         phone: {
+                            //             ...data.phone,
+                            //             countryCode: e.target.value,
+                            //         },
+                            //     })
+                            // }}
                         />
                     </div>
-                </div>
-
-                <div className="flex flex-col items-center text-right gap-4">
-                    <Label className="mt-6 text-right w-[80%]">البلد</Label>
-                    <Input
-                        className="w-[80%] text-black text-right"
-                        type="text"
-                        name="country"
-                        placeholder="البلد"
-                        value={data.country}
-                        onChange={handleChange}
-                    />
                 </div>
 
                 <div className="flex flex-col items-center text-right gap-4">
@@ -200,11 +227,14 @@ export const SignUp = () => {
                 </div>
 
                 <div className="flex justify-center gap-5 mt-10">
-                    <Button className="rounded-lg bg-white text-base text-[#466746] font-bold px-10 hover:bg-[#f6fffa]" disabled={loading} onClick={handleSubmit}>
+                    <Button
+                        className="rounded-lg bg-white text-base text-[#466746] font-bold px-10 hover:bg-[#f6fffa]"
+                        disabled={loading}
+                        onClick={handleSubmit}
+                    >
                         <Show>
                             <Show.When isTrue={loading} children={<Loader2 className="animate-spin mr-2"></Loader2>}></Show.When>
                         </Show>
-                       
                         إنشاء حساب جديد
                     </Button>
                 </div>

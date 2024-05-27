@@ -9,7 +9,8 @@ import dayjs from "dayjs"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { Show } from "@/utils/Show"
 import { patchMethod, putMethod } from "@/utils/ApiMethods"
-
+import planetpulse from "planetpulse"
+import { Each } from "@/utils/Each"
 const dateFormat = "YYYY-MM-DD"
 export const MyProfile = () => {
     const { state, setState } = useStore()
@@ -125,7 +126,31 @@ export const MyProfile = () => {
             <div className="grid grid-cols-2 gap-4  text-right  mt-4">
                 <div className="grid gap-2">
                     <Label htmlFor="country">الدولة</Label>
-                    <Input
+                    <Select
+                    disabled={active}
+
+                        value={data.country}
+                        onValueChange={(e) => {
+                            setData({ ...data, country: e })
+                        }}
+                    >
+                        <SelectTrigger className=" text-black">
+                            <SelectValue id="mariage-state" placeholder="البلد" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <Each
+                                    of={planetpulse.getAllCountries()}
+                                    render={(country, index) => (
+                                        <SelectItem defaultValue={data.country} value={country.name}>
+                                            {country.name}
+                                        </SelectItem>
+                                    )}
+                                ></Each>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {/* <Input
                         id="country"
                         placeholder="الدولة"
                         className=" text-right"
@@ -135,7 +160,7 @@ export const MyProfile = () => {
                         disabled={active}
                         defaultValue={data.country}
                         required
-                    />
+                    /> */}
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="natunality">الجنسية</Label>
