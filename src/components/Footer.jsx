@@ -1,6 +1,11 @@
+import { useStore } from "@/context/storeContext"
+import { ListLogged, ListLoggedOut } from "@/data"
+import { Each } from "@/utils/Each"
+import { Show } from "@/utils/Show"
 import { Link } from "react-router-dom"
 
 export const Footer = () => {
+    const { state } = useStore()
     return (
         <footer className=" flex flex-col h-auto w-full py-3 gap-4 border-t bg-[#2a3e34] px-16 sm:static lg:h-56 sm:border-0 text-primary-foreground ">
             <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-around  items-center h-full">
@@ -12,14 +17,24 @@ export const Footer = () => {
                 </div>
                 <div className="flex flex-col gap-4 items-end font-cairo font-semibold mr-6">
                     <div className=" flex gap-4">
-                        <Link>الشيوخ</Link>
-
-                        <Link>خطوات التسجيل</Link>
-                        <Link>الرئيسية</Link>
+                        <Show>
+                            <Show.When isTrue={state.isLoggedIn}>
+                                <Each of={ListLogged} render={(item, index) => <Link to={item.url}>{item.text}</Link>}></Each>
+                            </Show.When>
+                            <Show.Else>
+                                <Each of={ListLoggedOut} render={(item, index) => <Link to={item.url}>{item.text}</Link>}></Each>
+                            </Show.Else>
+                        </Show>
+                        {/* <Each of={ListLoggedOut} render={(item,index)=><Link to={item.url}>{item.text}</Link>}></Each> */}
                     </div>
                     <div className=" flex gap-4  justify-center w-full lg:w-auto">
                         <Link>تواصل معنا</Link>
-                        <Link>المناهج</Link>
+
+                        <Show>
+                            <Show.When isTrue={!state.isLoggedIn}>
+                                <Link>المناهج</Link>
+                            </Show.When>
+                        </Show>
                     </div>
                 </div>
                 <div>

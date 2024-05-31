@@ -50,7 +50,7 @@ export const Login = () => {
                     ></Input>
                 </div>
                 <div className="flex flex-col items-center text-right gap-4">
-                    <Label className="mt-10 text-right w-[80%]">كلمة السر</Label>
+                    <Label className="mt-6 text-right w-[80%]">كلمة السر</Label>
                     <Input
                         className="w-[80%] text-black text-right"
                         type="password"
@@ -74,7 +74,7 @@ export const Login = () => {
                 </div>
 
                 <div className="relative mt-16 flex justify-center">
-                    <span className="absolute sm:left-[200px] z-10 bg-[#2A3E34] flex justify-center items-center top-[-6px] text-sm text-center w-[150px]">
+                    <span className="absolute sm:left-[180px] z-10 bg-[#2A3E34] flex justify-center items-center top-[-6px] text-sm text-center w-[150px]">
                         او بأستخدام
                     </span>
                     <div className=" h-px bg-gray-400 w-[85%]"></div>

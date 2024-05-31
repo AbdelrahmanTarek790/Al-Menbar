@@ -20,6 +20,9 @@ import { HomeLogged } from "./pages/LoggedPages/HomeLogged"
 import { getMethod } from "./utils/ApiMethods"
 import { Library } from "./pages/LoggedPages/Library"
 import { Profile } from "./pages/LoggedPages/Profile"
+import { CourseDetails } from "./components/Courses/CourseDetails"
+import { CoursePage } from "./pages/LoggedPages/CoursePage"
+import { LearnPage } from "./pages/LoggedPages/LearnPage"
 // import planetpulse from "planetpulse"
 
 function App() {
@@ -55,6 +58,9 @@ function App() {
                                     <Route path="/library" element={<Library></Library>} />
                                     <Route path="/profile/*" element={<Profile></Profile>} />
                                     <Route path="/contact-us" element={<Contact></Contact>} />
+                                    {/* <Route path="/courses" element={<CourseDetails></CourseDetails>} /> */}
+                                    <Route path="/courses/:id/*" element={<CoursePage></CoursePage>} />
+                                    <Route path="/learn/:id/*" element={<LearnPage></LearnPage>} />
                                     <Route path="*" element={<Navigate to={"/"}></Navigate>}></Route>
                                 </Routes>
                             }

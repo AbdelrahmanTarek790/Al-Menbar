@@ -197,7 +197,7 @@ export const SignUp = () => {
                                 })
                             }}
                         />{" "}
-                        <div className="flex items-center w-[25%] text-black text-right relative">
+                        <div className="flex items-center  w-[33%] sm:w-[25%] text-black text-right relative">
                             <CountryFlag
                                 countryCode={planetpulse.getCountryByName(data.country)?.code}
                                 svg
