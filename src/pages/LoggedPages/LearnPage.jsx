@@ -7,10 +7,11 @@ import { Each } from "@/utils/Each"
 import { CornerTopRightIcon } from "@radix-ui/react-icons"
 import { CornerRightUpIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 
 export const LearnPage = () => {
     const { id } = useParams()
+    const location = useLocation()
     const [data, setData] = useState({
         course: {
             subject: "",

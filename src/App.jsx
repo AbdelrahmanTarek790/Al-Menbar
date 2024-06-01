@@ -62,7 +62,7 @@ function App() {
                                     {/* <Route path="/courses" element={<CourseDetails></CourseDetails>} /> */}
                                     <Route path="/courses/:id/*" element={<CoursePage></CoursePage>} />
                                     <Route path="/learn/:id/*" element={<LearnPage></LearnPage>} />
-                                    {/* <Route path="/quiz/:id" element={<QuizPage></QuizPage>} /> */}
+                                    <Route path="/quiz/:id" element={<QuizPage></QuizPage>} />
                                     <Route path="*" element={<Navigate to={"/"}></Navigate>}></Route>
                                 </Routes>
                             }
