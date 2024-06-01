@@ -6,7 +6,7 @@ import { Link, useLocation, useParams } from "react-router-dom"
 import { Each } from "@/utils/Each"
 import { Subjects } from "@/data"
 
-export const SideBarCourseDetails = ({ name }) => {
+export const SideBarLearn = ({ name }) => {
     const { id } = useParams()
     const location = useLocation()
     const ProfList = [
@@ -24,9 +24,9 @@ export const SideBarCourseDetails = ({ name }) => {
         <aside className="lg:min-h-[720px] lg:min-w-[250px] lg:max-w-[250px]  z-10  flex-col border-l bg-background sm:flex">
             <nav className="flex flex-col gap-4 py-4  items-end">
                 <div className="w-[200px] lg:w-[80%] text-center bg-[#2A3E34] py-3 text-4xl text-white  font-deco rounded-s-full">
-                    {Subjects[`${name}`]}
+                    {Subjects[`${name}`]?Subjects[`${name}`]:""}
                 </div>
-                <Each
+                {/* <Each
                     of={ProfList}
                     render={(item, index) => (
                         <Link
@@ -39,7 +39,7 @@ export const SideBarCourseDetails = ({ name }) => {
                             <ChevronLeftIcon className={active === item.url ? "" : "opacity-0"}></ChevronLeftIcon>
                         </Link>
                     )}
-                ></Each>
+                ></Each> */}
             </nav>
         </aside>
     )

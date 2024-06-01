@@ -19,7 +19,6 @@ export const CourseDetails = ({ items }) => {
        
         })
     }, [items])
-
     return (
         <div className=" w-full h-full font-cairo border-2 border-[#385044] rounded-xl mt-4 lg:mt-2">
             <h1 className=" mt-2 text-2xl font-bold text-primary pr-3">المنهج الدراسـي</h1>
