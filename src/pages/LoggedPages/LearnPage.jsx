@@ -2,9 +2,10 @@ import { SideBarLearn } from "@/components/SideBarLearn"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Subjects } from "@/data"
-import { getMethod } from "@/utils/ApiMethods"
+import { getMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
-import { ReplyIcon } from "lucide-react"
+import { CornerTopRightIcon } from "@radix-ui/react-icons"
+import { CornerRightUpIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
@@ -18,17 +19,20 @@ export const LearnPage = () => {
         comments: [],
         replies: [],
     })
+    const [comment, setComment] = useState("")
+    const [reload, setReload] = useState(false)
 
     useEffect(() => {
         getMethod(`/lectures/${id}`, localStorage.getItem("token")).then((res) => {
             setData(res.data)
-            console.log(data)
+            console.log(res)
             // setLectures(res.data.courseStat.lectureStats)
         })
     }, [])
 
     return (
         <div className="flex justify-end flex-col-reverse lg:flex-row  h-full">
+            
             <div className=" flex flex-col items-end px-5 py-8  text-right w-full">
                 <p className="text-primary font-semibold text-lg">
                     {" "}
@@ -43,7 +47,6 @@ export const LearnPage = () => {
                 </p>
                 {/* video */}
                 <div className="mt-6 w-full flex justify-center ">
-
                     <iframe
                         className="w-full max-w-[800px] aspect-video "
                         src="https://www.youtube.com/embed/7bA2Fy1Xk3A"
@@ -69,7 +72,13 @@ export const LearnPage = () => {
                     }}
                 >
                     <div className="flex">
-                        <Textarea placeholder="اكتب سؤالك هنا" className="text-right"></Textarea>
+                        <Textarea
+                            placeholder="اكتب سؤالك هنا"
+                            onChange={(e) => {
+                                setComment(e.target.value)
+                            }}
+                            className="text-right"
+                        ></Textarea>
                         <img
                             src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
                             width={36}
@@ -79,7 +88,21 @@ export const LearnPage = () => {
                         />
                     </div>
                     <div className="flex justify-start mt-4">
-                        <Button className="px-14">ارسال</Button>
+                        <Button
+                            className="px-14"
+                            disabled={reload}
+                            onClick={() => {
+                                setReload(true)
+                                postMethod(`/lectures/${id}/comments`, { text: comment }, localStorage.getItem("token")).then((res) => {
+                                    setReload(false)
+                                    if (res.status === "Success") {
+                                        setData({ ...data, comments: [...data.comments, res.data] })
+                                    }
+                                })
+                            }}
+                        >
+                            ارسال
+                        </Button>
                     </div>
                 </div>
 
@@ -115,35 +138,38 @@ export const LearnPage = () => {
                                 </div>
                                 <p className="text-[#385044] px-10">{item.text}</p>
                             </div>
-                            <div className={`flex flex-col  px-5  ${item.replies?.length === 0 ? " hidden" : ""}`}>
+                            <div className={`flex flex-col    ${item.replies?.length === 0 ? " hidden" : ""}`}>
                                 <Each
                                     of={item.replies}
                                     render={(item, index) => (
-                                        <div
-                                            className="w-[90%] p-6 rounded-3xl mt-7"
-                                            style={{
-                                                boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
-                                            }}
-                                        >
-                                            <div className="flex flex-row-reverse justify-between ">
-                                                <div className="flex flex-row-reverse items-center ">
-                                                    <img
-                                                        src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
-                                                        width={36}
-                                                        height={36}
-                                                        alt="Avatar"
-                                                        className="overflow-hidden rounded-full w-10 h-10 ml-2"
-                                                    />
+                                        <div className="flex items-center">
+                                            <div
+                                                className="w-[98%] p-6 rounded-3xl mt-7"
+                                                style={{
+                                                    boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
+                                                }}
+                                            >
+                                                <div className="flex flex-row-reverse justify-between ">
+                                                    <div className="flex flex-row-reverse items-center ">
+                                                        <img
+                                                            src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
+                                                            width={36}
+                                                            height={36}
+                                                            alt="Avatar"
+                                                            className="overflow-hidden rounded-full w-10 h-10 ml-2"
+                                                        />
 
-                                                    <p className="text-primary font-bold">{item.name ? item.name : "Ahmed Mohesn"}</p>
-                                                </div>
-                                                <div className="flex justify-start">
-                                                    <Button variant="outline" className="flex items-center">
-                                                        <ReplyIcon size={18}></ReplyIcon>
-                                                        رد
-                                                    </Button>
+                                                        <p className="text-primary font-bold">{item.name ? item.name : "Ahmed Mohesn"}</p>
+                                                    </div>
+                                                    <div className="flex justify-start">
+                                                        <Button variant="outline" className="flex items-center">
+                                                            <ReplyIcon size={18}></ReplyIcon>
+                                                            رد
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <CornerRightUpIcon size={40} />
                                         </div>
                                     )}
                                 ></Each>
@@ -152,7 +178,7 @@ export const LearnPage = () => {
                     )}
                 ></Each>
             </div>
-            <SideBarLearn name={data.course.subject}></SideBarLearn>
+            <SideBarLearn name={data.course.subject} courseID={data.course.id}></SideBarLearn>
         </div>
     )
 }
