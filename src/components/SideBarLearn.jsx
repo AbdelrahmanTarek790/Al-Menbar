@@ -39,7 +39,7 @@ export const SideBarLearn = ({ name, courseID }) => {
                             <Link
                                 to={`/learn/${item.lecture.id}`}
                                 className={`${
-                                    active === item.url ? " font-bold " : " "
+                                    active === `/learn/${item.lecture.id}` ? " font-bold " : " "
                                 }" flex w-[100%] px-2 text-right mt-4  items-center mr-4 justify-end  gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
@@ -52,9 +52,9 @@ export const SideBarLearn = ({ name, courseID }) => {
                                 </Show>
                             </Link>
                             <Link
-                                to={`/quiz/${item.lecture.id}`}
+                                to={`/learn/${item.lecture.id}/quiz`}
                                 className={`${
-                                    active === item.url ? " font-bold " : " "
+                                    active === `/learn/${item.lecture.id}/quiz` ? " font-bold " : " "
                                 }" flex w-[100%]  text-right mt-4  px-2 items-center mr-4 justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
