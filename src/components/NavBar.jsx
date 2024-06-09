@@ -41,7 +41,7 @@ export const NavBar = () => {
                                         <ChevronDown size={36} />
                                         <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
                                             <img
-                                                src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
+                                                src={state.photo ? state.photo : "https://placehold.co/150x150"}
                                                 width={36}
                                                 height={36}
                                                 alt="Avatar"

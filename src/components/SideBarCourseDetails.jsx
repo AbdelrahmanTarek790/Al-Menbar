@@ -32,7 +32,7 @@ export const SideBarCourseDetails = ({ name }) => {
                         <Link
                             to={item.url}
                             className={`${
-                                active === item.url ? " font-bold " : " "
+                                active === item.url ? " font-bold  " : " "
                             }" flex w-[90%] items-center mr-4 justify-end font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                         >
                             <span>{item.title}</span>

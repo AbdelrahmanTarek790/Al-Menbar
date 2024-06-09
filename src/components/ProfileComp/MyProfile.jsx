@@ -37,7 +37,7 @@ export const MyProfile = () => {
             <p className="text-2xl font-bold text-primary">بيانات الحساب</p>
             <div className={` h-[2px] bg-[#2A3E34] w-[90%] lg:w-[1000px] mt-8`}></div>
             <img
-                src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
+                src={state.photo ? state.photo : "https://placehold.co/150x150"}
                 className="rounded-full h-[150px] w-[150px] mt-8"
             ></img>
             <div className="flex  flex-col-reverse items-end gap-3 md:flex-row md:items-center mt-4">

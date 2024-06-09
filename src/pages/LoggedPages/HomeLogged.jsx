@@ -63,20 +63,20 @@ export const HomeLogged = () => {
                 <Each
                     of={List}
                     render={(item, index) => (
-                        <div className="w-[85%] bg-[#2A3E34] rounded-3xl  h-[300px] flex items-center justify-between">
-                            <div className="text-right text-white">
+                        <div className="w-[85%] bg-[#2A3E34] rounded-3xl   h-[300px]  flex flex-col-reverse md:flex-row items-center justify-between">
+                            <div className="text-center md:text-right text-white">
                                 <p className="text-lg lg:text-xl mt-4 font-bold">{item.bookname}</p>
                                 <p className="text-base lg:text-lg mt-2 font-bold">{item.subject}</p>
-                                <p className="text-xs lg:text-base mt-1 ml-5 mb-4">{item.description}</p>
+                                <p className="text-xs lg:text-base mt-1 md:ml-5 mb-4">{item.description}</p>
                                 <Link to="/curriculum">
                                     <Button className="rounded-full bg-white text-base text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4">
                                         ادرس الان
                                     </Button>
                                 </Link>
                             </div>
-                            <div className={` h-[300px] bg-white mx-10 w-[2px] `}></div>
+                            <div className={` h-[300px] bg-white mx-10 w-[2px] hidden md:block `}></div>
 
-                            <p className="text-white text-6xl lg:text-8xl mt-8 lg:mt-4 font-deco text-center mr-3  w-[35%]">{item.title}</p>
+                            <p className="text-white text-6xl lg:text-8xl mt-8 lg:mt-4 font-deco text-center mr-4  w-[35%]">{item.title}</p>
                         </div>
                     )}
                 ></Each>

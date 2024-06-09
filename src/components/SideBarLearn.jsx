@@ -39,22 +39,27 @@ export const SideBarLearn = ({ name, courseID }) => {
                             <Link
                                 to={`/learn/${item.lecture.id}`}
                                 className={`${
-                                    active === `/learn/${item.lecture.id}` ? " font-bold " : " "
-                                }" flex w-[100%] px-2 text-right mt-4  items-center mr-4 justify-end  gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
+                                    active === `/learn/${item.lecture.id}` ? " font-bold bg-[#62996c]/20 text-primary " : " "
+                                }" flex w-[100%] px-2 text-right mt-4 py-1  items-center mr-4 justify-end  gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
                                     <p>{item.lecture.name}</p>
                                     <p>التعريف بعلم التفسير</p>
                                 </div>
                                 <Show>
-                                    <Show.When isTrue={item.done} children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}></Show.When>
+                                    <Show.When
+                                        isTrue={item.done}
+                                        children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
+                                    ></Show.When>
                                     <Show.Else children={<i class="fa-regular fa-circle-check  text-primary text-2xl"></i>}></Show.Else>
                                 </Show>
                             </Link>
                             <Link
                                 to={`/learn/${item.lecture.id}/quiz`}
                                 className={`${
-                                    active === `/learn/${item.lecture.id}/quiz` ? " font-bold " : " "
+                                    active === `/learn/${item.lecture.id}/quiz` || active === `/quiz/${item.lecture.id}/`
+                                        ? " font-bold bg-[#62996c]/20 text-primary  "
+                                        : " "
                                 }" flex w-[100%]  text-right mt-4  px-2 items-center mr-4 justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
@@ -62,7 +67,10 @@ export const SideBarLearn = ({ name, courseID }) => {
                                     <p>{item.lecture.name}</p>
                                 </div>
                                 <Show>
-                                    <Show.When isTrue={item.done} children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}></Show.When>
+                                    <Show.When
+                                        isTrue={item.done}
+                                        children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
+                                    ></Show.When>
                                     <Show.Else children={<i class="fa-regular fa-circle-check text-primary  text-2xl"></i>}></Show.Else>
                                 </Show>
                             </Link>
