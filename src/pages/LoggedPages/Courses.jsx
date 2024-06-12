@@ -42,7 +42,7 @@ const Courses = () => {
                                 </p>
                                 <div className={` h-[2px] bg-white mt-8  lg:mt-5 w-[90%] `}></div>
 
-                                <p className=" text-xl mt-4 font-bold">{item.book.title} </p>
+                                <p className=" text-xl mt-4 font-bold">{item?.book?.title} </p>
                                 {/* <p className=" text-lg mt-2 font-bold">{item.text}</p> */}
                                 <p className=" text-base mt-1 w-[90%] mb-4">{item.description}</p>
                                 <Button
