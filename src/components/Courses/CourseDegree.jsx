@@ -45,7 +45,7 @@ export const CourseDegree = ({ items }) => {
                                                 isTrue={item.done}
                                                 children={<i className="fa-solid fa-circle-check text-2xl"></i>}
                                             ></Show.When>
-                                            <Show.Else children={<i class="fa-regular fa-circle-check  text-2xl"></i>}></Show.Else>
+                                            <Show.Else children={<i className="fa-regular fa-circle-check  text-2xl"></i>}></Show.Else>
                                         </Show>
                                     </div>
                                 </div>

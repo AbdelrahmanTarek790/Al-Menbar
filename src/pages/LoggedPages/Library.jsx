@@ -3,9 +3,11 @@ import back1 from "../../assets/back1.png"
 import { useEffect, useState } from "react"
 import { getMethod } from "@/utils/ApiMethods"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 
 export const Library = () => {
     const [courses, setCourses] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         getMethod("/books/").then((res) => {
@@ -30,15 +32,32 @@ export const Library = () => {
                     render={(item, index) => (
                         <div className={` border border-[#2A3E34]  gap-14  w-[90%] lg:w-[300px] rounded-3xl`}>
                             <div className={`  text-center  text-primary flex flex-col items-center justify-center`}>
-                                <p className=" text-4xl  mt-8 lg:mt-4 font-deco ">{item.title ? item.title : "لا يوجد"}</p>
-                                <img src="https://s3-alpha-sig.figma.com/img/73cf/daf5/7ad22262f394506e4f619c48e404d0ed?Expires=1717372800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Qj~SvzCIhinJ8S5JzCt~~9aidpsrKhRz3-WcEu1Z6YihEu6krWIDyffEpkPRSJkCKf7z~ZK7O1axOh9dj~hoc8C~iMmohgqV7-GJnS5qK3~fbf8o4j4axqPwSD-VdgSnUVNlFNU~Ho1bpFUUH6kbltb~6dSKQJmS94JPLLFJ4P69BuYHv1JJbyh-F591Kox5P4c0rO~07VsMZxbVjU7pm7skGZIqKtjC1K0A1o3P4TCSYOstoZvWCNEgmYyWs~Uq2lAi4QFFqkWUEvHwLW1hnXHQ0bR1RbZPO~c6-c2ui3N3lkBRulXaIsFZ0qj0fepleGQJJdI~8buIuu4RvvTZCw__"></img>
+                                <p className=" text-4xl  mt-8 lg:mt-4 font-deco ">
+                                    {item?.course?.subject === "fiqh"
+                                        ? "الفقه"
+                                        : item?.course?.subject === "tafseer"
+                                        ? "التفسير"
+                                        : item?.course?.subject === "hadeeth"
+                                        ? " الحديث"
+                                        : item?.course?.subject === "aqeedah"
+                                        ? " العقيدة"
+                                        : item?.course?.subject}
+                                </p>
+                                <img src="https://s3-alpha-sig.figma.com/img/73cf/daf5/7ad22262f394506e4f619c48e404d0ed?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HgrQu8cR2qdRHVAIV~UD--MczbbeAXQbMRaiA8FyzGb5k-sE6ClFO~0i0RZU0EzgA3YETw9S~dWbKp-BVlfNcXt883HgEYLqEi6rL5egfXsR0vK3sLkSOwU13S847gvSsgEhvKz8sskgecO3cR3UyriPi7iwbv-182A2SD06wEB20X4uvSIjGkMQ30z9yx0r9zPUWNbj2rDevm9Axydy6Gor9mr~GCeUk0CABbfJ~KwmeMjD-dzX416ZjovnY8oBzsMr~kWemIKMTCxYQncKNjaCRZNbD7C6kEJbjPQbylIePNiA6eXgyKyD~2CHYPWBvb3~OVGJQ8dRssoAK5LiaQ__"></img>
                                 <div className={` h-[2px] bg-white   lg:mt-4 w-[90%] `}></div>
-                                <p className=" text-xl mt-4 font-bold">{"الكتاب:" + (item.description ? item.description : "لا يوجد")}</p>
+                                <p className=" text-xl mt-4 font-bold h-[60px]">{"الكتاب:" + (item.title ? item.title : "لا يوجد")}</p>
 
-                                <Button className="rounded-full bg-primary  text-base text-white font-cairo mt-2  font-bold px-10 hover:bg-[#cde2d7]  mb-4">
+                                <Button onClick={()=>{
+                                    window.location.href = item.downloadLink
+                                }} className="rounded-full bg-primary  text-base text-white font-cairo mt-2  font-bold px-10 hover:bg-[#cde2d7]  mb-4">
                                     تحميل الكتاب
                                 </Button>
-                                <Button className="border border-[#2A3E34] rounded-full bg-white text-base  text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4">
+                                <Button
+                                    onClick={() => {
+                                        window.location.href = item.readLink
+                                    }}
+                                    className="border border-[#2A3E34] rounded-full bg-white text-base  text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4"
+                                >
                                     عرض الكتاب
                                 </Button>
                             </div>

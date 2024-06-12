@@ -2,13 +2,15 @@ import * as React from "react"
 import { ChevronLeftIcon, Home, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from "lucide-react"
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { Each } from "@/utils/Each"
 import { Subjects } from "@/data"
 import { getMethod } from "@/utils/ApiMethods"
 import { Show } from "@/utils/Show"
+import { Button } from "./ui/button"
 
 export const SideBarLearn = ({ name, courseID }) => {
+    const navigate = useNavigate()
     const { id } = useParams()
     const location = useLocation()
     const [items, setItems] = React.useState({
@@ -48,19 +50,20 @@ export const SideBarLearn = ({ name, courseID }) => {
                                 </div>
                                 <Show>
                                     <Show.When
-                                        isTrue={item.done}
+                                        isTrue={item.open}
                                         children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
                                     ></Show.When>
-                                    <Show.Else children={<i class="fa-regular fa-circle-check  text-primary text-2xl"></i>}></Show.Else>
+                                    <Show.Else children={<i className="fa-regular fa-circle-check  text-primary text-2xl"></i>}></Show.Else>
                                 </Show>
                             </Link>
-                            <Link
-                                to={`/learn/${item.lecture.id}/quiz`}
+                            <Button
+                                disabled={!item.done}
+                                onClick={() => navigate(`/learn/${item.lecture.id}/quiz`)}
                                 className={`${
                                     active === `/learn/${item.lecture.id}/quiz` || active === `/quiz/${item.lecture.id}/`
                                         ? " font-bold bg-[#62996c]/20 text-primary  "
-                                        : " "
-                                }" flex w-[100%]  text-right mt-4  px-2 items-center mr-4 justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
+                                        : "bg-transparent "
+                                }" flex w-[100%]  text-right mt-4  hover:bg-[#62996c]/20 px-2 items-center  mr-4 justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
                                     <p>اختبار محاضرة</p>
@@ -71,9 +74,9 @@ export const SideBarLearn = ({ name, courseID }) => {
                                         isTrue={item.done}
                                         children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
                                     ></Show.When>
-                                    <Show.Else children={<i class="fa-regular fa-circle-check text-primary  text-2xl"></i>}></Show.Else>
+                                    <Show.Else children={<i className="fa-regular fa-circle-check text-primary  text-2xl"></i>}></Show.Else>
                                 </Show>
-                            </Link>
+                            </Button>
                         </div>
                     )}
                 ></Each>

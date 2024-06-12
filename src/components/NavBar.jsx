@@ -73,7 +73,7 @@ export const NavBar = () => {
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                            <Bell size={24} className="" />
+                            {/* <Bell size={24} className="" /> */}
                         </div>
                     </Show.When>
                     <Show.Else>

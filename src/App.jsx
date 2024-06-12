@@ -24,6 +24,7 @@ import { CourseDetails } from "./components/Courses/CourseDetails"
 import { CoursePage } from "./pages/LoggedPages/CoursePage"
 import { LearnPage } from "./pages/LoggedPages/LearnPage"
 import { QuizPage } from "./pages/LoggedPages/QuizPage"
+import Courses from "./pages/LoggedPages/Courses"
 // import planetpulse from "planetpulse"
 
 function App() {
@@ -59,8 +60,12 @@ function App() {
                                     <Route path="/library" element={<Library></Library>} />
                                     <Route path="/profile/*" element={<Profile></Profile>} />
                                     <Route path="/contact-us" element={<Contact></Contact>} />
+                                    <Route path="/curriculum" element={<Curriculum></Curriculum>} />
+                                    <Route path="/contact-us" element={<Contact></Contact>} />
+
                                     {/* <Route path="/courses" element={<CourseDetails></CourseDetails>} /> */}
                                     <Route path="/courses/:id/*" element={<CoursePage></CoursePage>} />
+                                    <Route path="/courses" element={<Courses></Courses>} />
                                     <Route path="/learn/:id/*" element={<LearnPage></LearnPage>} />
                                     <Route path="/quiz/:id" element={<QuizPage></QuizPage>} />
                                     <Route path="*" element={<Navigate to={"/"}></Navigate>}></Route>

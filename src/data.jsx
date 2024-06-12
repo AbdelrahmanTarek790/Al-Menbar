@@ -13,7 +13,7 @@ export const ListLogged = [
     {
         icon: ShoppingCart,
         text: "مقرراتي الدراسية",
-        url: "/courses/664a74f2ebbbd514dcef3189",
+        url: "/courses",
     },
     {
         icon: Home,

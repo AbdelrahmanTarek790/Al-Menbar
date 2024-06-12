@@ -10,9 +10,10 @@ import { CornerTopRightIcon } from "@radix-ui/react-icons"
 import { set } from "date-fns"
 import { CornerRightUpIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 export const LearnDetails = ({ items }) => {
     const { state, setState } = useStore()
+    const navigate = useNavigate()
     const { id } = useParams()
     const [data, setData] = useState({
         course: {
@@ -32,6 +33,7 @@ export const LearnDetails = ({ items }) => {
 
     useEffect(() => {
         setData(items)
+        
     }, [items])
 
     return (
@@ -61,7 +63,14 @@ export const LearnDetails = ({ items }) => {
             <p className="text-center w-full mt-3 text-2xl text-[#385044]">اتممت المشاهدة؟</p>
             {/* button */}
             <div className="flex flex-col items-center  w-full">
-                <Button className="px-14 mt-3 text-lg">التالي</Button>
+                <Button
+                    className="px-14 mt-3 text-lg"
+                    onClick={() => {
+                        navigate(`/learn/${id}/quiz`)
+                    }}
+                >
+                    التالي
+                </Button>
                 <p>الاختبار الاسبوعي الاول</p>
             </div>
             <div className="w-full h-[2px] mt-3 bg-[#385044] "></div>
@@ -146,7 +155,7 @@ export const LearnDetails = ({ items }) => {
                             if (isReply.reply) {
                                 postMethod(`/lectures/${id}/comments/${isReply.id}/reply`, { text: comment }, localStorage.getItem("token")).then(
                                     (res) => {
-                                        console.log(res);
+                                        console.log(res)
                                         setReload(false)
                                         if (res.status === "Success") {
                                             setData({ ...data, comments: data.comments.map((i) => (i.id === isReply.id ? res.data : i)) })
@@ -159,7 +168,7 @@ export const LearnDetails = ({ items }) => {
                             } else {
                                 postMethod(`/lectures/${id}/comments`, { text: comment }, localStorage.getItem("token")).then((res) => {
                                     setReload(false)
-                                    console.log(res);
+                                    console.log(res)
 
                                     if (res.status === "Success") {
                                         setData({ ...data, comments: [...data.comments, res.data] })
@@ -250,72 +259,82 @@ export const LearnDetails = ({ items }) => {
                                 of={item.replies}
                                 render={(item, index) => (
                                     <div className="flex items-center">
-                                         <div
-                            className="w-[98%] flex gap-2 flex-row-reverse justify-between p-6 rounded-3xl mt-7"
-                            style={{
-                                boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
-                            }}
-                        >
-                            <div className="w-full">
-                                <div className="flex flex-row-reverse justify-between ">
-                                    <div className="flex flex-row-reverse items-center ">
-                                        <img
-                                            src={
-                                                item.teacher?.photo
-                                                    ? item.teacher.photo
-                                                    : item.student?.photo
-                                                    ? item.student.photo
-                                                    : "https://placehold.co/150x150"
-                                            }
-                                            width={36}
-                                            height={36}
-                                            alt="Avatar"
-                                            className="overflow-hidden rounded-full w-10 h-10 ml-2"
-                                        />
-
-                                        <p className="text-primary font-bold">{item.name ? item.name : "Ahmed Mohesn"}</p>
-                                    </div>
-                                    <div className="flex justify-start">
-                                        <Button
-                                            variant="outline"
-                                            className="flex items-center w-fit p-0 px-2"
-                                            onClick={() => {
-                                                setIsReply({ reply: true, id: item.id })
+                                        <div
+                                            className="w-[98%] flex gap-2 flex-row-reverse justify-between p-6 rounded-3xl mt-7"
+                                            style={{
+                                                boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)",
                                             }}
                                         >
-                                            <ReplyIcon size={16}></ReplyIcon>
-                                            رد
-                                        </Button>
-                                    </div>
-                                </div>
-                                <p className="text-[#385044] pr-10">{item.text}</p>
-                            </div>
-                            <div className="flex flex-col items-center bg-[#F5F6FA] p-2 rounded-lg h-fit  gap-2">
-                                <PlusIcon
-                                    size={18}
-                                    className="text-[#3A5A40] hover:text-primary/20 transition-all cursor-pointer"
-                                    onClick={() => {
-                                        patchMethod(`/lectures/${data.id}/comments/like/${item.id}`, {}, localStorage.getItem("token")).then(
-                                            (res) => {
-                                                setData({ ...data, comments: data.comments.map((i) => (i.id === item.id ? res.data : i)) })
-                                            }
-                                        )
-                                    }}
-                                />
-                                <p className="text-primary">{item.totalScore}</p>
-                                <MinusIcon
-                                    size={18}
-                                    className="text-[#3A5A40]  hover:text-red-500 transition-all cursor-pointer"
-                                    onClick={() => {
-                                        patchMethod(`/lectures/${data.id}/comments/dislike/${item.id}`, {}, localStorage.getItem("token")).then(
-                                            (res) => {
-                                                setData({ ...data, comments: data.comments.map((i) => (i.id === item.id ? res.data : i)) })
-                                            }
-                                        )
-                                    }}
-                                />
-                            </div>
-                        </div>
+                                            <div className="w-full">
+                                                <div className="flex flex-row-reverse justify-between ">
+                                                    <div className="flex flex-row-reverse items-center ">
+                                                        <img
+                                                            src={
+                                                                item.teacher?.photo
+                                                                    ? item.teacher.photo
+                                                                    : item.student?.photo
+                                                                    ? item.student.photo
+                                                                    : "https://placehold.co/150x150"
+                                                            }
+                                                            width={36}
+                                                            height={36}
+                                                            alt="Avatar"
+                                                            className="overflow-hidden rounded-full w-10 h-10 ml-2"
+                                                        />
+
+                                                        <p className="text-primary font-bold">{item.name ? item.name : "Ahmed Mohesn"}</p>
+                                                    </div>
+                                                    <div className="flex justify-start">
+                                                        <Button
+                                                            variant="outline"
+                                                            className="flex items-center w-fit p-0 px-2"
+                                                            onClick={() => {
+                                                                setIsReply({ reply: true, id: item.id })
+                                                            }}
+                                                        >
+                                                            <ReplyIcon size={16}></ReplyIcon>
+                                                            رد
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                                <p className="text-[#385044] pr-10">{item.text}</p>
+                                            </div>
+                                            <div className="flex flex-col items-center bg-[#F5F6FA] p-2 rounded-lg h-fit  gap-2">
+                                                <PlusIcon
+                                                    size={18}
+                                                    className="text-[#3A5A40] hover:text-primary/20 transition-all cursor-pointer"
+                                                    onClick={() => {
+                                                        patchMethod(
+                                                            `/lectures/${data.id}/comments/like/${item.id}`,
+                                                            {},
+                                                            localStorage.getItem("token")
+                                                        ).then((res) => {
+                                                            setData({
+                                                                ...data,
+                                                                comments: data.comments.map((i) => (i.id === item.id ? res.data : i)),
+                                                            })
+                                                        })
+                                                    }}
+                                                />
+                                                <p className="text-primary">{item.totalScore}</p>
+                                                <MinusIcon
+                                                    size={18}
+                                                    className="text-[#3A5A40]  hover:text-red-500 transition-all cursor-pointer"
+                                                    onClick={() => {
+                                                        patchMethod(
+                                                            `/lectures/${data.id}/comments/dislike/${item.id}`,
+                                                            {},
+                                                            localStorage.getItem("token")
+                                                        ).then((res) => {
+                                                            setData({
+                                                                ...data,
+                                                                comments: data.comments.map((i) => (i.id === item.id ? res.data : i)),
+                                                            })
+                                                        })
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
                                         <CornerRightUpIcon size={40} />
                                     </div>
                                 )}

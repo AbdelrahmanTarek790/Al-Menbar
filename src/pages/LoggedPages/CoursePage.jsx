@@ -44,7 +44,7 @@ export const CoursePage = () => {
                             render={(item, index) => (
                                 <div className="flex items-center gap-2.5">
                                     <BreadcrumbItem>
-                                        <BreadcrumbLink>{item === "" ? "Home" : item}</BreadcrumbLink>
+                                        <BreadcrumbLink>{item === "" ? "الرئسية" : item === "courses" ? "المقررات" : item}</BreadcrumbLink>
                                     </BreadcrumbItem>
                                     <Show>
                                         <Show.When isTrue={index !== location.pathname.split("/").length - 2}>
@@ -59,10 +59,22 @@ export const CoursePage = () => {
                     </BreadcrumbList>
                 </Breadcrumb>
                 <Show>
-                    <Show.When isTrue={!loading && location.pathname ===`/courses/${id}`} children={<CourseDetails items={data}></CourseDetails>}></Show.When>
-                    <Show.When isTrue={!loading && location.pathname ===`/courses/${id}/degrees`} children={<CourseDegree items={data}></CourseDegree>}></Show.When>
-                    <Show.When isTrue={!loading && location.pathname ===`/courses/${id}/tutors`} children={<CourseTutors items={data}></CourseTutors>}></Show.When>
-                    <Show.When isTrue={!loading && location.pathname ===`/courses/${id}/info`} children={<CourseAbout items={data}></CourseAbout>}></Show.When>
+                    <Show.When
+                        isTrue={!loading && location.pathname === `/courses/${id}`}
+                        children={<CourseDetails items={data}></CourseDetails>}
+                    ></Show.When>
+                    <Show.When
+                        isTrue={!loading && location.pathname === `/courses/${id}/degrees`}
+                        children={<CourseDegree items={data}></CourseDegree>}
+                    ></Show.When>
+                    <Show.When
+                        isTrue={!loading && location.pathname === `/courses/${id}/tutors`}
+                        children={<CourseTutors items={data}></CourseTutors>}
+                    ></Show.When>
+                    <Show.When
+                        isTrue={!loading && location.pathname === `/courses/${id}/info`}
+                        children={<CourseAbout items={data}></CourseAbout>}
+                    ></Show.When>
                 </Show>
             </div>
             <SideBarCourseDetails name={data.subject}></SideBarCourseDetails>

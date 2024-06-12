@@ -54,7 +54,9 @@ export const CourseAbout = ({ items }) => {
                         ></Each>
                     }
                 ></Show.When>
-                <Show.Else children={<div className="text-2xl text-center my-8 "></div>}></Show.Else>
+                <Show.Else children={<div className="text-2xl text-center my-8 ">
+                    لا يوجد كتب مسؤولة عن هذا المقرر
+                </div>}></Show.Else>
             </Show>
             <div className="w-full h-[1px] mt-3 bg-[#e4e4e4] "></div>
             <p className="text-right font-extrabold">عن المنهج</p>
