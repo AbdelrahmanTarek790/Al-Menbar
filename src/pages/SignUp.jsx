@@ -51,7 +51,16 @@ export const SignUp = () => {
     const handleSubmit = () => {
         setLoading(true)
         postMethod("/students/signup", data).then((res) => {
+            console.log(res)
             if (res.status === "error") {
+                if (res.error?.code === 11000) {
+                    toast({
+                        title: "البريد الإلكتروني موجود بالفعل",
+                        variant: "destructive",
+                    })
+                    setLoading(false)
+                    return
+                }
                 toast({
                     title: Object.values(res.error.errors)[0].message,
                     variant: "destructive",
@@ -59,7 +68,6 @@ export const SignUp = () => {
                 setLoading(false)
                 return
             }
-            console.log(res)
             if (res.status === "success") {
                 localStorage.setItem("token", res.token)
 

@@ -3,9 +3,11 @@ import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
 import { CheckCircle2 } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { Button } from "../ui/button"
 
 export const CourseDetails = ({ items }) => {
+    const navigate = useNavigate()
     const [item, setItems] = useState({
         description: "",
         lectures: [],
@@ -14,9 +16,10 @@ export const CourseDetails = ({ items }) => {
 
     useEffect(() => {
         setItems(items)
+        console.log(items)
+        console.log(lectures)
         getMethod(`/students/${items.id}/stats`, localStorage.getItem("token")).then((res) => {
             setLectures(res.data.courseStat.lectureStats)
-       
         })
     }, [items])
     return (
@@ -31,7 +34,14 @@ export const CourseDetails = ({ items }) => {
                         return (
                             <div className="mr-8 flex items-center justify-end gap-2 text-[#2A3E34]">
                                 <div>
-                                    <Link to={`/learn/${item.lecture.id}`} className=" text-lg  font-bold underline">{item.lecture.name}</Link>
+                                    <Button
+                                        disabled={!item.open}
+                                        onClick={() => navigate(`/learn/${item.lecture.id}`)}
+                                        to={`/learn/${item.lecture.id}`}
+                                        className=" text-lg px-0  font-bold underline bg-transparent text-[#2A3E34] hover:bg-transparent text-right"
+                                    >
+                                        {item.lecture.name}
+                                    </Button>
                                     <p>{item.lecture.description ? item.lecture.description : "التفاصيل غير متوفرة"}</p>
                                 </div>
                                 <Show>

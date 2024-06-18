@@ -53,7 +53,7 @@ export const LearnDetails = ({ items }) => {
             <div className="mt-6 w-full flex justify-center ">
                 <iframe
                     className="w-full max-w-[800px] aspect-video "
-                    src="https://www.youtube.com/embed/7bA2Fy1Xk3A"
+                    src={data.videoLink ? data.videoLink : "https://www.youtube.com/embed/tgbNymZ7vqY"}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -37,12 +37,14 @@ export const SideBarLearn = ({ name, courseID }) => {
                 <Each
                     of={items.lectureStats}
                     render={(item, index) => (
-                        <div>
-                            <Link
+                        <div className="w-[97%]">
+                            <Button
                                 to={`/learn/${item.lecture.id}`}
+                                onClick={() => setActive(`/learn/${item.lecture.id}`)}
+                                disabled={!item.open}
                                 className={`${
-                                    active === `/learn/${item.lecture.id}` ? " font-bold bg-[#62996c]/20 text-primary " : " "
-                                }" flex w-[100%] px-2 text-right mt-4 py-1  items-center mr-4 justify-end  gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
+                                    active === `/learn/${item.lecture.id}` ? " font-bold bg-[#62996c]/20 text-primary " : " bg-transparent"
+                                }"flex w-[100%] h-auto text-right mt-4  whitespace-normal hover:bg-[#62996c]/20 px-2 items-center  justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
                                     <p>{item.lecture.name}</p>
@@ -55,15 +57,15 @@ export const SideBarLearn = ({ name, courseID }) => {
                                     ></Show.When>
                                     <Show.Else children={<i className="fa-regular fa-circle-check  text-primary text-2xl"></i>}></Show.Else>
                                 </Show>
-                            </Link>
+                            </Button>
                             <Button
-                                disabled={!item.done}
+                                disabled={!item.open}
                                 onClick={() => navigate(`/learn/${item.lecture.id}/quiz`)}
                                 className={`${
                                     active === `/learn/${item.lecture.id}/quiz` || active === `/quiz/${item.lecture.id}/`
                                         ? " font-bold bg-[#62996c]/20 text-primary  "
                                         : "bg-transparent "
-                                }" flex w-[100%]  text-right mt-4  hover:bg-[#62996c]/20 px-2 items-center  mr-4 justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
+                                }" flex w-[100%] h-auto text-right mt-4  whitespace-normal hover:bg-[#62996c]/20 px-2 items-center  justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
                             >
                                 <div>
                                     <p>اختبار محاضرة</p>
