@@ -11,11 +11,16 @@ import { Show } from "@/utils/Show"
 import { patchMethod, putMethod } from "@/utils/ApiMethods"
 import planetpulse from "planetpulse"
 import { Each } from "@/utils/Each"
+import CropEasy from "../CropEasy"
+import PopupProfile from "../PopupProfile"
 const dateFormat = "YYYY-MM-DD"
 export const MyProfile = () => {
     const { state, setState } = useStore()
     const [data, setData] = useState(state)
     const [active, setActive] = useState(true)
+    const togglePopup = () => {
+        setIsOpen(!isOpen)
+    }
     useEffect(() => {
         setData(state)
     }, [state])
@@ -36,10 +41,11 @@ export const MyProfile = () => {
         <div className=" flex flex-col items-end px-5 py-8  text-right">
             <p className="text-2xl font-bold text-primary">بيانات الحساب</p>
             <div className={` h-[2px] bg-[#2A3E34] w-[90%] lg:w-[1000px] mt-8`}></div>
-            <img
+            <PopupProfile items={state} handleClose={togglePopup} />
+            {/* <img
                 src={state.photo ? state.photo : "https://placehold.co/150x150"}
                 className="rounded-full h-[150px] w-[150px] mt-8"
-            ></img>
+            ></img> */}
             <div className="flex  flex-col-reverse items-end gap-3 md:flex-row md:items-center mt-4">
                 <Show>
                     <Show.When
@@ -127,8 +133,7 @@ export const MyProfile = () => {
                 <div className="grid gap-2">
                     <Label htmlFor="country">الدولة</Label>
                     <Select
-                    disabled={active}
-
+                        disabled={active}
                         value={data.country}
                         onValueChange={(e) => {
                             setData({ ...data, country: e })

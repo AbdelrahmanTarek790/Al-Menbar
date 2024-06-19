@@ -8,7 +8,7 @@ import { CropIcon, ExitIcon } from "@radix-ui/react-icons"
 import { Button } from "./ui/button"
 import { Slider } from "./ui/slider"
 import { Label } from "./ui/label"
-import { putMethodMultipart } from "@/utils/ApiMethods"
+import { patchMethodMultipart, putMethodMultipart } from "@/utils/ApiMethods"
 import { useStore } from "@/context/storeContext"
 import { LoaderIcon } from "lucide-react"
 
@@ -31,11 +31,11 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
             const formData = new FormData()
 
             formData.append("photo", file)
-            putMethodMultipart("/users", formData, localStorage.getItem("token")).then((res) => {
+            patchMethodMultipart("/students/update-me", formData, localStorage.getItem("token")).then((res) => {
                 setIsReload(false)
                 setOpenCrop(false)
                 // useState
-                setState(res.data.user)
+                setState({ ...res.data, isLoggedIn: true, token: localStorage.getItem("token") })
                 console.log(res)
             })
         } catch (error) {

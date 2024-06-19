@@ -44,7 +44,7 @@ export const Library = () => {
                                         : item?.course?.subject}
                                 </p>
                                 <img src="https://s3-alpha-sig.figma.com/img/73cf/daf5/7ad22262f394506e4f619c48e404d0ed?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HgrQu8cR2qdRHVAIV~UD--MczbbeAXQbMRaiA8FyzGb5k-sE6ClFO~0i0RZU0EzgA3YETw9S~dWbKp-BVlfNcXt883HgEYLqEi6rL5egfXsR0vK3sLkSOwU13S847gvSsgEhvKz8sskgecO3cR3UyriPi7iwbv-182A2SD06wEB20X4uvSIjGkMQ30z9yx0r9zPUWNbj2rDevm9Axydy6Gor9mr~GCeUk0CABbfJ~KwmeMjD-dzX416ZjovnY8oBzsMr~kWemIKMTCxYQncKNjaCRZNbD7C6kEJbjPQbylIePNiA6eXgyKyD~2CHYPWBvb3~OVGJQ8dRssoAK5LiaQ__"></img>
-                                <div className={` h-[2px] bg-white   lg:mt-4 w-[90%] `}></div>
+                                
                                 <p className=" text-xl mt-4 font-bold h-[60px]">{"الكتاب:" + (item.title ? item.title : "لا يوجد")}</p>
 
                                 <Button onClick={()=>{
