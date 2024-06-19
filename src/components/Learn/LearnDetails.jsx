@@ -33,7 +33,6 @@ export const LearnDetails = ({ items }) => {
 
     useEffect(() => {
         setData(items)
-        
     }, [items])
 
     return (
@@ -132,6 +131,7 @@ export const LearnDetails = ({ items }) => {
                                     onChange={(e) => {
                                         setComment(e.target.value)
                                     }}
+                                    value={comment}
                                     className="text-right"
                                 ></Textarea>
                                 <img
@@ -155,11 +155,20 @@ export const LearnDetails = ({ items }) => {
                             if (isReply.reply) {
                                 postMethod(`/lectures/${id}/comments/${isReply.id}/reply`, { text: comment }, localStorage.getItem("token")).then(
                                     (res) => {
-                                        console.log(res)
+                                        // console.log(res.data.comment.id)
+                                      
                                         setReload(false)
-                                        if (res.status === "Success") {
-                                            setData({ ...data, comments: data.comments.map((i) => (i.id === isReply.id ? res.data : i)) })
+
+                                        if (res.status === "success") {
+                                           
+                                            setData({
+                                                ...data,
+                                                comments: data.comments.map((i) =>
+                                                    i._id.toString() === res.data.comment._id.toString() ? res.data.comment : i
+                                                ),
+                                            })
                                         }
+
                                         setComment("")
                                         setIsReply({ reply: false, id: "" })
                                     }
@@ -171,6 +180,7 @@ export const LearnDetails = ({ items }) => {
                                     console.log(res)
 
                                     if (res.status === "Success") {
+                                        setComment("")
                                         setData({ ...data, comments: [...data.comments, res.data] })
                                     }
                                 })
