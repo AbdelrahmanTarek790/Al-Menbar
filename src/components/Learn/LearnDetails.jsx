@@ -156,11 +156,10 @@ export const LearnDetails = ({ items }) => {
                                 postMethod(`/lectures/${id}/comments/${isReply.id}/reply`, { text: comment }, localStorage.getItem("token")).then(
                                     (res) => {
                                         // console.log(res.data.comment.id)
-                                      
+
                                         setReload(false)
 
                                         if (res.status === "success") {
-                                           
                                             setData({
                                                 ...data,
                                                 comments: data.comments.map((i) =>
@@ -241,25 +240,34 @@ export const LearnDetails = ({ items }) => {
                             <div className="flex flex-col items-center bg-[#F5F6FA] p-2 rounded-lg h-fit  gap-2">
                                 <PlusIcon
                                     size={18}
-                                    className="text-[#3A5A40] hover:text-primary/20 transition-all cursor-pointer"
+                                    className={`text-[#3A5A40] ${
+                                        !item.likes.includes(state._id) ? "hover:text-blue-500 transition-all cursor-pointer" : ""
+                                    } `}
                                     onClick={() => {
-                                        patchMethod(`/lectures/${data.id}/comments/like/${item.id}`, {}, localStorage.getItem("token")).then(
-                                            (res) => {
-                                                setData({ ...data, comments: data.comments.map((i) => (i.id === item.id ? res.data : i)) })
-                                            }
-                                        )
+                                        if (!item.likes.includes(state._id)) {
+                                            patchMethod(`/lectures/${data.id}/comments/like/${item.id}`, {}, localStorage.getItem("token")).then(
+                                                (res) => {
+                                                    console.log(res.data)
+                                                    setData({ ...data, comments: data.comments.map((i) => (i.id === item.id ? res.data : i)) })
+                                                }
+                                            )
+                                        }
                                     }}
                                 />
                                 <p className="text-primary">{item.totalScore}</p>
                                 <MinusIcon
                                     size={18}
-                                    className="text-[#3A5A40]  hover:text-red-500 transition-all cursor-pointer"
+                                    className={`text-[#3A5A40]  ${
+                                        !item.disLikes.includes(state._id) ? "hover:text-red-500 transition-all cursor-pointer" : ""
+                                    } `}
                                     onClick={() => {
-                                        patchMethod(`/lectures/${data.id}/comments/dislike/${item.id}`, {}, localStorage.getItem("token")).then(
-                                            (res) => {
-                                                setData({ ...data, comments: data.comments.map((i) => (i.id === item.id ? res.data : i)) })
-                                            }
-                                        )
+                                        if (!item.disLikes.includes(state._id)) {
+                                            patchMethod(`/lectures/${data.id}/comments/dislike/${item.id}`, {}, localStorage.getItem("token")).then(
+                                                (res) => {
+                                                    setData({ ...data, comments: data.comments.map((i) => (i.id === item.id ? res.data : i)) })
+                                                }
+                                            )
+                                        }
                                     }}
                                 />
                             </div>
