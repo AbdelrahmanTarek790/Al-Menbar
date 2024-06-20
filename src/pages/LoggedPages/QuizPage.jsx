@@ -98,8 +98,8 @@ export const QuizPage = () => {
                                     of={item.choices}
                                     render={(choice, index) => (
                                         <div className="flex flex-row-reverse items-center justify-start gap-3 space-x-2">
-                                            <RadioGroupItem value={index + 1} id={`r${index + 1}`} />
-                                            <Label className="text-primary text-base" htmlFor={`r${index + 1}`}>
+                                            <RadioGroupItem value={index} id={`r${index}`} />
+                                            <Label className="text-primary text-base" htmlFor={`r${index}`}>
                                                 {choice}
                                             </Label>
                                         </div>

@@ -26,6 +26,7 @@ export const Quiz = ({ items, reload }) => {
 
         if (items.course.id) {
             getMethod(`/students/${items.course.id}/stats`, localStorage.getItem("token")).then((res) => {
+                console.log(res.data.courseStat);
                 setCourseStat(res.data.courseStat)
             })
         }

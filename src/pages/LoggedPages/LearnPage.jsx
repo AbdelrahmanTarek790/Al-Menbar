@@ -33,7 +33,7 @@ export const LearnPage = () => {
             console.log(res)
             // setLectures(res.data.courseStat.lectureStats)
         })
-    }, [])
+    }, [id])
 
     return (
         <div className="flex justify-end flex-col-reverse lg:flex-row  h-full">

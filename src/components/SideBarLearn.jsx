@@ -39,8 +39,8 @@ export const SideBarLearn = ({ name, courseID }) => {
                     render={(item, index) => (
                         <div className="w-[97%]">
                             <Button
-                                to={`/learn/${item.lecture.id}`}
-                                onClick={() => setActive(`/learn/${item.lecture.id}`)}
+                               
+                                onClick={() => navigate(`/learn/${item.lecture.id}`)}
                                 disabled={!item.open}
                                 className={`${
                                     active === `/learn/${item.lecture.id}` ? " font-bold bg-[#62996c]/20 text-primary " : " bg-transparent"
