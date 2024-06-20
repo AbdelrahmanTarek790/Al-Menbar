@@ -23,7 +23,7 @@ const PopupProfile = ({items}) => {
                         <div className="relative">
                             <label className="-label   text-transparent  transition-all hover:text-white" htmlFor="profilePhoto">
                                 <span className="spanava glyphicon glyphicon-camera"></span>
-                                <i className=" spanava fa-solid fa-camera mr-[36px] mt-10 text-[50px] "></i>
+                                <i className=" spanava fa-solid fa-camera mr-[40px] mt-10 text-[50px] "></i>
                             </label>
                             <label htmlFor="profilePhoto">
                                 <input accept="image/*" id="profilePhoto" type="file" style={{ display: "none" }} onChange={handleChange} />
