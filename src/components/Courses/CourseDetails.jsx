@@ -20,6 +20,7 @@ export const CourseDetails = ({ items }) => {
         console.log(lectures)
         getMethod(`/students/${items.id}/stats`, localStorage.getItem("token")).then((res) => {
             setLectures(res.data.courseStat.lectureStats)
+            console.log()
         })
     }, [items])
     return (
@@ -29,7 +30,7 @@ export const CourseDetails = ({ items }) => {
             <div className=" mr-8 text-[#385044] mt-3 text-lg">{item.description}</div>
             <div className="flex flex-col  mt-6 gap-2">
                 <Each
-                    of={lectures}
+                    of={lectures.sort((a, b) => a.order - b.order)}
                     render={(item, index) => {
                         return (
                             <div className="mr-8 flex items-center justify-end gap-2 text-[#2A3E34]">

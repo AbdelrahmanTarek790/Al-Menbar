@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Subjects } from "@/data"
 import { getMethod } from "@/utils/ApiMethods"
+import { set } from "date-fns"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 export const Quiz = ({ items, reload }) => {
@@ -13,6 +14,7 @@ export const Quiz = ({ items, reload }) => {
         comments: [],
         replies: [],
     })
+    const [currentLesson, setCurrentLesson] = useState({})
     const [courseStat, setCourseStat] = useState({
         lectureStats: [
             {
@@ -23,11 +25,13 @@ export const Quiz = ({ items, reload }) => {
     })
     useEffect(() => {
         setData(items)
+        console.log(id)
 
         if (items.course.id) {
             getMethod(`/students/${items.course.id}/stats`, localStorage.getItem("token")).then((res) => {
-                console.log(res.data.courseStat);
+                console.log(res.data.courseStat)
                 setCourseStat(res.data.courseStat)
+                setCurrentLesson(courseStat.lectureStats.filter((item) => item.lecture.id === id))
             })
         }
     }, [items])
@@ -64,12 +68,13 @@ export const Quiz = ({ items, reload }) => {
                 <div className="text-center ml-5 font-bold text-primary text-xl">
                     <p className="">الدرجة</p>
                     <p className="text-lg">
-                        {courseStat.lectureStats[0].latestQuizScore}/{courseStat.lectureStats[0].bestQuizScore}
+                        {/* {courseStat.lectureStats[0].latestQuizScore}/{courseStat.lectureStats[0].bestQuizScore} */}
+                        {currentLesson?.latestQuizScore ?currentLesson?.latestQuizScore :0 }/{ currentLesson?.bestQuizScore ? currentLesson?.bestQuizScore : 0 }
                     </p>
                 </div>
                 <div>
                     <p className="font-bold text-primary text-lg">درجة الاختبار</p>
-                    <p className="font-bold text-primary text-lg">اعلى محاولة: الاولي</p>
+                    {/* <p className="font-bold text-primary text-lg">اعلى محاولة: الاولي</p> */}
                 </div>
             </div>
         </div>

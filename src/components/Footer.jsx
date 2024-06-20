@@ -9,11 +9,17 @@ export const Footer = () => {
     return (
         <footer className=" flex flex-col h-auto w-full py-3 gap-4 border-t bg-[#2a3e34] px-16 sm:static lg:h-56 sm:border-0 text-primary-foreground ">
             <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-around  items-center h-full">
-                <div className="flex gap-3 text-3xl">
-                    <i className="fa-brands fa-facebook-f"></i>
-                    <i className="fa-brands fa-instagram"></i>
-                    <i className="fa-brands fa-youtube"></i>
-                    <i className="fa-brands fa-telegram"></i>
+                <div className="flex gap-5 text-3xl">
+                    <Link to={"https://www.facebook.com/almenbar.edu?mibextid=ZbWKwL"}>
+                        <i className="fa-brands fa-facebook-f hover:text-blue-500 transition-all"></i>
+                    </Link>
+
+                    <Link to={"https://wa.me/+201126569556"}>
+                        <i className="fa-brands fa-whatsapp hover:text-green-500 transition-all"></i>
+                    </Link>
+                    <Link to={"t.me/Al_menbar_academy"}>
+                        <i className="fa-brands fa-telegram hover:text-blue-500 transition-all"></i>
+                    </Link>
                 </div>
                 <div className="flex flex-col gap-4 items-end font-cairo font-semibold mr-6">
                     <div className=" flex gap-4">
@@ -27,15 +33,16 @@ export const Footer = () => {
                         </Show>
                         {/* <Each of={ListLoggedOut} render={(item,index)=><Link to={item.url}>{item.text}</Link>}></Each> */}
                     </div>
-                    <div className=" flex gap-4  justify-center w-full lg:w-auto">
-                        <Link>تواصل معنا</Link>
+
+                    {/* <div className=" flex gap-4  justify-center w-full lg:w-auto">
+                       
 
                         <Show>
-                            <Show.When isTrue={!state.isLoggedIn}>
-                                <Link>المناهج</Link>
+                            <Show.When isTrue={state.isLoggedIn}>
+                            <Link>تواصل معنا</Link>
                             </Show.When>
                         </Show>
-                    </div>
+                    </div> */}
                 </div>
                 <div>
                     <p className="text-7xl font-deco">المنبر</p>

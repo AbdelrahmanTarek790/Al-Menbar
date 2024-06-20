@@ -48,11 +48,10 @@ export const SideBarLearn = ({ name, courseID }) => {
                             >
                                 <div>
                                     <p>{item.lecture.name}</p>
-                                    <p>التعريف بعلم التفسير</p>
                                 </div>
                                 <Show>
                                     <Show.When
-                                        isTrue={item.open}
+                                        isTrue={item.done}
                                         children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
                                     ></Show.When>
                                     <Show.Else children={<i className="fa-regular fa-circle-check  text-primary text-2xl"></i>}></Show.Else>

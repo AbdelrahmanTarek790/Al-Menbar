@@ -106,10 +106,10 @@ const CropEasy = ({ photoURL, setOpenCrop, setPhotoURL, setFile }) => {
                             className="mt-4 space-x-2"
                         >
                             <Button variant="destructive" onClick={() => setOpenCrop(false)}>
-                                <ExitIcon /> Discard
+                                <ExitIcon /> إلغاء
                             </Button>
                             <Button onClick={cropImage}>
-                                <CropIcon /> Change
+                                <CropIcon /> تغيير
                             </Button>
                         </div>
                     </div>

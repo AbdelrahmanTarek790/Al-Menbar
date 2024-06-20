@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { useStore } from "@/context/storeContext"
 import { Subjects } from "@/data"
-import { getMethod, patchMethod, postMethod } from "@/utils/ApiMethods"
+import { deleteMethod, getMethod, patchMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
 import { CornerTopRightIcon } from "@radix-ui/react-icons"
 import { set } from "date-fns"
-import { CornerRightUpIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
+import { CornerRightUpIcon, DeleteIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 export const LearnDetails = ({ items }) => {
@@ -220,9 +220,15 @@ export const LearnDetails = ({ items }) => {
                                             className="overflow-hidden rounded-full w-10 h-10 ml-2"
                                         />
 
-                                        <p className="text-primary font-bold">{item.name ? item.name : "Ahmed Mohesn"}</p>
+                                        <p className="text-primary font-bold">
+                                            {item.teacher
+                                                ? item.teacher.Fname + " " + item.teacher.Lname
+                                                : item.student
+                                                ? item.student.Fname + " " + item.student.Lname
+                                                : "Ahmed Mohesn"}
+                                        </p>
                                     </div>
-                                    <div className="flex justify-start">
+                                    <div className="flex justify-start gap-3">
                                         <Button
                                             variant="outline"
                                             className="flex items-center w-fit p-0 px-2"
@@ -233,6 +239,27 @@ export const LearnDetails = ({ items }) => {
                                             <ReplyIcon size={16}></ReplyIcon>
                                             رد
                                         </Button>
+                                        <Show>
+                                            <Show.When
+                                                isTrue={state._id === item.student?._id || state._id === item.teacher?._id}
+                                                children={
+                                                    <Button
+                                                        variant="destructive"
+                                                        className="flex items-center w-fit p-0 px-2"
+                                                        onClick={() => {
+                                                            deleteMethod(`/lectures/L/comments/${item.id}`, localStorage.getItem("token")).then(
+                                                                (res) => {
+                                                                    setData({ ...data, comments: data.comments.filter((i) => i.id !== item.id) })
+                                                                }
+                                                            )
+                                                        }}
+                                                    >
+                                                        <DeleteIcon size={16}></DeleteIcon>
+                                                        حذف
+                                                    </Button>
+                                                }
+                                            ></Show.When>
+                                        </Show>
                                     </div>
                                 </div>
                                 <p className="text-[#385044] pr-10">{item.text}</p>

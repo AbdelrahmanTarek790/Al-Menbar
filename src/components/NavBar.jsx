@@ -165,7 +165,7 @@ export const NavBar = () => {
                                 of={ListLogged}
                                 render={(item, index) => (
                                     <Link to={item.url} key={index} className="flex items-center gap-2">
-                                        <span className="text-xl font-semibold font-cairo">{item.text}</span>
+                                        <span className="text-xl font-semibold font-cairo hover:text-[#aee9cc] transition-all">{item.text}</span>
                                     </Link>
                                 )}
                             ></Each>
@@ -175,7 +175,7 @@ export const NavBar = () => {
                                 of={ListLoggedOut}
                                 render={(item, index) => (
                                     <Link to={item.url} key={index} className="flex items-center gap-2">
-                                        <span className="text-xl font-semibold font-cairo">{item.text}</span>
+                                        <span className="text-xl font-semibold font-cairo hover:text-[#aee9cc] transition-all">{item.text}</span>
                                     </Link>
                                 )}
                             ></Each>
