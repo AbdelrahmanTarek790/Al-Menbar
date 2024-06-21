@@ -28,9 +28,9 @@ export const CourseDetails = ({ items }) => {
             <h1 className=" mt-2 text-2xl font-bold text-primary pr-3">المنهج الدراسـي</h1>
             <div className="w-full h-[2px] mt-3 bg-[#385044] "></div>
             <div className=" mr-8 text-[#385044] mt-3 text-lg">{item.description}</div>
-            <div className="flex flex-col  mt-6 gap-2">
+            <div className="flex flex-col  mt-6 gap-2 mb-6">
                 <Each
-                    of={lectures.sort((a, b) => a.order - b.order)}
+                    of={lectures.sort((a, b) => a.lecture.order - b.lecture.order)}
                     render={(item, index) => {
                         return (
                             <div className="mr-8 flex items-center justify-end gap-2 text-[#2A3E34]">

@@ -113,7 +113,7 @@ export const LearnDetails = ({ items }) => {
                                         className="text-right"
                                     ></Textarea>
                                     <img
-                                        src={state.photo ? state.photo : "https://placehold.co/150x150"}
+                                        src={state.photo ? state.photo : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
                                         width={36}
                                         height={36}
                                         alt="Avatar"
@@ -135,7 +135,7 @@ export const LearnDetails = ({ items }) => {
                                     className="text-right"
                                 ></Textarea>
                                 <img
-                                    src={state.photo ? state.photo : "https://placehold.co/150x150"}
+                                    src={state.photo ? state.photo : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
                                     width={36}
                                     height={36}
                                     alt="Avatar"

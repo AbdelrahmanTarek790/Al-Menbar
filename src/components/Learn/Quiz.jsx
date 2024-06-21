@@ -25,7 +25,7 @@ export const Quiz = ({ items, reload }) => {
     })
     useEffect(() => {
         setData(items)
-        console.log(id)
+        console.log(items)
 
         if (items.course.id) {
             getMethod(`/students/${items.course.id}/stats`, localStorage.getItem("token")).then((res) => {
@@ -45,7 +45,7 @@ export const Quiz = ({ items, reload }) => {
     ( ${data.name} ) الاختبار الاسبوعي علي محاضرة 
     `}</p>
             <div className="w-full h-[2px] mt-3 bg-[#385044] "></div>
-            <p className="text-primary text-xl mt-6">يحتوي هذا الاختبار على 10 اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ.</p>
+            <p className="text-primary text-xl mt-6">يحتوي هذا الاختبار على {items.quiz[0].mcq.length} اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ.</p>
             <p className="text-primary text-xl">
                 يُسمح بتقديم هذا الاختبار ثلات مرات فقط خلال فترة إتاحته، ويتم احتساب الدرجة الأعلى للطالب من بين تلك المحاولات.
             </p>
@@ -60,7 +60,7 @@ export const Quiz = ({ items, reload }) => {
                 </div>{" "}
                 <div>
                     <p className="font-bold text-primary text-lg">{data.name} ابدا في حل الاختبار الاسبوعي على </p>
-                    <p className="font-bold text-primary text-lg">المحاولات المتبقية: 2</p>
+                    {/* <p className="font-bold text-primary text-lg">المحاولات المتبقية: 2</p> */}
                 </div>
             </div>
             <div className="w-full h-[1px] mt-3 bg-[#385044] "></div>
@@ -69,7 +69,7 @@ export const Quiz = ({ items, reload }) => {
                     <p className="">الدرجة</p>
                     <p className="text-lg">
                         {/* {courseStat.lectureStats[0].latestQuizScore}/{courseStat.lectureStats[0].bestQuizScore} */}
-                        {currentLesson?.latestQuizScore ?currentLesson?.latestQuizScore :0 }/{ currentLesson?.bestQuizScore ? currentLesson?.bestQuizScore : 0 }
+                        {items.quiz[0].scoreFrom ?items.quiz[0].scoreFrom :0 }/{ currentLesson?.bestQuizScore ? currentLesson?.bestQuizScore : 0 }
                     </p>
                 </div>
                 <div>

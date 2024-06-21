@@ -39,7 +39,6 @@ export const SideBarLearn = ({ name, courseID }) => {
                     render={(item, index) => (
                         <div className="w-[97%]">
                             <Button
-                               
                                 onClick={() => navigate(`/learn/${item.lecture.id}`)}
                                 disabled={!item.open}
                                 className={`${
