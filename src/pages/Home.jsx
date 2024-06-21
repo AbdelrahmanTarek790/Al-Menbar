@@ -11,6 +11,8 @@ import { Each } from "@/utils/Each"
 import { List } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { getMethod } from "@/utils/ApiMethods"
 export const HomeLoggedOut = () => {
     const navigate = useNavigate()
     const List1 = [
@@ -35,6 +37,13 @@ export const HomeLoggedOut = () => {
             description: "تقوم الاكاديمية دائماً بتقييم أداء الطلاب وتقديم تقارير دورية.",
         },
     ]
+    const [tutors, setTutors] = useState([])
+    useEffect(() => {
+        getMethod("/teachers").then((res) => {
+            console.log(res.data.data)
+            setTutors(res.data.data)
+        })
+    }, [])
     return (
         <div className="overflow-hidden">
             <div className="flex justify-center lg:justify-evenly font-cairo item-center mt-16 relative">
@@ -95,7 +104,9 @@ export const HomeLoggedOut = () => {
                                 </span>
                             </p>
                             <div className="flex justify-center  mt-4">
-                                <Button className="rounded-full bg-[#466746] text-xl px-7">إنشاء حساب</Button>
+                                <Link to={"/register"}> 
+                                    <Button className="rounded-full bg-[#466746] text-xl px-7">إنشاء حساب</Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -103,24 +114,37 @@ export const HomeLoggedOut = () => {
                 <p className="text-[#2A3E34] font-extrabold text-4xl lg:text-5xl text-center  mt-6">تعلم على يد خيرة الشيوخ</p>
                 <div className="flex flex-wrap items-center justify-evenly mt-10 w-full  font-cairo ">
                     <Each
-                        of={Array.of(1, 1, 1, 1)}
+                        of={tutors}
                         render={(item, index) => (
                             <div className="w-[300px] flex flex-col items-center text-center">
                                 <img
-                                    src={"https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
+                                    src={
+                                        item.photo
+                                            ? item.photo
+                                            : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"
+                                    }
                                     alt=""
                                     className="w-[200px] h-[200px] rounded-full"
                                 />
-                                <p className="text-[#2A3E34] text-xl font-bold">الشيخ مصطفى العدوي</p>
+                                <p className="text-[#2A3E34] text-xl font-bold">
+                                    الشيخ {item.Lname} {item.Mname} {item.Fname}
+                                </p>
                                 <p className="text-[#3A5A40] text-lg">أستاذ وعالم في العلم الشرعي</p>
-                                <p className="text-[#2A3E34] text-lg font-bold">يُدرِس العقيدة</p>
+                                <p className="text-[#2A3E34] text-lg font-bold">
+                                    يُدرِس {item.coursesToTeach[0] ? item.coursesToTeach[0].text : "العقيدة"}
+                                </p>
                             </div>
                         )}
                     ></Each>
                 </div>
-                <Button onClick={()=>{
-                    navigate("/tutors")
-                }} className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">تعرف على المزيد</Button>
+                <Button
+                    onClick={() => {
+                        navigate("/tutors")
+                    }}
+                    className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8"
+                >
+                    تعرف على المزيد
+                </Button>
                 <div
                     className="w-[90%]  lg:w-[60%] lg:min-w-[800px] flex lg:h-[450px] rounded-3xl flex-col lg:flex-row mt-24 mb-24"
                     style={{ boxShadow: "0px 0px 30px -15px rgba(0,0,0,0.64)" }}
@@ -136,7 +160,12 @@ export const HomeLoggedOut = () => {
                     <div className="w-full lg:w-[30%] py-5 lg:py-0 h-full bg-[#2A3E34] rounded-b-3xl lg:rounded-b-none lg:rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
                         <p className="text-4xl font-extrabold">!تواصل معنا</p>
                         <p className="text-2xl">للحصول على الدعم والإجابة على جميع استفساراتك</p>
-                        <Button className="rounded-full bg-white text-[#466746] hover:bg-[#e3eee3] text-xl font-extrabold  w-fit px-10">
+                        <Button
+                            onClick={() => {
+                                window.open("https://wa.me/+201126569556", "_blank").focus()
+                            }}
+                            className="rounded-full bg-white text-[#466746] hover:bg-[#e3eee3] text-xl font-extrabold  w-fit px-10"
+                        >
                             اتصل بنا
                         </Button>
                     </div>

@@ -10,11 +10,12 @@ import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
 import { ChevronsLeft, ChevronsRight, ChevronsRightLeft } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 export const CoursePage = () => {
     const { id } = useParams()
     const location = useLocation()
+    const navigate = useNavigate()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -43,8 +44,18 @@ export const CoursePage = () => {
                                 .reverse()}
                             render={(item, index) => (
                                 <div className="flex items-center gap-2.5">
-                                    <BreadcrumbItem>
-                                        <BreadcrumbLink>{item === "" ? "الرئسية" : item === "courses" ? "المقررات" : item}</BreadcrumbLink>
+                                    <BreadcrumbItem className="cursor-pointer">
+                                        <BreadcrumbLink
+                                            onClick={() => {
+                                                if (item === "") {
+                                                    navigate("/")
+                                                } else if (item === "courses") {
+                                                    navigate("/courses")
+                                                }
+                                            }}
+                                        >
+                                            {item === "" ? "الرئسية" : item === "courses" ? "المقررات" : item}
+                                        </BreadcrumbLink>
                                     </BreadcrumbItem>
                                     <Show>
                                         <Show.When isTrue={index !== location.pathname.split("/").length - 2}>

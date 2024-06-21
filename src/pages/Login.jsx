@@ -19,13 +19,12 @@ export const Login = () => {
         setLoading(true)
         const res = await postMethod("/students/login", data)
         // console.log(res)
-      
+
         toast({
-            title: res.status === "success" ? "Login Successfully" : res.message,
+            title: res.status === "success" ? "تم تسجيل الدخول بنجاح" : res.message,
             variant: res.status === "success" ? "" : "destructive",
         })
         if (res?.status === "success") {
-
             localStorage.setItem("token", res.token)
             window.location.href = "/"
         }
@@ -62,15 +61,23 @@ export const Login = () => {
                     ></Input>
                 </div>
                 <div className="">
-                    <p onClick={()=>{
-                        navigate("/forget-password")
-
-                    }} className="text-left  text-sm font-bold mt-2 ml-14 cursor-pointer">لا تتذكر كلمة السر ؟</p>
+                    <p
+                        onClick={() => {
+                            navigate("/forget-password")
+                        }}
+                        className="text-left  text-sm font-bold mt-2 ml-14 cursor-pointer"
+                    >
+                        لا تتذكر كلمة السر ؟
+                    </p>
                 </div>
 
                 <div className="flex justify-center gap-5 mt-10">
-                    <Button className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]" disabled={loading} onClick={handleLogin}>
-                    <Show>
+                    <Button
+                        className="rounded-lg bg-white text-base text-[#466746]  font-bold px-10 hover:bg-[#f6fffa]"
+                        disabled={loading}
+                        onClick={handleLogin}
+                    >
+                        <Show>
                             <Show.When isTrue={loading} children={<Loader2 className="animate-spin mr-2"></Loader2>}></Show.When>
                         </Show>
                         تسجيل الدخول

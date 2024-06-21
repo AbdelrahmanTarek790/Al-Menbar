@@ -68,8 +68,9 @@ export const NavBar = () => {
                                             localStorage.removeItem("token")
                                             window.location.href = "/login"
                                         }}
+                                        className=" justify-center hover:cursor-pointer"
                                     >
-                                        Logout
+                                        تسجيل الخروج
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>

@@ -10,16 +10,26 @@ export const Footer = () => {
         <footer className=" flex flex-col h-auto w-full py-3 gap-4 border-t bg-[#2a3e34] px-16 sm:static lg:h-56 sm:border-0 text-primary-foreground ">
             <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row  justify-around  items-center h-full">
                 <div className="flex gap-5 text-3xl">
-                    <Link to={"https://www.facebook.com/almenbar.edu?mibextid=ZbWKwL"}>
-                        <i className="fa-brands fa-facebook-f hover:text-blue-500 transition-all"></i>
-                    </Link>
+                    <i
+                        onClick={() => {
+                            window.open("https://www.facebook.com/almenbar.edu?mibextid=ZbWKwL", "_blank").focus()
+                        }}
+                        className="fa-brands fa-facebook-f hover:text-blue-500 transition-all"
+                    ></i>
 
-                    <Link to={"https://wa.me/+201126569556"}>
-                        <i className="fa-brands fa-whatsapp hover:text-green-500 transition-all"></i>
-                    </Link>
-                    <Link to={"t.me/Al_menbar_academy"}>
-                        <i className="fa-brands fa-telegram hover:text-blue-500 transition-all"></i>
-                    </Link>
+                    <i
+                        onClick={() => {
+                            window.open("https://wa.me/+201126569556", "_blank").focus()
+                        }}
+                        className="fa-brands fa-whatsapp hover:text-green-500 transition-all"
+                    ></i>
+
+                    <i
+                        onClick={() => {
+                            window.open("https://t.me/Al_menbar_academy", "_blank").focus()
+                        }}
+                        className="fa-brands fa-telegram hover:text-blue-500 transition-all"
+                    ></i>
                 </div>
                 <div className="flex flex-col gap-4 items-end font-cairo font-semibold mr-6">
                     <div className=" flex gap-4">

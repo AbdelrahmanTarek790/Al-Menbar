@@ -32,6 +32,7 @@ export const SignUp = () => {
         country: "",
         birthDate: null,
     })
+    console.log(planetpulse.getAllCountries());
 
     const handleChange = (e) => {
         const { name, value } = e.target
