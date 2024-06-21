@@ -26,6 +26,7 @@ import { LearnPage } from "./pages/LoggedPages/LearnPage"
 import { QuizPage } from "./pages/LoggedPages/QuizPage"
 import Courses from "./pages/LoggedPages/Courses"
 import ForgetPassword from "./pages/ForgetPassword"
+import ResetPassword from "./pages/ResetPassword"
 // import planetpulse from "planetpulse"
 
 function App() {
@@ -80,7 +81,7 @@ function App() {
                                     <Route path="/login" element={<Login></Login>} />
                                     <Route path="/register" element={<SignUp></SignUp>} />
                                     <Route path="/forget-password" element={<ForgetPassword></ForgetPassword>} />
-                                    <Route path="/reset-password/:token" element={<ForgetPassword></ForgetPassword>} />
+                                    <Route path="/reset-password/:id" element={<ResetPassword></ResetPassword>} />
                                     <Route path="/tutors" element={<Tutors></Tutors>} />
                                     <Route path="/curriculum" element={<Curriculum></Curriculum>} />
                                     <Route path="/contact-us" element={<Contact></Contact>} />
