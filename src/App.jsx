@@ -80,11 +80,11 @@ function App() {
                                     <Route path="/login" element={<Login></Login>} />
                                     <Route path="/register" element={<SignUp></SignUp>} />
                                     <Route path="/forget-password" element={<ForgetPassword></ForgetPassword>} />
+                                    <Route path="/reset-password/:token" element={<ForgetPassword></ForgetPassword>} />
                                     <Route path="/tutors" element={<Tutors></Tutors>} />
                                     <Route path="/curriculum" element={<Curriculum></Curriculum>} />
                                     <Route path="/contact-us" element={<Contact></Contact>} />
                                     <Route path="*" element={<Navigate to={"/"}></Navigate>}></Route>
-
                                 </Routes>
                             }
                         ></Show.Else>
