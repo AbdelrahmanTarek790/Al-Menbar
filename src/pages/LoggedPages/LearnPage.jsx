@@ -22,6 +22,7 @@ export const LearnPage = () => {
         name: "",
         comments: [],
         replies: [],
+        quiz: [],
     })
     const [comment, setComment] = useState("")
     const [reload, setReload] = useState(false)

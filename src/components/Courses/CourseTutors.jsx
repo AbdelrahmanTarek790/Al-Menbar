@@ -26,7 +26,7 @@ export const CourseTutors = ({ items }) => {
                                     <div
                                         className={`flex lg:flex-row ${
                                             index % 2 ? "" : "lg:flex-row-reverse"
-                                        } flex-col  gap-14 items-center lg:w-[1000px]`}
+                                        } flex-col  gap-14 items-center  px-5 py-5`}
                                     >
                                         <img src={item.photo} alt="" className=" w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] rounded-full" />
                                         <div className={` ${index % 2 ? "lg:text-left" : "lg:text-right"}  text-center  text-[#2A3E34] w-[90%]`}>
@@ -37,11 +37,11 @@ export const CourseTutors = ({ items }) => {
                                         </div>
                                     </div>
 
-                                    <div
+                                    {/* <div
                                         className={` h-[5px] bg-[#2A3E34] w-[90%] lg:w-[1000px] mt-20 ${
-                                            index * 1 === tutors.length - 1 ? " hidden " : ""
+                                            index * 1 === item.tutors.length - 1 ? " hidden " : ""
                                         }`}
-                                    ></div>
+                                    ></div> */}
                                 </div>
                             )}
                         ></Each>

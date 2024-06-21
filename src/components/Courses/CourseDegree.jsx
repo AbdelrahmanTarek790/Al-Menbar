@@ -12,6 +12,7 @@ export const CourseDegree = ({ items }) => {
     useEffect(() => {
         getMethod(`/students/${items.id}/stats`, localStorage.getItem("token")).then((res) => {
             setItems(res.data.courseStat)
+            console.log(res.data.courseStat);
         })
     }, [items])
 
@@ -66,9 +67,7 @@ export const CourseDegree = ({ items }) => {
                         : 0}{" "}
                 </p>
 
-                <p className="mr-8  mb-3">درجة الاختبار النهائي : {
-                    item?.finalExamScore ? item.finalExamScore : "لم يتم الحل"
-                }</p>
+                <p className="mr-8  mb-3">درجة الاختبار النهائي : {item?.finalExamScore ? item.finalExamScore : "لم يتم الحل"}</p>
             </div>
         </div>
     )

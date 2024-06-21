@@ -20,7 +20,7 @@ export const CourseAbout = ({ items }) => {
                         <Each
                             of={items.teachers}
                             render={(item, index) => (
-                                <div className="text-2xl text-center my-8 flex justify-end  items-center">
+                                <div className="text-2xl text-center my-8 flex justify-end gap-2  items-center">
                                     <p className=" text-2xl font-bold ">{item.Fname + " " + item.Mname + " " + item.Lname}</p>
                                     <p> : يُدرَس بواسطة</p>
                                     <img
@@ -48,7 +48,7 @@ export const CourseAbout = ({ items }) => {
                             <p className="text-right">{"الكتاب:" + (items.book.title ? items.book.title : "لا يوجد")}</p>
                             <img
                                 className="w-[150px]"
-                                src="https://s3-alpha-sig.figma.com/img/73cf/daf5/7ad22262f394506e4f619c48e404d0ed?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HgrQu8cR2qdRHVAIV~UD--MczbbeAXQbMRaiA8FyzGb5k-sE6ClFO~0i0RZU0EzgA3YETw9S~dWbKp-BVlfNcXt883HgEYLqEi6rL5egfXsR0vK3sLkSOwU13S847gvSsgEhvKz8sskgecO3cR3UyriPi7iwbv-182A2SD06wEB20X4uvSIjGkMQ30z9yx0r9zPUWNbj2rDevm9Axydy6Gor9mr~GCeUk0CABbfJ~KwmeMjD-dzX416ZjovnY8oBzsMr~kWemIKMTCxYQncKNjaCRZNbD7C6kEJbjPQbylIePNiA6eXgyKyD~2CHYPWBvb3~OVGJQ8dRssoAK5LiaQ__"
+                                src={items.book.imageURL? items.book.imageURL:"https://s3-alpha-sig.figma.com/img/73cf/daf5/7ad22262f394506e4f619c48e404d0ed?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HgrQu8cR2qdRHVAIV~UD--MczbbeAXQbMRaiA8FyzGb5k-sE6ClFO~0i0RZU0EzgA3YETw9S~dWbKp-BVlfNcXt883HgEYLqEi6rL5egfXsR0vK3sLkSOwU13S847gvSsgEhvKz8sskgecO3cR3UyriPi7iwbv-182A2SD06wEB20X4uvSIjGkMQ30z9yx0r9zPUWNbj2rDevm9Axydy6Gor9mr~GCeUk0CABbfJ~KwmeMjD-dzX416ZjovnY8oBzsMr~kWemIKMTCxYQncKNjaCRZNbD7C6kEJbjPQbylIePNiA6eXgyKyD~2CHYPWBvb3~OVGJQ8dRssoAK5LiaQ__"}
                             ></img>
 
                             <Button

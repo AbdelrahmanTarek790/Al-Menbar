@@ -15,14 +15,7 @@ export const Quiz = ({ items, reload }) => {
         replies: [],
     })
     const [currentLesson, setCurrentLesson] = useState({})
-    const [courseStat, setCourseStat] = useState({
-        lectureStats: [
-            {
-                bestQuizScore: 0,
-                latestQuizScore: 0,
-            },
-        ],
-    })
+    const [courseStat, setCourseStat] = useState({})
     useEffect(() => {
         setData(items)
         console.log(items)
@@ -31,8 +24,9 @@ export const Quiz = ({ items, reload }) => {
             getMethod(`/students/${items.course.id}/stats`, localStorage.getItem("token")).then((res) => {
                 console.log(res.data.courseStat)
                 setCourseStat(res.data.courseStat)
-                setCurrentLesson(courseStat.lectureStats.filter((item) => item.lecture.id === id))
+                setCurrentLesson(res.data.courseStat.lectureStats.filter((item) => item.lecture.id === id)[0])
             })
+            console.log(currentLesson)
         }
     }, [items])
 
@@ -45,7 +39,9 @@ export const Quiz = ({ items, reload }) => {
     ( ${data.name} ) الاختبار الاسبوعي علي محاضرة 
     `}</p>
             <div className="w-full h-[2px] mt-3 bg-[#385044] "></div>
-            <p className="text-primary text-xl mt-6">يحتوي هذا الاختبار على {items.quiz[0].mcq.length} اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ.</p>
+            <p className="text-primary text-xl mt-6">
+                يحتوي هذا الاختبار على {items.quiz.length > 0 ? items.quiz[0].mcq.length : 0} اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ.
+            </p>
             <p className="text-primary text-xl">
                 يُسمح بتقديم هذا الاختبار ثلات مرات فقط خلال فترة إتاحته، ويتم احتساب الدرجة الأعلى للطالب من بين تلك المحاولات.
             </p>
@@ -69,7 +65,8 @@ export const Quiz = ({ items, reload }) => {
                     <p className="">الدرجة</p>
                     <p className="text-lg">
                         {/* {courseStat.lectureStats[0].latestQuizScore}/{courseStat.lectureStats[0].bestQuizScore} */}
-                        {items.quiz[0].scoreFrom ?items.quiz[0].scoreFrom :0 }/{ currentLesson?.bestQuizScore ? currentLesson?.bestQuizScore : 0 }
+                        {items.quiz.length > 0 ? (items.quiz[0].scoreFrom ? items.quiz[0].scoreFrom : 0) : 0}/
+                        {currentLesson?.bestQuizScore ? currentLesson?.bestQuizScore : 0}
                     </p>
                 </div>
                 <div>

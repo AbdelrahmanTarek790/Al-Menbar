@@ -11,9 +11,11 @@ import { set } from "date-fns"
 import { CornerRightUpIcon, DeleteIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useToast } from "../ui/use-toast"
 export const LearnDetails = ({ items }) => {
     const { state, setState } = useStore()
     const navigate = useNavigate()
+    const {toast} = useToast()
     const { id } = useParams()
     const [data, setData] = useState({
         course: {
@@ -22,6 +24,7 @@ export const LearnDetails = ({ items }) => {
         name: "",
         comments: [],
         replies: [],
+        quiz: [],
     })
 
     const [isReply, setIsReply] = useState({
@@ -33,6 +36,8 @@ export const LearnDetails = ({ items }) => {
 
     useEffect(() => {
         setData(items)
+        console.log(items);
+        console.log(data);
     }, [items])
 
     return (
@@ -64,11 +69,17 @@ export const LearnDetails = ({ items }) => {
             <div className="flex flex-col items-center  w-full">
                 <Button
                     className="px-14 mt-3 text-lg"
+                    disabled={data.quiz.length === 0}
+                    variant={data.quiz.length === 0 ? "destructive" : "default"}
                     onClick={() => {
+                        if (data.quiz.length === 0) {
+                           
+                            return
+                        }
                         navigate(`/learn/${id}/quiz`)
                     }}
                 >
-                    التالي
+                    {data.quiz.length > 0 ? "الاختبار الاسبوعي" : "لا يوجد اختبار"}
                 </Button>
                 <p>الاختبار الاسبوعي الاول</p>
             </div>

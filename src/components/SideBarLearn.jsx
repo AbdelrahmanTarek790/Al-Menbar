@@ -35,7 +35,7 @@ export const SideBarLearn = ({ name, courseID }) => {
                     {Subjects[`${name}`] ? Subjects[`${name}`] : ""}
                 </div>
                 <Each
-                    of={items.lectureStats}
+                    of={items.lectureStats.sort((a, b) => a.lecture.order - b.lecture.order)}
                     render={(item, index) => (
                         <div className="w-[97%]">
                             <Button
@@ -56,27 +56,36 @@ export const SideBarLearn = ({ name, courseID }) => {
                                     <Show.Else children={<i className="fa-regular fa-circle-check  text-primary text-2xl"></i>}></Show.Else>
                                 </Show>
                             </Button>
-                            <Button
-                                disabled={!item.open}
-                                onClick={() => navigate(`/learn/${item.lecture.id}/quiz`)}
-                                className={`${
-                                    active === `/learn/${item.lecture.id}/quiz` || active === `/quiz/${item.lecture.id}/`
-                                        ? " font-bold bg-[#62996c]/20 text-primary  "
-                                        : "bg-transparent "
-                                }" flex w-[100%] h-auto text-right mt-4  whitespace-normal hover:bg-[#62996c]/20 px-2 items-center  justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
-                            >
-                                <div>
-                                    <p>اختبار محاضرة</p>
-                                    <p>{item.lecture.name}</p>
-                                </div>
-                                <Show>
-                                    <Show.When
-                                        isTrue={item.done}
-                                        children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
-                                    ></Show.When>
-                                    <Show.Else children={<i className="fa-regular fa-circle-check text-primary  text-2xl"></i>}></Show.Else>
-                                </Show>
-                            </Button>
+                            <Show>
+                                <Show.When
+                                    isTrue={item.lecture.quiz.length > 0}
+                                    children={
+                                        <Button
+                                            disabled={!item.open}
+                                            onClick={() => navigate(`/learn/${item.lecture.id}/quiz`)}
+                                            className={`${
+                                                active === `/learn/${item.lecture.id}/quiz` || active === `/quiz/${item.lecture.id}/`
+                                                    ? " font-bold bg-[#62996c]/20 text-primary  "
+                                                    : "bg-transparent "
+                                            }" flex w-[100%] h-auto text-right mt-4  whitespace-normal hover:bg-[#62996c]/20 px-2 items-center  justify-end gap-2 font-cairo rounded-lg text-muted-foreground transition-colors hover:text-foreground"`}
+                                        >
+                                            <div>
+                                                <p>اختبار محاضرة</p>
+                                                <p>{item.lecture.name}</p>
+                                            </div>
+                                            <Show>
+                                                <Show.When
+                                                    isTrue={item.done}
+                                                    children={<i className="fa-solid text-primary fa-circle-check text-2xl"></i>}
+                                                ></Show.When>
+                                                <Show.Else
+                                                    children={<i className="fa-regular fa-circle-check text-primary  text-2xl"></i>}
+                                                ></Show.Else>
+                                            </Show>
+                                        </Button>
+                                    }
+                                ></Show.When>
+                            </Show>
                         </div>
                     )}
                 ></Each>
