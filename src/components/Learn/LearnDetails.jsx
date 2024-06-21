@@ -212,7 +212,7 @@ export const LearnDetails = ({ items }) => {
                                                     ? item.teacher.photo
                                                     : item.student?.photo
                                                     ? item.student.photo
-                                                    : "https://placehold.co/150x150"
+                                                    : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"
                                             }
                                             width={36}
                                             height={36}
@@ -319,7 +319,7 @@ export const LearnDetails = ({ items }) => {
                                                                     ? item.teacher.photo
                                                                     : item.student?.photo
                                                                     ? item.student.photo
-                                                                    : "https://placehold.co/150x150"
+                                                                    : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256x"
                                                             }
                                                             width={36}
                                                             height={36}
@@ -327,9 +327,15 @@ export const LearnDetails = ({ items }) => {
                                                             className="overflow-hidden rounded-full w-10 h-10 ml-2"
                                                         />
 
-                                                        <p className="text-primary font-bold">{item.name ? item.name : "Ahmed Mohesn"}</p>
+                                                        <p className="text-primary font-bold">
+                                                            {item.teacher
+                                                                ? item.teacher.Fname + " " + item.teacher.Lname
+                                                                : item.student
+                                                                ? item.student.Fname + " " + item.student.Lname
+                                                                : "Ahmed Mohesn"}
+                                                        </p>
                                                     </div>
-                                                    <div className="flex justify-start">
+                                                    <div className="flex justify-start gap-3">
                                                         <Button
                                                             variant="outline"
                                                             className="flex items-center w-fit p-0 px-2"
@@ -340,6 +346,40 @@ export const LearnDetails = ({ items }) => {
                                                             <ReplyIcon size={16}></ReplyIcon>
                                                             رد
                                                         </Button>
+                                                        <Show>
+                                                            <Show.When
+                                                                isTrue={state._id === item.student?._id || state._id === item.teacher?._id}
+                                                                children={
+                                                                    <Button
+                                                                        variant="destructive"
+                                                                        className="flex items-center w-fit p-0 px-2"
+                                                                        onClick={() => {
+                                                                            deleteMethod(
+                                                                                `/lectures/L/comments/${item.id}`,
+                                                                                localStorage.getItem("token")
+                                                                            ).then((res) => {
+                                                                                // replies
+                                                                                setData({
+                                                                                    ...data,
+                                                                                    comments: data.comments.map((i) => {
+                                                                                        if (i.replies) {
+                                                                                            return {
+                                                                                                ...i,
+                                                                                                replies: i.replies.filter((i) => i.id !== item.id),
+                                                                                            }
+                                                                                        }
+                                                                                        return i
+                                                                                    }),
+                                                                                })
+                                                                            })
+                                                                        }}
+                                                                    >
+                                                                        <DeleteIcon size={16}></DeleteIcon>
+                                                                        حذف
+                                                                    </Button>
+                                                                }
+                                                            ></Show.When>
+                                                        </Show>
                                                     </div>
                                                 </div>
                                                 <p className="text-[#385044] pr-10">{item.text}</p>

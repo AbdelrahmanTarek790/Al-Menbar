@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label"
 import back1 from "../assets/back2.png"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { postMethod } from "@/utils/ApiMethods"
 import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
@@ -12,6 +12,7 @@ export const Login = () => {
     const [data, setData] = useState({ email: "", password: "" })
     const [loading, setLoading] = useState(false)
     const { toast } = useToast()
+    const navigate = useNavigate()
 
     const handleLogin = async () => {
         // console.log(data)
@@ -61,7 +62,10 @@ export const Login = () => {
                     ></Input>
                 </div>
                 <div className="">
-                    <p className="text-left  text-sm font-bold mt-2 ml-14 cursor-pointer">لا تتذكر كلمة السر ؟</p>
+                    <p onClick={()=>{
+                        navigate("/forget-password")
+
+                    }} className="text-left  text-sm font-bold mt-2 ml-14 cursor-pointer">لا تتذكر كلمة السر ؟</p>
                 </div>
 
                 <div className="flex justify-center gap-5 mt-10">

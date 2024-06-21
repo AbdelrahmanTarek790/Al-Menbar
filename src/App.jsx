@@ -25,6 +25,7 @@ import { CoursePage } from "./pages/LoggedPages/CoursePage"
 import { LearnPage } from "./pages/LoggedPages/LearnPage"
 import { QuizPage } from "./pages/LoggedPages/QuizPage"
 import Courses from "./pages/LoggedPages/Courses"
+import ForgetPassword from "./pages/ForgetPassword"
 // import planetpulse from "planetpulse"
 
 function App() {
@@ -78,9 +79,12 @@ function App() {
                                     <Route path="/" element={<HomeLoggedOut></HomeLoggedOut>} />
                                     <Route path="/login" element={<Login></Login>} />
                                     <Route path="/register" element={<SignUp></SignUp>} />
+                                    <Route path="/forget-password" element={<ForgetPassword></ForgetPassword>} />
                                     <Route path="/tutors" element={<Tutors></Tutors>} />
                                     <Route path="/curriculum" element={<Curriculum></Curriculum>} />
                                     <Route path="/contact-us" element={<Contact></Contact>} />
+                                    <Route path="*" element={<Navigate to={"/"}></Navigate>}></Route>
+
                                 </Routes>
                             }
                         ></Show.Else>

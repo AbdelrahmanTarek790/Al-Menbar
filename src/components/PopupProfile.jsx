@@ -33,7 +33,7 @@ const PopupProfile = ({items}) => {
                                     alt={items.name}
                                     // className=""
                                     width={150}
-                                    src={items.photo ? items.photo : "https://placehold.co/150x150"}
+                                    src={items.photo ? items.photo : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
                                 />
                             </label>
                         </div>

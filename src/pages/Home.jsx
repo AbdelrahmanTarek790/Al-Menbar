@@ -10,8 +10,9 @@ import main6 from "../assets/main6.png"
 import { Each } from "@/utils/Each"
 import { List } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 export const HomeLoggedOut = () => {
+    const navigate = useNavigate()
     const List1 = [
         {
             img: main3,
@@ -106,7 +107,7 @@ export const HomeLoggedOut = () => {
                         render={(item, index) => (
                             <div className="w-[300px] flex flex-col items-center text-center">
                                 <img
-                                    src={"https://sm.ign.com/t/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.300.jpg"}
+                                    src={"https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
                                     alt=""
                                     className="w-[200px] h-[200px] rounded-full"
                                 />
@@ -117,7 +118,9 @@ export const HomeLoggedOut = () => {
                         )}
                     ></Each>
                 </div>
-                <Button className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">تعرف على المزيد</Button>
+                <Button onClick={()=>{
+                    navigate("/tutors")
+                }} className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">تعرف على المزيد</Button>
                 <div
                     className="w-[90%]  lg:w-[60%] lg:min-w-[800px] flex lg:h-[450px] rounded-3xl flex-col lg:flex-row mt-24 mb-24"
                     style={{ boxShadow: "0px 0px 30px -15px rgba(0,0,0,0.64)" }}
