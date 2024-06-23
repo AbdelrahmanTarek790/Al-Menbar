@@ -27,6 +27,8 @@ import { QuizPage } from "./pages/LoggedPages/QuizPage"
 import Courses from "./pages/LoggedPages/Courses"
 import ForgetPassword from "./pages/ForgetPassword"
 import ResetPassword from "./pages/ResetPassword"
+import SupportContact from "./pages/LoggedPages/SupportContact"
+import { FinalExam } from "./pages/LoggedPages/FinalExam"
 // import planetpulse from "planetpulse"
 
 function App() {
@@ -52,7 +54,7 @@ function App() {
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <BrowserRouter>
                 <NavBar></NavBar>
-                <div className="min-h-[720px] overflow-hidden">
+                <div className="min-h-[720px] overflow-hidden " >
                     <Show>
                         <Show.When
                             isTrue={isLoggedIn}
@@ -64,12 +66,14 @@ function App() {
                                     <Route path="/contact-us" element={<Contact></Contact>} />
                                     <Route path="/curriculum" element={<Curriculum></Curriculum>} />
                                     <Route path="/contact-us" element={<Contact></Contact>} />
+                                    <Route path="/support" element={<SupportContact></SupportContact>} />
 
                                     {/* <Route path="/courses" element={<CourseDetails></CourseDetails>} /> */}
                                     <Route path="/courses/:id/*" element={<CoursePage></CoursePage>} />
                                     <Route path="/courses" element={<Courses></Courses>} />
                                     <Route path="/learn/:id/*" element={<LearnPage></LearnPage>} />
                                     <Route path="/quiz/:id" element={<QuizPage></QuizPage>} />
+                                    <Route path="/final/:id" element={<FinalExam></FinalExam>} />
                                     <Route path="*" element={<Navigate to={"/"}></Navigate>}></Route>
                                 </Routes>
                             }

@@ -26,12 +26,6 @@ p {
   font-family: "Cairo", sans-serif;
 }
 
-
-#root {
-  min-height: 720px;
-  height: 100vh;
-}
-
 input:focus {
   outline: none !important;
   offset: 0 !important;

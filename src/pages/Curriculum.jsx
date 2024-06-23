@@ -2,7 +2,9 @@ import { sub } from "date-fns"
 import back1 from "../assets/back1.png"
 import { Each } from "@/utils/Each"
 import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router-dom"
 export const Curriculum = () => {
+    const navigate = useNavigate()
     const List = [
         {
             title: "الفقه",
@@ -55,8 +57,13 @@ export const Curriculum = () => {
                                 <p className=" text-xl mt-4 font-bold">{item.bookname}</p>
                                 <p className=" text-lg mt-2 font-bold">{item.subject}</p>
                                 <p className=" text-base mt-1 w-[90%] mb-4">{item.description}</p>
-                                <Button className="rounded-full bg-white text-base text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4">
-                                    أشتري الكتاب
+                                <Button
+                                    onClick={() => {
+                                        navigate("/login")
+                                    }}
+                                    className="rounded-full bg-white text-base text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4"
+                                >
+                                    تصفح الدورة
                                 </Button>
                             </div>
                         </div>

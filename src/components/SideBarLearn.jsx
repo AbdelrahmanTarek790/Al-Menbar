@@ -11,10 +11,13 @@ import { Button } from "./ui/button"
 
 export const SideBarLearn = ({ name, courseID }) => {
     const navigate = useNavigate()
-    const { id } = useParams()
+
     const location = useLocation()
     const [items, setItems] = React.useState({
         lectureStats: [],
+        course: {
+            final: {},
+        },
     })
 
     React.useEffect(() => {
@@ -89,6 +92,25 @@ export const SideBarLearn = ({ name, courseID }) => {
                         </div>
                     )}
                 ></Each>
+                <Show>
+                    <Show.When
+                        isTrue={items?.course?.final ? true : false}
+                        children={
+                            <Link to={`/final/${items.course.id}`} className={` w-[100%] flex justify-center`}>
+                                <Button className="w-[90%]">اختبار نهائي</Button>
+                            </Link>
+                        }
+                    ></Show.When>
+                    <Show.Else
+                        children={
+                            <Link className={` w-[100%] flex justify-center`}>
+                                <Button className="w-[90%]" disabled>
+                                    لا يوجد اختبار نهائي
+                                </Button>
+                            </Link>
+                        }
+                    ></Show.Else>
+                </Show>
             </nav>
         </aside>
     )
