@@ -12,8 +12,11 @@ import { List } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { getMethod } from "@/utils/ApiMethods"
+import { getMethod, postMethod } from "@/utils/ApiMethods"
+import { useToast } from "@/components/ui/use-toast"
+
 export const HomeLoggedOut = () => {
+    const { toast } = useToast()
     const navigate = useNavigate()
     const List1 = [
         {
@@ -44,6 +47,8 @@ export const HomeLoggedOut = () => {
             setTutors(res.data.data)
         })
     }, [])
+    const [email, setEmail] = useState("")
+
     return (
         <div className="overflow-hidden">
             <div className="flex justify-center lg:justify-evenly font-cairo item-center mt-16 relative">
@@ -104,7 +109,7 @@ export const HomeLoggedOut = () => {
                                 </span>
                             </p>
                             <div className="flex justify-center  mt-4">
-                                <Link to={"/register"}> 
+                                <Link to={"/register"}>
                                     <Button className="rounded-full bg-[#466746] text-xl px-7">إنشاء حساب</Button>
                                 </Link>
                             </div>
@@ -154,8 +159,44 @@ export const HomeLoggedOut = () => {
                             <p className="text-4xl font-extrabold">اشترك في قائمتنا البريدية</p>
                             <p className="text-2xl mt-3">لمتابعة اخر الدروس المرفوعة والاطلاع على كل جديد</p>
                         </div>
-                        <Input placeholder="البريد الإلكتروني" className="w-[70%] mt-4" />
-                        <Button className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8">اشترك</Button>
+                        <Input
+                            placeholder="البريد الإلكتروني"
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                            }}
+                            className="w-[70%] mt-4"
+                        />
+                        <Button
+                            onClick={() => {
+                                //validate the email
+                                if (!email.includes("@")) {
+                                    toast({
+                                        title: "يرجى إدخال بريد إلكتروني صحيح",
+                                        variant: "destructive",
+                                    })
+                                    return
+                                }
+
+                                postMethod("/members", { email: email }).then((res) => {
+                                    console.log(res);
+                                    if (res.status === "Success") {
+                                        toast({
+                                            title: "تم الاشتراك بنجاح",
+                                            variant: "",
+                                        })
+                                    }
+                                    else{
+                                        toast({
+                                            title: res.message,
+                                            variant: "destructive",
+                                        })
+                                    }
+                                })
+                            }}
+                            className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8"
+                        >
+                            اشترك
+                        </Button>
                     </div>
                     <div className="w-full lg:w-[30%] py-5 lg:py-0 h-full bg-[#2A3E34] rounded-b-3xl lg:rounded-b-none lg:rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
                         <p className="text-4xl font-extrabold">!تواصل معنا</p>
