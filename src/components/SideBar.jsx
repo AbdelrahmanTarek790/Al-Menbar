@@ -59,5 +59,4 @@ export const Sidebar = () => {
 const ProfList = [
     { title: "حسابي", url: "/profile" },
     { title: "شهاداتي", url: "/profile/certifications" },
-    { title: "درجات الاختبارات", url: "/profile/degrees" },
 ]

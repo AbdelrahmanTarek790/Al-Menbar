@@ -18,7 +18,6 @@ export const Profile = () => {
             <Show>
                 <Show.When isTrue={location.pathname === "/profile"} children={<MyProfile></MyProfile>}></Show.When>
                 <Show.When isTrue={location.pathname === "/profile/certifications"} children={<Certificates>Hey</Certificates>}></Show.When>
-                <Show.When isTrue={location.pathname === "/profile/degrees"} children={<div>Hey2</div>}></Show.When>
             </Show>
 
             <Sidebar></Sidebar>

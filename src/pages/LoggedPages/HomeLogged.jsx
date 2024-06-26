@@ -7,6 +7,8 @@ import { Contact } from "../Contact"
 import { useEffect, useState } from "react"
 import { getMethod } from "@/utils/ApiMethods"
 import { Subjects } from "@/data"
+import { Helmet } from "react-helmet"
+import ChatEmbed from "@/components/ChatEmbed"
 
 export const HomeLogged = () => {
     const [List, setList] = useState([])
@@ -49,8 +51,10 @@ export const HomeLogged = () => {
             setList(res.data.data)
         })
     }, [])
+
     return (
-        <div className="overflow-hidden ">
+        <div className="overflow-hidden " >
+<ChatEmbed></ChatEmbed>
             <div className="flex justify-center lg:justify-evenly font-cairo item-center mt-16 relative">
                 <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   top-[-400px] origin-center" />
                 {/* <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   bottom-[-400px] origin-center" /> */}

@@ -58,11 +58,12 @@ export const QuizPage = () => {
 
     const submitAnswers = () => {
         setReload(true)
+        
         postMethod(`/lectures/${id}/quiz/answers/submit`, answers, localStorage.getItem("token")).then((res) => {
             setReload(false)
             if (res.status === "Success") {
                 setIsSubmitted(true)
-                console.log(res)
+    
                 setFinalAnswers(res.data.lectureQuizzesGrades)
                 setShowAnswers(true)
             }
@@ -88,8 +89,8 @@ export const QuizPage = () => {
                                 of={quizes.mcq}
                                 render={(item, index) => (
                                     <div className="w-full border-2 border-primary rounded-xl mt-4">
-                                        <p className="text-[#2A3E34] text-lg font-bold mt-6 mb-4 mr-5">
-                                            {item.question} - {index + 1}
+                                        <p className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5" style={{ direction: "rtl" }}>
+                                            {index + 1}- {item.question}
                                         </p>
                                         <RadioGroup
                                             defaultValue={6}

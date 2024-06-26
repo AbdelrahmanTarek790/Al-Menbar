@@ -61,7 +61,7 @@ export const SideBarLearn = ({ name, courseID }) => {
                             </Button>
                             <Show>
                                 <Show.When
-                                    isTrue={item.lecture.quiz.length > 0}
+                                    isTrue={item.lecture?.quiz?.length > 0}
                                     children={
                                         <Button
                                             disabled={!item.open}

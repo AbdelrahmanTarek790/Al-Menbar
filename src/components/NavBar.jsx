@@ -59,9 +59,9 @@ export const NavBar = () => {
                                     <Link to={"/profile/certifications"}>
                                         <DropdownMenuItem className=" justify-end hover:cursor-pointer">شهاداتي</DropdownMenuItem>
                                     </Link>
-                                    <Link to={"/profile/degrees"}>
+                                    {/* <Link to={"/profile/degrees"}>
                                         <DropdownMenuItem className=" justify-end hover:cursor-pointer">درجات الاختبارات</DropdownMenuItem>
-                                    </Link>
+                                    </Link> */}
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
                                         onClick={() => {
