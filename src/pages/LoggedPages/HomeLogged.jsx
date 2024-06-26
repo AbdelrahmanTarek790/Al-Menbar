@@ -4,40 +4,51 @@ import loggedmain2 from "../../assets/loggedmain2.png"
 import { Button } from "@/components/ui/button"
 import { Each } from "@/utils/Each"
 import { Contact } from "../Contact"
+import { useEffect, useState } from "react"
+import { getMethod } from "@/utils/ApiMethods"
+import { Subjects } from "@/data"
 
 export const HomeLogged = () => {
-    const List = [
-        {
-            title: "الفقه",
-            description:
-                "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
-            bookname: "الفقه الميسر",
-            subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
-        },
-        {
-            title: "الحديث",
-            description:
-                "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
-            bookname: "الفقه الميسر",
-            subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
-        },
+    const [List, setList] = useState([])
+    // const List = [
+    //     {
+    //         title: "الفقه",
+    //         description:
+    //             "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
+    //         bookname: "الفقه الميسر",
+    //         subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
+    //     },
+    //     {
+    //         title: "الحديث",
+    //         description:
+    //             "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
+    //         bookname: "الفقه الميسر",
+    //         subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
+    //     },
 
-        {
-            title: "التفسير",
-            description:
-                "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
-            bookname: "الفقه الميسر",
-            subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
-        },
+    //     {
+    //         title: "التفسير",
+    //         description:
+    //             "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
+    //         bookname: "الفقه الميسر",
+    //         subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
+    //     },
 
-        {
-            title: "العقيدة",
-            description:
-                "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
-            bookname: "الفقه الميسر",
-            subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
-        },
-    ]
+    //     {
+    //         title: "العقيدة",
+    //         description:
+    //             "الْفَهْمُ للشيء والعلم به، وفهم الأحكام الدقيقة والمسائل الغامضة، وهو في الأصل مطلق الفهم، وغلب استعماله في العرف مخصوصا بعلم الشريعة؛ لشرفها على سائر العلوم.",
+    //         bookname: "الفقه الميسر",
+    //         subject: "الكتاب: الفقه الميسر في ضوء الكتاب والسنة",
+    //     },
+    // ]
+
+    useEffect(() => {
+        getMethod("/courses").then((res) => {
+            console.log(res.data)
+            setList(res.data.data)
+        })
+    }, [])
     return (
         <div className="overflow-hidden ">
             <div className="flex justify-center lg:justify-evenly font-cairo item-center mt-16 relative">
@@ -64,11 +75,11 @@ export const HomeLogged = () => {
                     of={List}
                     render={(item, index) => (
                         <div className="w-[85%] bg-[#2A3E34] rounded-3xl   h-[300px]  flex flex-col-reverse md:flex-row items-center justify-between">
-                            <div className="text-center md:text-right text-white">
-                                <p className="text-lg lg:text-xl mt-4 font-bold">{item.bookname}</p>
-                                <p className="text-base lg:text-lg mt-2 font-bold">{item.subject}</p>
+                            <div className="text-center w-[70%] md:text-right text-white">
+                                <p className="text-lg lg:text-xl mt-4 font-bold">{item.book.title}</p>
+                                <p className="text-base lg:text-lg mt-2 font-bold">{Subjects[item.subject]}</p>
                                 <p className="text-xs lg:text-base mt-1 md:ml-5 mb-4">{item.description}</p>
-                                <Link to="/courses">
+                                <Link to={`/courses/${item}`}>
                                     <Button className="rounded-full bg-white text-base text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4">
                                         ادرس الان
                                     </Button>
@@ -76,7 +87,9 @@ export const HomeLogged = () => {
                             </div>
                             <div className={` h-[300px] bg-white mx-10 w-[2px] hidden md:block `}></div>
 
-                            <p className="text-white text-6xl lg:text-8xl mt-8 lg:mt-4 font-deco text-center mr-4  w-[35%]">{item.title}</p>
+                            <p className="text-white text-6xl lg:text-8xl mt-8 lg:mt-4 font-deco text-center mr-4  w-[35%]">
+                                {Subjects[item.subject]}
+                            </p>
                         </div>
                     )}
                 ></Each>
