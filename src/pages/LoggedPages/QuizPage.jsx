@@ -58,12 +58,12 @@ export const QuizPage = () => {
 
     const submitAnswers = () => {
         setReload(true)
-        
+
         postMethod(`/lectures/${id}/quiz/answers/submit`, answers, localStorage.getItem("token")).then((res) => {
             setReload(false)
             if (res.status === "Success") {
                 setIsSubmitted(true)
-    
+
                 setFinalAnswers(res.data.lectureQuizzesGrades)
                 setShowAnswers(true)
             }
@@ -223,9 +223,14 @@ const QuizAnswer = ({ finalAnswers }) => {
                 of={finalAnswers}
                 render={(item, index) => (
                     <div className="w-full border-2 border-primary rounded-xl mt-4">
-                        <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-lg font-bold mt-6 mb-4 mr-5`}>
-                            {item.mcq.question} - {index + 1}
-                        </p>
+                        <div className="flex justify-between items-center">
+                            <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-sm font-bold mt-6 mb-4 ml-5`}>
+                                {item.correct ? "اجابه صحيحة" : "اجابة خاطئة"}
+                            </p>
+                            <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-lg font-bold mt-6 mb-4 mr-5`} style={{direction:"rtl"}}>
+                                {index + 1} - {item.mcq.question}
+                            </p>
+                        </div>
                         <RadioGroup defaultValue={item.answer} className="mr-5 mb-5" value={item.answer}>
                             <Each
                                 of={item.mcq.choices}
