@@ -13,8 +13,9 @@ import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getMethod, postMethod } from "@/utils/ApiMethods"
 import { useToast } from "@/components/ui/use-toast"
-import 'aos/dist/aos.css'
+import "aos/dist/aos.css"
 import Aos from "aos"
+import ChatEmbed from "@/components/ChatEmbed"
 
 export const HomeLoggedOut = () => {
     const { toast } = useToast()
@@ -50,7 +51,7 @@ export const HomeLoggedOut = () => {
     }, [])
     const [email, setEmail] = useState("")
     useEffect(() => {
-        Aos.init({duration: 2000});
+        Aos.init({ duration: 2000 })
     }, [])
     return (
         <div className="overflow-hidden">
@@ -61,7 +62,9 @@ export const HomeLoggedOut = () => {
                     <img src={main1} className="hidden lg:block w-[561px]" alt="" data-aos="fade-right" />
                 </div>
                 <div className="flex flex-col items-center space-y-8 pt-36 lg:mb-0  gap-8 lg:gap-0 lg:text-right">
-                    <p className="text-4xl lg:text-6xl  font-extrabold text-[#2A3E34]" data-aos="fade-down">أكاديمية المنبـــــر</p>
+                    <p className="text-4xl lg:text-6xl  font-extrabold text-[#2A3E34]" data-aos="fade-down">
+                        أكاديمية المنبـــــر
+                    </p>
                     <div className="w-[95%] lg:w-[500px] text-center lg:text-right" data-aos="fade-up">
                         <p dir="rtl" className="text-[#3A5A40] text-xl mb-10 mr-8 font-bold">
                             المنبر هي اكاديمية لتعليم العلوم الإسلامية الشرعية بــاستخــدام الذكــاء الاصطنــاعــي لتسهيــل العمليــة التعليمية،
@@ -100,7 +103,11 @@ export const HomeLoggedOut = () => {
                     <div>
                         <img src={main6} className="w-[561px] hidden lg:block" alt="" data-aos="flip-left" data-aos-offset="300" />
                     </div>
-                    <div className="flex flex-col justify-center gap-8 lg:items-end text-center lg:text-right" data-aos = "fade-left" data-aos-offset="300">
+                    <div
+                        className="flex flex-col justify-center gap-8 lg:items-end text-center lg:text-right"
+                        data-aos="fade-left"
+                        data-aos-offset="300"
+                    >
                         <p className="text-4xl font-bold text-[#466746]">رسالة أكاديمية المنبر</p>
                         <div className="w-auto lg:w-[470px]">
                             <p className="text-[#2A3E34] text-xl">
@@ -119,106 +126,108 @@ export const HomeLoggedOut = () => {
                         </div>
                     </div>
                 </div>
-                <div data-aos="fade-down" className="flex flex-wrap items-center justify-evenly mt-10 w-full  font-cairo ">
-                <p className="text-[#2A3E34] font-extrabold text-4xl lg:text-5xl text-center  mt-6" >تعلم على يد خيرة الشيوخ</p>
-                <div className="flex flex-wrap items-center justify-evenly mt-10 w-full  font-cairo " data-aos="zoom-in"> 
-                    <Each
-                        of={tutors}
-                        render={(item, index) => (
-                            <div className="w-[300px] flex flex-col items-center text-center">
-                                <img
-                                    src={
-                                        item.photo
-                                            ? item.photo
-                                            : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"
-                                    }
-                                    alt=""
-                                    className="w-[200px] h-[200px] rounded-full"
-                                /><br/>
-                                <p className="text-[#2A3E34] text-xl font-bold">
-                                    الشيخ {item.Lname} {item.Mname} {item.Fname}
-                                </p>
-                                <p className="text-[#3A5A40] text-lg">أستاذ وعالم في العلم الشرعي</p>
-                                <p className="text-[#2A3E34] text-lg font-bold">
-                                    يُدرِس: {item.coursesToTeach[0] ? item.coursesToTeach[0].text : "لا يدرس منهجاً"}
-                                </p>
+                <div data-aos="fade-down" className="flex flex-wrap flex-col items-center justify-evenly mt-10 w-full  font-cairo ">
+                    <p className="text-[#2A3E34] font-extrabold text-4xl lg:text-5xl text-center  mt-6">تعلم على يد خيرة الشيوخ</p>
+                    <div className="flex flex-wrap items-center justify-evenly mt-10 w-full  font-cairo " data-aos="zoom-in">
+                        <Each
+                            of={tutors}
+                            render={(item, index) => (
+                                <div className="w-[300px] flex flex-col items-center text-center">
+                                    <img
+                                        src={
+                                            item.photo
+                                                ? item.photo
+                                                : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"
+                                        }
+                                        alt=""
+                                        className="w-[200px] h-[200px] rounded-full"
+                                    />
+                                    <br />
+                                    <p className="text-[#2A3E34] text-xl font-bold">
+                                        الشيخ {item.Lname} {item.Mname} {item.Fname}
+                                    </p>
+                                    <p className="text-[#3A5A40] text-lg">أستاذ وعالم في العلم الشرعي</p>
+                                    <p className="text-[#2A3E34] text-lg font-bold">
+                                        يُدرِس: {item.coursesToTeach[0] ? item.coursesToTeach[0].text : "لا يدرس منهجاً"}
+                                    </p>
+                                </div>
+                            )}
+                        ></Each>
+                    </div>
+                    <Button
+                        data-aos="fade-left"
+                        data-aos-offset="50"
+                        onClick={() => {
+                            navigate("/tutors")
+                        }}
+                        className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8"
+                    >
+                        تعرف على المزيد
+                    </Button>
+                    <div
+                        className="w-[90%]  lg:w-[60%] lg:min-w-[800px] flex lg:h-[450px] rounded-3xl flex-col lg:flex-row mt-24 mb-24"
+                        style={{ boxShadow: "0px 0px 30px -15px rgba(0,0,0,0.64)" }}
+                        data-aos="fade-up"
+                    >
+                        <div className="w-full lg:w-[70%] py-5 lg:py-0 h-full flex flex-col justify-center gap-5 text-center  items-center lg:text-right">
+                            <div className="text-[#2a3e34]">
+                                <p className="text-4xl font-extrabold">اشترك في قائمتنا البريدية</p>
+                                <p className="text-2xl mt-3">لمتابعة اخر الدروس المرفوعة والاطلاع على كل جديد</p>
                             </div>
-                        )}
-                    ></Each>
-                </div>
-                <Button
-                    data-aos="fade-left" data-aos-offset="50"
-                    onClick={() => {
-                        navigate("/tutors")
-                    }}
-                    className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8"
-                >
-                    تعرف على المزيد
-                </Button>
-                <div
-                    className="w-[90%]  lg:w-[60%] lg:min-w-[800px] flex lg:h-[450px] rounded-3xl flex-col lg:flex-row mt-24 mb-24"
-                    style={{ boxShadow: "0px 0px 30px -15px rgba(0,0,0,0.64)" }}
-                    data-aos="fade-up" 
-                >
-                    <div className="w-full lg:w-[70%] py-5 lg:py-0 h-full flex flex-col justify-center gap-5 text-center  items-center lg:text-right">
-                        <div className="text-[#2a3e34]">
-                            <p className="text-4xl font-extrabold">اشترك في قائمتنا البريدية</p>
-                            <p className="text-2xl mt-3">لمتابعة اخر الدروس المرفوعة والاطلاع على كل جديد</p>
-                        </div>
-                        <Input
-                            placeholder="البريد الإلكتروني"
-                            onChange={(e) => {
-                                setEmail(e.target.value)
-                            }}
-                            className="w-[70%] mt-4"
-                        />
-                        <Button
-                            onClick={() => {
-                                //validate the email
-                                if (!email.includes("@")) {
-                                    toast({
-                                        title: "يرجى إدخال بريد إلكتروني صحيح",
-                                        variant: "destructive",
-                                    })
-                                    return
-                                }
-
-                                postMethod("/members", { email: email }).then((res) => {
-                                    console.log(res);
-                                    if (res.status === "Success") {
+                            <Input
+                                placeholder="البريد الإلكتروني"
+                                onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }}
+                                className="w-[70%] mt-4"
+                            />
+                            <Button
+                                onClick={() => {
+                                    //validate the email
+                                    if (!email.includes("@")) {
                                         toast({
-                                            title: "تم الاشتراك بنجاح",
-                                            variant: "",
-                                        })
-                                    }
-                                    else{
-                                        toast({
-                                            title: res.message,
+                                            title: "يرجى إدخال بريد إلكتروني صحيح",
                                             variant: "destructive",
                                         })
+                                        return
                                     }
-                                })
-                            }}
-                            className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8"
-                        >
-                            اشترك
-                        </Button>
-                    </div>
-                    <div className="w-full lg:w-[30%] py-5 lg:py-0 h-full bg-[#2A3E34] rounded-b-3xl lg:rounded-b-none lg:rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
-                        <p className="text-4xl font-extrabold">!تواصل معنا</p>
-                        <p className="text-2xl">للحصول على الدعم والإجابة على جميع استفساراتك</p>
-                        <Button
-                            onClick={() => {
-                                window.open("https://wa.me/+201126569556", "_blank").focus()
-                            }}
-                            className="rounded-full bg-white text-[#466746] hover:bg-[#e3eee3] text-xl font-extrabold  w-fit px-10"
-                        >
-                            اتصل بنا
-                        </Button>
+
+                                    postMethod("/members", { email: email }).then((res) => {
+                                        console.log(res)
+                                        if (res.status === "Success") {
+                                            toast({
+                                                title: "تم الاشتراك بنجاح",
+                                                variant: "",
+                                            })
+                                        } else {
+                                            toast({
+                                                title: res.message,
+                                                variant: "destructive",
+                                            })
+                                        }
+                                    })
+                                }}
+                                className="rounded-full bg-[#2a3e34] text-xl font-bold  px-10 hover:bg-[#395346] mt-8"
+                            >
+                                اشترك
+                            </Button>
+                        </div>
+                        <div className="w-full lg:w-[30%] py-5 lg:py-0 h-full bg-[#2A3E34] rounded-b-3xl lg:rounded-b-none lg:rounded-e-3xl flex flex-col justify-center gap-10 items-center text-center  text-white">
+                            <p className="text-4xl font-extrabold">!تواصل معنا</p>
+                            <p className="text-2xl">للحصول على الدعم والإجابة على جميع استفساراتك</p>
+                            <Button
+                                onClick={() => {
+                                    window.open("https://wa.me/+201126569556", "_blank").focus()
+                                }}
+                                className="rounded-full bg-white text-[#466746] hover:bg-[#e3eee3] text-xl font-extrabold  w-fit px-10"
+                            >
+                                اتصل بنا
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
                 <ChatEmbed></ChatEmbed>
+            </div>
         </div>
     )
 }

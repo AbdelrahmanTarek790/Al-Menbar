@@ -1,16 +1,13 @@
-import { SideBarLearn } from "@/components/SideBarLearn"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { useStore } from "@/context/storeContext"
 import { Subjects } from "@/data"
-import { deleteMethod, getMethod, patchMethod, postMethod } from "@/utils/ApiMethods"
+import { deleteMethod, patchMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
-import { CornerTopRightIcon } from "@radix-ui/react-icons"
-import { set } from "date-fns"
 import { CornerRightUpIcon, DeleteIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useToast } from "../ui/use-toast"
 export const LearnDetails = ({ items }) => {
     const { state, setState } = useStore()
