@@ -59,9 +59,9 @@ export const NavBar = () => {
                                     <Link to={"/profile/certifications"}>
                                         <DropdownMenuItem className=" justify-end hover:cursor-pointer">شهاداتي</DropdownMenuItem>
                                     </Link>
-                                    {/* <Link to={"/profile/degrees"}>
+                                    <Link to={"/profile/degrees"}>
                                         <DropdownMenuItem className=" justify-end hover:cursor-pointer">درجات الاختبارات</DropdownMenuItem>
-                                    </Link> */}
+                                    </Link>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem
                                         onClick={() => {
@@ -85,7 +85,7 @@ export const NavBar = () => {
                             >
                                 إنشاء حساب
                             </Link>
-                            <Link to="/login" className="text-xl font-semibold font-cairo">
+                            <Link to="/login" className="text-xl font-semibold font-cairo hover:scale-110">
                                 تسجيل الدخول
                             </Link>
                         </div>
@@ -166,7 +166,7 @@ export const NavBar = () => {
                                 of={ListLogged}
                                 render={(item, index) => (
                                     <Link to={item.url} key={index} className="flex items-center gap-2">
-                                        <span className="text-xl font-semibold font-cairo hover:text-[#aee9cc] transition-all">{item.text}</span>
+                                        <span className="text-xl font-semibold font-cairo hover:scale-110 transition-all">{item.text}</span>
                                     </Link>
                                 )}
                             ></Each>
@@ -176,7 +176,7 @@ export const NavBar = () => {
                                 of={ListLoggedOut}
                                 render={(item, index) => (
                                     <Link to={item.url} key={index} className="flex items-center gap-2">
-                                        <span className="text-xl font-semibold font-cairo hover:text-[#aee9cc] transition-all">{item.text}</span>
+                                        <span className="text-xl font-semibold font-cairo hover:scale-110 transition-all">{item.text}</span>
                                     </Link>
                                 )}
                             ></Each>
