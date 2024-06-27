@@ -218,6 +218,7 @@ export const HomeLoggedOut = () => {
                     </div>
                 </div>
             </div>
+                <ChatEmbed></ChatEmbed>
         </div>
     )
 }
