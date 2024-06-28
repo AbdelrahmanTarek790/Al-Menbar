@@ -53,8 +53,8 @@ export const HomeLogged = () => {
     }, [])
 
     return (
-        <div className="overflow-hidden " >
-<ChatEmbed></ChatEmbed>
+        <div className="overflow-hidden ">
+            <ChatEmbed></ChatEmbed>
             <div className="flex justify-center lg:justify-evenly font-cairo item-center mt-16 relative">
                 <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   top-[-400px] origin-center" />
                 {/* <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   bottom-[-400px] origin-center" /> */}
@@ -83,7 +83,7 @@ export const HomeLogged = () => {
                                 <p className="text-lg lg:text-xl mt-4 font-bold">{item.book.title}</p>
                                 <p className="text-base lg:text-lg mt-2 font-bold">{Subjects[item.subject]}</p>
                                 <p className="text-xs lg:text-base mt-1 md:ml-5 mb-4">{item.description}</p>
-                                <Link to={`/courses/${item.id}`}>
+                                <Link to={`/courses/${item._id}`}>
                                     <Button className="rounded-full bg-white text-base text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4">
                                         ادرس الان
                                     </Button>

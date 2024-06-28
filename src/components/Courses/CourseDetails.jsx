@@ -16,11 +16,10 @@ export const CourseDetails = ({ items }) => {
 
     useEffect(() => {
         setItems(items)
-        console.log(items)
-        console.log(lectures)
+
         getMethod(`/students/${items.id}/stats`, localStorage.getItem("token")).then((res) => {
             setLectures(res.data.courseStat.lectureStats)
-            console.log()
+            console.log(res.data.courseStat)
         })
     }, [items])
     return (

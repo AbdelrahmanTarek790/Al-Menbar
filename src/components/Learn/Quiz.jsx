@@ -18,11 +18,9 @@ export const Quiz = ({ items, reload }) => {
     const [courseStat, setCourseStat] = useState({})
     useEffect(() => {
         setData(items)
-        console.log(items)
 
         if (items.course.id) {
             getMethod(`/students/${items.course.id}/stats`, localStorage.getItem("token")).then((res) => {
-                console.log(res.data.courseStat)
                 setCourseStat(res.data.courseStat)
                 setCurrentLesson(res.data.courseStat.lectureStats.filter((item) => item.lecture.id === id)[0])
             })
@@ -65,7 +63,10 @@ export const Quiz = ({ items, reload }) => {
                     <p className="">الدرجة</p>
                     <p className="text-lg">
                         {/* {courseStat.lectureStats[0].latestQuizScore}/{courseStat.lectureStats[0].bestQuizScore} */}
-                        {items.quiz.length > 0 ? (items.quiz[0].scoreFrom ? items.quiz[0].scoreFrom : 0) : 0}/
+                        {currentLesson?.latestQuizGrade?.lectureQuizzesGrades?.length
+                            ? currentLesson?.latestQuizGrade.lectureQuizzesGrades.length
+                            : 0}
+                        {/* {items.quiz.length > 0 ? (items.quiz[0].scoreFrom ? items.quiz[0].scoreFrom : 0) : 0}/ */} /{" "}
                         {currentLesson?.bestQuizScore ? currentLesson?.bestQuizScore : 0}
                     </p>
                 </div>

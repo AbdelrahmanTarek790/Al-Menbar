@@ -44,27 +44,31 @@ export const QuizPage = () => {
         lectureQuizzesGrades: [],
     })
     const [isSubmitted, setIsSubmitted] = useState(false)
+    const [nextLecture, setNextLecture] = useState("")
 
     useEffect(() => {
         getMethod(`/lectures/${id}`, localStorage.getItem("token")).then((res) => {
             setData(res.data)
-            console.log(res)
+        
         })
         getMethod(`/lectures/${id}/quiz/`, localStorage.getItem("token")).then((res) => {
             setQuizes(res.data[0])
             setAnswers({ ...answers, scoreFrom: res.data[0].scoreFrom, durationInMins: res.data[0].durationInMins })
         })
+       
     }, [])
 
     const submitAnswers = () => {
         setReload(true)
-
+       
         postMethod(`/lectures/${id}/quiz/answers/submit`, answers, localStorage.getItem("token")).then((res) => {
             setReload(false)
+           
             if (res.status === "Success") {
                 setIsSubmitted(true)
 
-                setFinalAnswers(res.data.lectureQuizzesGrades)
+                setFinalAnswers(res.data.answer ? res.data.answer.lectureQuizzesGrades : res.data.lectureQuizzesGrades)
+                setNextLecture(res.data.nextLecture ? res.data.nextLecture.lecture._id : undefined)
                 setShowAnswers(true)
             }
         })
@@ -125,7 +129,17 @@ export const QuizPage = () => {
                 </Show>
                 <Show>
                     <Show.When
-                        isTrue={showAnswers}
+                        isTrue={showAnswers && nextLecture !== undefined}
+                        children={
+                            <div className="flex   gap-4 w-full items-center mt-10">
+                                <Link to={`/learn/${nextLecture}`}>
+                                    <Button className="mt-4">اذهب الى المحاضرة التالية</Button>
+                                </Link>
+                            </div>
+                        }
+                    ></Show.When>
+                    <Show.When
+                        isTrue={showAnswers && nextLecture === undefined}
                         children={
                             <div className="flex   gap-4 w-full items-center mt-10">
                                 <Link to={`/learn/${id}`}>
@@ -225,9 +239,12 @@ const QuizAnswer = ({ finalAnswers }) => {
                     <div className="w-full border-2 border-primary rounded-xl mt-4">
                         <div className="flex justify-between items-center">
                             <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-sm font-bold mt-6 mb-4 ml-5`}>
-                                {item.correct ? "اجابه صحيحة" : "اجابة خاطئة"}
+                                {item.correct ? "اجابه صحيحة" : `الاجابة الصحيحة: ${item.mcq.choices[item.mcq.answer]}`}
                             </p>
-                            <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-lg font-bold mt-6 mb-4 mr-5`} style={{direction:"rtl"}}>
+                            <p
+                                className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-lg font-bold mt-6 mb-4 mr-5`}
+                                style={{ direction: "rtl" }}
+                            >
                                 {index + 1} - {item.mcq.question}
                             </p>
                         </div>

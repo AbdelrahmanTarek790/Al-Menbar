@@ -5,14 +5,14 @@ import { Subjects } from "@/data"
 import { deleteMethod, patchMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
-import { CornerRightUpIcon, DeleteIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
+import { BadgeCheck, CornerRightUpIcon, DeleteIcon, MinusIcon, PlusIcon, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useToast } from "../ui/use-toast"
 export const LearnDetails = ({ items }) => {
     const { state, setState } = useStore()
     const navigate = useNavigate()
-    const {toast} = useToast()
+    const { toast } = useToast()
     const { id } = useParams()
     const [data, setData] = useState({
         course: {
@@ -33,8 +33,8 @@ export const LearnDetails = ({ items }) => {
 
     useEffect(() => {
         setData(items)
-        console.log(items);
-        console.log(data);
+        console.log(items)
+        console.log(data)
     }, [items])
 
     return (
@@ -66,17 +66,16 @@ export const LearnDetails = ({ items }) => {
             <div className="flex flex-col items-center  w-full">
                 <Button
                     className="px-14 mt-3 text-lg"
-                    disabled={data.quiz.length === 0}
-                    variant={data.quiz.length === 0 ? "destructive" : "default"}
+                    disabled={!data.quiz}
+                    variant={!data.quiz ? "destructive" : "default"}
                     onClick={() => {
-                        if (data.quiz.length === 0) {
-                           
+                        if (!data.quiz) {
                             return
                         }
                         navigate(`/learn/${id}/quiz`)
                     }}
                 >
-                    {data.quiz.length > 0 ? "الاختبار الاسبوعي" : "لا يوجد اختبار"}
+                    {data.quiz ? "الاختبار الاسبوعي" : "لا يوجد اختبار"}
                 </Button>
                 <p>الاختبار الاسبوعي الاول</p>
             </div>
@@ -121,7 +120,11 @@ export const LearnDetails = ({ items }) => {
                                         className="text-right"
                                     ></Textarea>
                                     <img
-                                        src={state.photo ? state.photo : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
+                                        src={
+                                            state.photo
+                                                ? state.photo
+                                                : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"
+                                        }
                                         width={36}
                                         height={36}
                                         alt="Avatar"
@@ -143,7 +146,11 @@ export const LearnDetails = ({ items }) => {
                                     className="text-right"
                                 ></Textarea>
                                 <img
-                                    src={state.photo ? state.photo : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"}
+                                    src={
+                                        state.photo
+                                            ? state.photo
+                                            : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-370-456322.png?f=webp&w=256"
+                                    }
                                     width={36}
                                     height={36}
                                     alt="Avatar"
@@ -228,12 +235,16 @@ export const LearnDetails = ({ items }) => {
                                             className="overflow-hidden rounded-full w-10 h-10 ml-2"
                                         />
 
-                                        <p className="text-primary font-bold">
+                                        <p className=" font-bold flex items-center gap-1">
                                             {item.teacher
                                                 ? item.teacher.Fname + " " + item.teacher.Lname
                                                 : item.student
                                                 ? item.student.Fname + " " + item.student.Lname
                                                 : "Ahmed Mohesn"}
+                                            <Show.When
+                                                isTrue={item.teacher}
+                                                children={<BadgeCheck size={18} color="white" fill="blue"></BadgeCheck>}
+                                            ></Show.When>
                                         </p>
                                     </div>
                                     <div className="flex justify-start gap-3">
@@ -335,12 +346,16 @@ export const LearnDetails = ({ items }) => {
                                                             className="overflow-hidden rounded-full w-10 h-10 ml-2"
                                                         />
 
-                                                        <p className="text-primary font-bold">
+                                                        <p className=" font-bold flex items-center gap-1">
                                                             {item.teacher
                                                                 ? item.teacher.Fname + " " + item.teacher.Lname
                                                                 : item.student
                                                                 ? item.student.Fname + " " + item.student.Lname
                                                                 : "Ahmed Mohesn"}
+                                                            <Show.When
+                                                                isTrue={item.teacher}
+                                                                children={<BadgeCheck size={18} color="white" fill="blue"></BadgeCheck>}
+                                                            ></Show.When>
                                                         </p>
                                                     </div>
                                                     <div className="flex justify-start gap-3">

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/components/ui/use-toast"
 import { Subjects } from "@/data"
 import { getMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
@@ -214,7 +215,7 @@ export const FinalExam = () => {
                 </Show>
                 <Show>
                     <Show.When
-                        isTrue={showAnswers&&passed}
+                        isTrue={showAnswers && passed}
                         children={
                             <div className="flex   gap-4 w-full items-center mt-10">
                                 <Link to={`/profile/certifications`}>
@@ -223,15 +224,12 @@ export const FinalExam = () => {
                             </div>
                         }
                     ></Show.When>
-                      <Show.When
-                        isTrue={showAnswers&&!passed}
-
+                    <Show.When
+                        isTrue={showAnswers && !passed}
                         children={
                             <div className="flex   gap-4 w-full items-center mt-10">
-                               <Link to={`/courses/${courseStat.course}`}>
-                                    <Button >
-                                        الذهاب الي  الدرس
-                                    </Button>
+                                <Link to={`/courses/${courseStat.course}`}>
+                                    <Button>الذهاب الي الدرس</Button>
                                 </Link>
                             </div>
                         }
@@ -322,9 +320,7 @@ export const FinalExam = () => {
                             <p className="text-primary text-lg mt-4">الدرجة: {finalAnswers.score}</p>
                             <div className="flex   gap-4 w-full justify-center items-center mt-10">
                                 <Link to={`/courses/${courseStat.course}`}>
-                                    <Button >
-                                        الذهاب الي  الدرس
-                                    </Button>
+                                    <Button>الذهاب الي الدرس</Button>
                                 </Link>
                                 <Button
                                     onClick={() => {
@@ -345,6 +341,7 @@ export const FinalExam = () => {
 
 const QuizAnswer = ({ finalAnswers }) => {
     console.log(finalAnswers)
+    const { toast } = useToast()
     return (
         <div className="w-full">
             <p className="text-3xl font-bold text-primary"> نتائج الاختبار</p>
@@ -356,10 +353,11 @@ const QuizAnswer = ({ finalAnswers }) => {
                             <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-lg font-bold mt-6 mb-4 mr-5`}>
                                 {index + 1} - {item.mcq.question}
                             </p>
-
-                            <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-sm font-bold mt-6 mb-4 ml-5`}>
-                                {item.correct ? "اجابه صحيحة" : "اجابة خاطئة"}
-                            </p>
+                            <div>
+                                <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-sm font-bold mt-6 mb-4 ml-5`}>
+                                    {item.correct ? "اجابه صحيحة" : `الاجابة الصحيحة: ${item.mcq.choices[item.mcq.answer]}`}
+                                </p>
+                            </div>
                         </div>
                         <RadioGroup defaultValue={item.answer} className="mr-5 mb-5" value={item.answer}>
                             <Each
@@ -392,7 +390,31 @@ const QuizAnswer = ({ finalAnswers }) => {
                             <p className={` text-[#2A3E34]  text-lg font-bold mt-6 mb-4 mr-5`}>
                                 {index + 1} - {item.meq.question}
                             </p>
-                            <p className="text-sm font-bold mt-6 mb-4 ml-5">5 / {item.scoreByAi}</p>
+                            <div className="flex items-center ml-5">
+                                <p className="text-sm font-bold mt-6 mb-4 ml-5">5 / {item.scoreByAi}</p>
+                                {/* report the answer */}
+                                <Button
+                                    className="text-xs "
+                                    onClick={() => {
+                                        console.log(item)
+                                        postMethod(`/reports/create/${item.id}`, {}, localStorage.getItem("token")).then((res) => {
+                                            console.log(res)
+                                            if (res.status === "Success") {
+                                                toast({
+                                                    title: "تم ارسال التقرير بنجاح",
+                                                })
+                                            } else {
+                                                toast({
+                                                    title: "حدث خطأ اثناء ارسال التقرير",
+                                                    variant: "destructive",
+                                                })
+                                            }
+                                        })
+                                    }}
+                                >
+                                    تقرير
+                                </Button>
+                            </div>
                         </div>
                         <Input
                             value={item.answer}
