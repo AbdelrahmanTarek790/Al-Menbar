@@ -83,7 +83,7 @@ export const HomeLogged = () => {
                                 <p className="text-lg lg:text-xl mt-4 font-bold">{item.book.title}</p>
                                 <p className="text-base lg:text-lg mt-2 font-bold">{Subjects[item.subject]}</p>
                                 <p className="text-xs lg:text-base mt-1 md:ml-5 mb-4">{item.description}</p>
-                                <Link to={`/courses/${item}`}>
+                                <Link to={`/courses/${item.id}`}>
                                     <Button className="rounded-full bg-white text-base text-primary font-cairo   font-bold px-10 hover:bg-[#cde2d7]  mb-4">
                                         ادرس الان
                                     </Button>
