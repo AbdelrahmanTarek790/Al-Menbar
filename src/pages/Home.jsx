@@ -227,8 +227,8 @@ export const HomeLoggedOut = () => {
                     </div>
                 </div>
                 {/* <ChatEmbed></ChatEmbed> */}
-                <ChatEmbed/>
             </div>
+            <ChatEmbed/>
         </div>
     )
 }
