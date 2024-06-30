@@ -438,18 +438,18 @@ const QuizAnswer = ({ finalAnswers }) => {
                                             console.log(res)
                                             if (res.status === "Success") {
                                                 toast({
-                                                    title: "تم ارسال التقرير بنجاح",
+                                                    title: "تم ارسال البلاغ بنجاح",
                                                 })
                                             } else {
                                                 toast({
-                                                    title: "حدث خطأ اثناء ارسال التقرير",
+                                                    title: "حدث خطأ اثناء ارسال البلاغ",
                                                     variant: "destructive",
                                                 })
                                             }
                                         })
                                     }}
                                 >
-                                    تقرير
+                                    إبلاغ
                                 </Button>
                             </div>
                         </div>
