@@ -73,7 +73,7 @@ export const FinalExam = () => {
     }, [])
 
     const submitAnswers = () => {
-        // setReload(true)
+        setReload(true)
         let mcqs = []
         let meqs = []
 
