@@ -28,13 +28,11 @@ export const MyProfile = () => {
         setData({ ...data, birthDate: dateString })
     }
     const submitHandler = () => {
-        console.log(data)
         patchMethod("/students/update-me", data, state.token).then((res) => {
             if (res.status === "Success") {
                 setActive(!active)
                 setState({ ...data, token: state.token, isLoggedIn: true })
             }
-            console.log(res)
         })
     }
     return (
@@ -155,21 +153,33 @@ export const MyProfile = () => {
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    {/* <Input
-                        id="country"
-                        placeholder="الدولة"
-                        className=" text-right"
-                        onChange={(e) => {
-                            setData({ ...data, country: e.target.value })
-                        }}
-                        disabled={active}
-                        defaultValue={data.country}
-                        required
-                    /> */}
                 </div>
-                <div className="grid gap-2">
+                <div className="grid  gap-2">
                     <Label htmlFor="natunality">الجنسية</Label>
-                    <Input id="natunality" placeholder="الجنسية" className=" text-right" disabled={active} defaultValue={data.city} required />
+
+                    <Select
+                        disabled={active}
+                        value={data.nationality}
+                        onValueChange={(e) => {
+                            setData({ ...data, nationality: e })
+                        }}
+                    >
+                        <SelectTrigger className="h-10 w-full px-3 py-2 min-w-[185px]">
+                            <SelectValue id="mariage-state" placeholder="الجنسية" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <Each
+                                    of={planetpulse.getAllCountries()}
+                                    render={(country, index) => (
+                                        <SelectItem defaultValue={country.name} value={country.name}>
+                                            {country.name}
+                                        </SelectItem>
+                                    )}
+                                ></Each>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4  text-right  mt-4">

@@ -9,9 +9,10 @@ import { getMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
 import { Show } from "@/utils/Show"
 import { DialogTrigger } from "@radix-ui/react-dialog"
+import { Item } from "@radix-ui/react-dropdown-menu"
 import { CornerTopRightIcon } from "@radix-ui/react-icons"
 import { set } from "date-fns"
-import { CornerRightUpIcon, ReplyIcon } from "lucide-react"
+import { CornerRightUpIcon, Loader, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 
@@ -45,28 +46,43 @@ export const QuizPage = () => {
     })
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [nextLecture, setNextLecture] = useState("")
+    const [isReload, setIsReload] = useState(true)
 
     useEffect(() => {
         getMethod(`/lectures/${id}`, localStorage.getItem("token")).then((res) => {
             setData(res.data)
-        
         })
         getMethod(`/lectures/${id}/quiz/`, localStorage.getItem("token")).then((res) => {
             setQuizes(res.data[0])
-            setAnswers({ ...answers, scoreFrom: res.data[0].scoreFrom, durationInMins: res.data[0].durationInMins })
+            setAnswers({
+                ...answers,
+                scoreFrom: res.data[0].scoreFrom,
+                durationInMins: res.data[0].durationInMins,
+                lectureQuizzesGrades: [...res.data[0].mcq.map((item) => ({ mcq: item.id, answer: 6 }))],
+            })
+
+            setIsReload(false)
         })
-       
     }, [])
 
     const submitAnswers = () => {
-        setReload(true)
-       
+        // setReload(true)
+        // console.log(.forEach((item) => console.log(item)))
+        // console.log(answers.lectureQuizzesGrades)
+        // // for (let index = 0; index < answers.lectureQuizzesGrades.length; index++) {
+        // //     if (answers.lectureQuizzesGrades[index] === undefined ) {
+        // //         let newAnswers = answers.lectureQuizzesGrades
+        // //         newAnswers[index] = { mcq: quizes.mcq[index].id, answer: 6 }
+        // //         setAnswers({ ...answers, lectureQuizzesGrades: newAnswers })
+        // //         console.log(newAnswers)
+        // //     }
+        // // }
+
         postMethod(`/lectures/${id}/quiz/answers/submit`, answers, localStorage.getItem("token")).then((res) => {
             setReload(false)
-           
+
             if (res.status === "Success") {
                 setIsSubmitted(true)
-
                 setFinalAnswers(res.data.answer ? res.data.answer.lectureQuizzesGrades : res.data.lectureQuizzesGrades)
                 setNextLecture(res.data.nextLecture ? res.data.nextLecture.lecture._id : undefined)
                 setShowAnswers(true)
@@ -86,138 +102,139 @@ export const QuizPage = () => {
                     يحتوي هذا الاختبار على {quizes.mcq?.length} اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ.
                 </p>
                 <Show>
-                    <Show.When isTrue={showAnswers} children={<QuizAnswer finalAnswers={finalAnswers}></QuizAnswer>}></Show.When>
+                    <Show.When
+                        isTrue={isReload}
+                        children={
+                            <div className="w-full flex justify-center">
+                                <Loader size={32} className="animate-spin" />
+                            </div>
+                        }
+                    ></Show.When>
                     <Show.Else
                         children={
-                            <Each
-                                of={quizes.mcq}
-                                render={(item, index) => (
-                                    <div className="w-full border-2 border-primary rounded-xl mt-4">
-                                        <p className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5" style={{ direction: "rtl" }}>
-                                            {index + 1}- {item.question}
-                                        </p>
-                                        <RadioGroup
-                                            defaultValue={6}
-                                            value={answers.lectureQuizzesGrades[index]?.answer >= 0 ? answers.lectureQuizzesGrades[index].answer : -1}
-                                            onValueChange={(e) => {
-                                                // console.log(item.id);
-                                                //find the index of the item in the array and update the answer
-                                                let newAnswers = answers.lectureQuizzesGrades
-                                                newAnswers[index] = { mcq: item.id, answer: e }
-                                                setAnswers({ ...answers, lectureQuizzesGrades: newAnswers })
-                                                console.log(answers)
-                                            }}
-                                            className="mr-5 mb-5"
-                                        >
+                            <div className="w-full">
+                                <Show>
+                                    <Show.When isTrue={showAnswers} children={<QuizAnswer finalAnswers={finalAnswers}></QuizAnswer>}></Show.When>
+                                    <Show.Else
+                                        children={
                                             <Each
-                                                of={item.choices}
-                                                render={(choice, index) => (
-                                                    <div className="flex flex-row-reverse items-center justify-start gap-3 space-x-2">
-                                                        <RadioGroupItem value={index} id={`r${item._id}_${index}`} />
-                                                        <Label className="text-primary text-base" htmlFor={`r${item._id}_${index}`}>
-                                                            {choice}
-                                                        </Label>
+                                                of={quizes.mcq}
+                                                render={(item, index) => (
+                                                    <div className="w-full border-2 border-primary rounded-xl mt-4">
+                                                        <p className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5" style={{ direction: "rtl" }}>
+                                                            {index + 1}- {item.question}
+                                                        </p>
+                                                        <RadioGroup
+                                                            defaultValue={6}
+                                                            value={
+                                                                answers.lectureQuizzesGrades[index]?.answer >= 0
+                                                                    ? answers.lectureQuizzesGrades[index].answer
+                                                                    : -1
+                                                            }
+                                                            onValueChange={(e) => {
+                                                                // console.log(item.id);
+                                                                //find the index of the item in the array and update the answer
+                                                                let newAnswers = answers.lectureQuizzesGrades
+                                                                newAnswers[index] = { mcq: item.id, answer: e }
+                                                                setAnswers({ ...answers, lectureQuizzesGrades: newAnswers })
+                                                                console.log(answers)
+                                                            }}
+                                                            className="mr-5 mb-5"
+                                                        >
+                                                            <Each
+                                                                of={item.choices}
+                                                                render={(choice, index) => (
+                                                                    <div className="flex flex-row-reverse items-center justify-start gap-3 space-x-2">
+                                                                        <RadioGroupItem value={index} id={`r${item._id}_${index}`} />
+                                                                        <Label className="text-primary text-base" htmlFor={`r${item._id}_${index}`}>
+                                                                            {choice}
+                                                                        </Label>
+                                                                    </div>
+                                                                )}
+                                                            ></Each>
+                                                        </RadioGroup>
                                                     </div>
                                                 )}
                                             ></Each>
-                                        </RadioGroup>
-                                    </div>
-                                )}
-                            ></Each>
-                        }
-                    ></Show.Else>
-                </Show>
-                <Show>
-                    <Show.When
-                        isTrue={showAnswers && nextLecture !== undefined}
-                        children={
-                            <div className="flex   gap-4 w-full items-center mt-10">
-                                <Link to={`/learn/${nextLecture}`}>
-                                    <Button className="mt-4">اذهب الى المحاضرة التالية</Button>
-                                </Link>
-                            </div>
-                        }
-                    ></Show.When>
-                    <Show.When
-                        isTrue={showAnswers && nextLecture === undefined}
-                        children={
-                            <div className="flex   gap-4 w-full items-center mt-10">
-                                <Link to={`/learn/${id}`}>
-                                    <Button className="mt-4">العودة الى المحاضرة</Button>
-                                </Link>
-                            </div>
-                        }
-                    ></Show.When>
-                    <Show.Else
-                        children={
-                            <div className="flex   gap-4 w-full items-center mt-10">
-                                <Button className=" " disabled={reload} onClick={submitAnswers}>
-                                    ارسال الاجابات
-                                </Button>
-                                <Dialog
-                                    open={open}
-                                    onOpenChange={() => {
-                                        setOpen(!open)
-                                    }}
-                                >
-                                    <DialogTrigger asChild>
-                                        <p
-                                            className="cursor-pointer text-primary text-base font-bold hover:underline"
-                                            // onClick={() => {
-                                            //     setAnswers({ ...answers, lectureQuizzesGrades: [] })
-                                            // }}
-                                        >
-                                            حذف جميع الاجابات
-                                        </p>
-                                    </DialogTrigger>
-                                    <DialogContent>
-                                        <p className="text-primary font-bold text-lg">حذف جميع الاجابات؟</p>
-                                        <DialogDescription className="text-right    ">
-                                            هل انت متأكد من أنك تريد حذف جميع الاجابات من الاسئلة؟ لا يمكن التراجع عن هذه العملية.
-                                        </DialogDescription>
-                                        <div className="flex gap-6">
-                                            <Button
-                                                variant="secondary"
-                                                onClick={() => {
-                                                    setOpen(false)
-                                                }}
-                                            >
-                                                لا، الغاء
-                                            </Button>
-                                            <Button
-                                                variant="destructive"
-                                                onClick={() => {
-                                                    setAnswers({
-                                                        ...answers,
-                                                        lectureQuizzesGrades: [],
-                                                    })
-                                                    setOpen(false)
-                                                }}
-                                            >
-                                                نعم، حذف
-                                            </Button>
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
-
-                                {/* <Dialog
-                        open={isSubmitted}
-                        onOpenChange={() => {
-                         
-                            navigate(`/learn/${id}`)
-                        }}
-                    >
-                        <DialogContent>
-                            <div className="flex flex-col items-center justify-center">
-                             
-                                <p className="text-primary text-2xl font-bold mt-4">شكرا لك على تقديم الاجابات</p>
-                                <p className="text-primary text-lg mt-4">سيتم تقديم النتائج في اقرب وقت</p>
-                                <Link to={`/learn/${id}`}>
-                                    <Button className="mt-4">العودة الى المحاضرة</Button>
-                                </Link>
-                            </div>
-                        </DialogContent>
-                    </Dialog> */}
+                                        }
+                                    ></Show.Else>
+                                </Show>
+                                <Show>
+                                    <Show.When
+                                        isTrue={showAnswers && nextLecture !== undefined}
+                                        children={
+                                            <div className="flex   gap-4 w-full items-center mt-10">
+                                                <Link to={`/learn/${nextLecture}`}>
+                                                    <Button className="mt-4">اذهب الى المحاضرة التالية</Button>
+                                                </Link>
+                                            </div>
+                                        }
+                                    ></Show.When>
+                                    <Show.When
+                                        isTrue={showAnswers && nextLecture === undefined}
+                                        children={
+                                            <div className="flex   gap-4 w-full items-center mt-10">
+                                                <Link to={`/learn/${id}`}>
+                                                    <Button className="mt-4">العودة الى المحاضرة</Button>
+                                                </Link>
+                                            </div>
+                                        }
+                                    ></Show.When>
+                                    <Show.Else
+                                        children={
+                                            <div className="flex   gap-4 w-full items-center mt-10">
+                                                <Button className=" " disabled={reload} onClick={submitAnswers}>
+                                                    ارسال الاجابات
+                                                </Button>
+                                                <Dialog
+                                                    open={open}
+                                                    onOpenChange={() => {
+                                                        setOpen(!open)
+                                                    }}
+                                                >
+                                                    <DialogTrigger asChild>
+                                                        <p
+                                                            className="cursor-pointer text-primary text-base font-bold hover:underline"
+                                                            onClick={() => {
+                                                                setAnswers({ ...answers, lectureQuizzesGrades: [] })
+                                                            }}
+                                                        >
+                                                            حذف جميع الاجابات
+                                                        </p>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <p className="text-primary font-bold text-lg">حذف جميع الاجابات؟</p>
+                                                        <DialogDescription className="text-right    ">
+                                                            هل انت متأكد من أنك تريد حذف جميع الاجابات من الاسئلة؟ لا يمكن التراجع عن هذه العملية.
+                                                        </DialogDescription>
+                                                        <div className="flex gap-6">
+                                                            <Button
+                                                                variant="secondary"
+                                                                onClick={() => {
+                                                                    setOpen(false)
+                                                                }}
+                                                            >
+                                                                لا، الغاء
+                                                            </Button>
+                                                            <Button
+                                                                variant="destructive"
+                                                                onClick={() => {
+                                                                    setAnswers({
+                                                                        ...answers,
+                                                                        lectureQuizzesGrades: [],
+                                                                    })
+                                                                    setOpen(false)
+                                                                }}
+                                                            >
+                                                                نعم، حذف
+                                                            </Button>
+                                                        </div>
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </div>
+                                        }
+                                    ></Show.Else>
+                                </Show>
                             </div>
                         }
                     ></Show.Else>

@@ -13,12 +13,13 @@ import { Show } from "@/utils/Show"
 import { DialogTrigger } from "@radix-ui/react-dialog"
 import { CornerTopRightIcon } from "@radix-ui/react-icons"
 import { set } from "date-fns"
-import { CornerRightUpIcon, ReplyIcon } from "lucide-react"
+import { CornerRightUpIcon, Loader, ReplyIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 
 export const FinalExam = () => {
     const { id } = useParams()
+    const { toast } = useToast()
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     const [showAnswers, setShowAnswers] = useState(false)
@@ -62,11 +63,12 @@ export const FinalExam = () => {
         lectureQuizzesGrades: [],
     })
     const [isSubmitted, setIsSubmitted] = useState(false)
-
+    const [isReload, setIsReload] = useState(true)
     useEffect(() => {
         getMethod(`/courses/${id}/final/`, localStorage.getItem("token")).then((res) => {
             console.log(res)
             setData(res.data)
+            setIsReload(false)
         })
     }, [])
 
@@ -91,6 +93,13 @@ export const FinalExam = () => {
                     answer: quizesAnswers.meqs[i].answer,
                 })
             }
+        }
+        if (mcqs.length != data.mcqs.length || meqs.length != data.meqs.length) {
+            toast({
+                title: "يجب الاجابة علي جميع الاسئلة",
+                variant: "destructive",
+            })
+            return
         }
         postMethod(
             `/courses/${id}/final/answers`,
@@ -138,150 +147,178 @@ export const FinalExam = () => {
                     يُسمح بتقديم هذا الاختبار ثلاث مرات فقط خلال فترة إتاحته، ويتم احتساب الدرجة الأعلى للطالب من بين تلك المحاولات.
                 </p>
                 <Show>
-                    <Show.When isTrue={showAnswers} children={<QuizAnswer finalAnswers={finalAnswers}></QuizAnswer>}></Show.When>
+                    <Show.When
+                        isTrue={isReload}
+                        children={
+                            <div className="w-full flex justify-center">
+                                <Loader size={32} className="animate-spin" />
+                            </div>
+                        }
+                    ></Show.When>
                     <Show.Else
                         children={
                             <div className="w-full">
-                                <Each
-                                    of={data?.mcqs}
-                                    render={(item, index) => (
-                                        <div className="w-full border-2 border-primary rounded-xl mt-4">
-                                            <p className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5" style={{ direction: "rtl" }}>
-                                                {index + 1}- {item.question}
-                                            </p>
-                                            <RadioGroup
-                                                defaultValue={6}
-                                                value={quizesAnswers.mcqs[index]?.answer >= 0 ? quizesAnswers.mcqs[index].answer : -1}
-                                                onValueChange={(e) => {
-                                                    setQuizeAnswers({
-                                                        mcqs: {
-                                                            ...quizesAnswers.mcqs,
-                                                            [index]: {
-                                                                mcq: item.id,
-                                                                answer: e,
-                                                            },
-                                                        },
-                                                        meqs: quizesAnswers.meqs,
-                                                    })
-                                                }}
-                                                className="mr-5 mb-5"
-                                            >
+                                <Show>
+                                    <Show.When isTrue={showAnswers} children={<QuizAnswer finalAnswers={finalAnswers}></QuizAnswer>}></Show.When>
+                                    <Show.Else
+                                        children={
+                                            <div className="w-full">
                                                 <Each
-                                                    of={item.choices}
-                                                    render={(choice, index) => (
-                                                        <div className="flex flex-row-reverse items-center justify-start gap-3 space-x-2">
-                                                            <RadioGroupItem value={index} id={`r${item._id}_${index}`} />
-                                                            <Label className="text-primary text-base" htmlFor={`r${item._id}_${index}`}>
-                                                                {choice}
-                                                            </Label>
+                                                    of={data?.mcqs}
+                                                    render={(item, index) => (
+                                                        <div className="w-full border-2 border-primary rounded-xl mt-4">
+                                                            <p
+                                                                className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5"
+                                                                style={{ direction: "rtl" }}
+                                                            >
+                                                                {index + 1}- {item.question}
+                                                            </p>
+                                                            <RadioGroup
+                                                                defaultValue={6}
+                                                                value={quizesAnswers.mcqs[index]?.answer >= 0 ? quizesAnswers.mcqs[index].answer : -1}
+                                                                onValueChange={(e) => {
+                                                                    setQuizeAnswers({
+                                                                        mcqs: {
+                                                                            ...quizesAnswers.mcqs,
+                                                                            [index]: {
+                                                                                mcq: item.id,
+                                                                                answer: e,
+                                                                            },
+                                                                        },
+                                                                        meqs: quizesAnswers.meqs,
+                                                                    })
+                                                                }}
+                                                                className="mr-5 mb-5"
+                                                            >
+                                                                <Each
+                                                                    of={item.choices}
+                                                                    render={(choice, index) => (
+                                                                        <div className="flex flex-row-reverse items-center justify-start gap-3 space-x-2">
+                                                                            <RadioGroupItem value={index} id={`r${item._id}_${index}`} />
+                                                                            <Label
+                                                                                className="text-primary text-base"
+                                                                                htmlFor={`r${item._id}_${index}`}
+                                                                            >
+                                                                                {choice}
+                                                                            </Label>
+                                                                        </div>
+                                                                    )}
+                                                                ></Each>
+                                                            </RadioGroup>
                                                         </div>
                                                     )}
                                                 ></Each>
-                                            </RadioGroup>
-                                        </div>
-                                    )}
-                                ></Each>
 
-                                <Each
-                                    of={data?.meqs}
-                                    render={(item, index) => (
-                                        <div className="w-full border-2 border-primary rounded-xl mt-4" style={{ direction: "rtl" }}>
-                                            <p className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5" style={{ direction: "rtl" }}>
-                                                {index + 1}- {item.question}
-                                            </p>
-                                            <Input
-                                                value={quizesAnswers.meqs[index]?.answer ? quizesAnswers.meqs[index].answer : ""}
-                                                placeholder="اكتب الاجابة هنا"
-                                                onChange={(e) => {
-                                                    setQuizeAnswers({
-                                                        mcqs: quizesAnswers.mcqs,
-                                                        meqs: {
-                                                            ...quizesAnswers.meqs,
-                                                            [index]: {
-                                                                meq: item.id,
-                                                                answer: e.target.value,
-                                                            },
-                                                        },
-                                                    })
-                                                }}
-                                                className="w-[97%] mx-auto border-2 border-primary rounded-xl p-2 my-2"
-                                            ></Input>
-                                        </div>
-                                    )}
-                                ></Each>
+                                                <Each
+                                                    of={data?.meqs}
+                                                    render={(item, index) => (
+                                                        <div className="w-full border-2 border-primary rounded-xl mt-4" style={{ direction: "rtl" }}>
+                                                            <p
+                                                                className="text-[#2A3E34] text-lg  font-bold mt-6 mb-4 mr-5"
+                                                                style={{ direction: "rtl" }}
+                                                            >
+                                                                {index + 1}- {item.question}
+                                                            </p>
+                                                            <Input
+                                                                value={quizesAnswers.meqs[index]?.answer ? quizesAnswers.meqs[index].answer : ""}
+                                                                placeholder="اكتب الاجابة هنا"
+                                                                onChange={(e) => {
+                                                                    setQuizeAnswers({
+                                                                        mcqs: quizesAnswers.mcqs,
+                                                                        meqs: {
+                                                                            ...quizesAnswers.meqs,
+                                                                            [index]: {
+                                                                                meq: item.id,
+                                                                                answer: e.target.value,
+                                                                            },
+                                                                        },
+                                                                    })
+                                                                }}
+                                                                className="w-[97%] mx-auto border-2 border-primary rounded-xl p-2 my-2"
+                                                            ></Input>
+                                                        </div>
+                                                    )}
+                                                ></Each>
+                                            </div>
+                                        }
+                                    ></Show.Else>
+                                </Show>
+                                <Show>
+                                    <Show.When
+                                        isTrue={showAnswers && passed}
+                                        children={
+                                            <div className="flex   gap-4 w-full items-center mt-10">
+                                                <Link to={`/profile/certifications`}>
+                                                    <Button className="mt-4"> الذهاب الي الشهادة </Button>
+                                                </Link>
+                                            </div>
+                                        }
+                                    ></Show.When>
+                                    <Show.When
+                                        isTrue={showAnswers && !passed}
+                                        children={
+                                            <div className="flex   gap-4 w-full items-center mt-10">
+                                                <Link to={`/courses/${courseStat.course}`}>
+                                                    <Button>الذهاب الي الدرس</Button>
+                                                </Link>
+                                            </div>
+                                        }
+                                    ></Show.When>
+                                    <Show.Else
+                                        children={
+                                            <div className="flex   gap-4 w-full items-center mt-10">
+                                                <Button className=" " disabled={reload} onClick={submitAnswers}>
+                                                    ارسال الاجابات
+                                                </Button>
+                                                <Dialog
+                                                    open={open}
+                                                    onOpenChange={() => {
+                                                        setOpen(!open)
+                                                    }}
+                                                >
+                                                    <DialogTrigger asChild>
+                                                        <p className="cursor-pointer text-primary text-base font-bold hover:underline">
+                                                            حذف جميع الاجابات
+                                                        </p>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <p className="text-primary font-bold text-lg">حذف جميع الاجابات؟</p>
+                                                        <DialogDescription className="text-right    ">
+                                                            هل انت متأكد من أنك تريد حذف جميع الاجابات من الاسئلة؟ لا يمكن التراجع عن هذه العملية.
+                                                        </DialogDescription>
+                                                        <div className="flex gap-6">
+                                                            <Button
+                                                                variant="secondary"
+                                                                onClick={() => {
+                                                                    setOpen(false)
+                                                                }}
+                                                            >
+                                                                لا، الغاء
+                                                            </Button>
+                                                            <Button
+                                                                variant="destructive"
+                                                                onClick={() => {
+                                                                    setQuizeAnswers({
+                                                                        mcqs: [],
+                                                                        meqs: [],
+                                                                    })
+                                                                    setOpen(false)
+                                                                }}
+                                                            >
+                                                                نعم، حذف
+                                                            </Button>
+                                                        </div>
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </div>
+                                        }
+                                    ></Show.Else>
+                                </Show>
                             </div>
                         }
                     ></Show.Else>
                 </Show>
-                <Show>
-                    <Show.When
-                        isTrue={showAnswers && passed}
-                        children={
-                            <div className="flex   gap-4 w-full items-center mt-10">
-                                <Link to={`/profile/certifications`}>
-                                    <Button className="mt-4"> الذهاب الي الشهادة </Button>
-                                </Link>
-                            </div>
-                        }
-                    ></Show.When>
-                    <Show.When
-                        isTrue={showAnswers && !passed}
-                        children={
-                            <div className="flex   gap-4 w-full items-center mt-10">
-                                <Link to={`/courses/${courseStat.course}`}>
-                                    <Button>الذهاب الي الدرس</Button>
-                                </Link>
-                            </div>
-                        }
-                    ></Show.When>
-                    <Show.Else
-                        children={
-                            <div className="flex   gap-4 w-full items-center mt-10">
-                                <Button className=" " disabled={reload} onClick={submitAnswers}>
-                                    ارسال الاجابات
-                                </Button>
-                                <Dialog
-                                    open={open}
-                                    onOpenChange={() => {
-                                        setOpen(!open)
-                                    }}
-                                >
-                                    <DialogTrigger asChild>
-                                        <p className="cursor-pointer text-primary text-base font-bold hover:underline">حذف جميع الاجابات</p>
-                                    </DialogTrigger>
-                                    <DialogContent>
-                                        <p className="text-primary font-bold text-lg">حذف جميع الاجابات؟</p>
-                                        <DialogDescription className="text-right    ">
-                                            هل انت متأكد من أنك تريد حذف جميع الاجابات من الاسئلة؟ لا يمكن التراجع عن هذه العملية.
-                                        </DialogDescription>
-                                        <div className="flex gap-6">
-                                            <Button
-                                                variant="secondary"
-                                                onClick={() => {
-                                                    setOpen(false)
-                                                }}
-                                            >
-                                                لا، الغاء
-                                            </Button>
-                                            <Button
-                                                variant="destructive"
-                                                onClick={() => {
-                                                    setQuizeAnswers({
-                                                        mcqs: [],
-                                                        meqs: [],
-                                                    })
-                                                    setOpen(false)
-                                                }}
-                                            >
-                                                نعم، حذف
-                                            </Button>
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
-                            </div>
-                        }
-                    ></Show.Else>
-                </Show>
+
                 <Dialog
                     open={isSubmitted && passed}
                     onOpenChange={() => {
@@ -311,7 +348,7 @@ export const FinalExam = () => {
                 <Dialog
                     open={isSubmitted && !passed}
                     onOpenChange={() => {
-                        navigate(`/learn/${id}`)
+                        setIsSubmitted(false)
                     }}
                 >
                     <DialogContent>
