@@ -235,7 +235,7 @@ export const LearnDetails = ({ items }) => {
                                             className="overflow-hidden rounded-full w-10 h-10 ml-2"
                                         />
 
-                                        <p className=" font-bold flex items-center gap-1">
+                                        <p className=" font-bold flex flex-row-reverse items-center gap-1">
                                             {item.teacher
                                                 ? item.teacher.Fname + " " + item.teacher.Lname
                                                 : item.student
@@ -281,7 +281,9 @@ export const LearnDetails = ({ items }) => {
                                         </Show>
                                     </div>
                                 </div>
-                                <p className="text-[#385044] pr-10">{item.text}</p>
+                                <p className="text-[#385044] pr-10" style={{ direction: "rtl" }}>
+                                    {item.text}
+                                </p>
                             </div>
                             <div className="flex flex-col items-center bg-[#F5F6FA] p-2 rounded-lg h-fit  gap-2">
                                 <PlusIcon
@@ -346,7 +348,7 @@ export const LearnDetails = ({ items }) => {
                                                             className="overflow-hidden rounded-full w-10 h-10 ml-2"
                                                         />
 
-                                                        <p className=" font-bold flex items-center gap-1">
+                                                        <p className=" font-bold flex flex-row-reverse items-center gap-1">
                                                             {item.teacher
                                                                 ? item.teacher.Fname + " " + item.teacher.Lname
                                                                 : item.student
@@ -405,7 +407,9 @@ export const LearnDetails = ({ items }) => {
                                                         </Show>
                                                     </div>
                                                 </div>
-                                                <p className="text-[#385044] pr-10">{item.text}</p>
+                                                <p className="text-[#385044]  pr-10" style={{ direction: "rtl" }}>
+                                                    {item.text}
+                                                </p>
                                             </div>
                                             <div className="flex flex-col items-center bg-[#F5F6FA] p-2 rounded-lg h-fit  gap-2">
                                                 <PlusIcon
