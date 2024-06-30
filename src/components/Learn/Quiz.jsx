@@ -37,13 +37,13 @@ export const Quiz = ({ items, reload }) => {
     ( ${data.name} ) الاختبار الاسبوعي علي محاضرة 
     `}</p>
             <div className="w-full h-[2px] mt-3 bg-[#385044] "></div>
-            <p className="text-primary text-xl mt-6">
+            <p dir="rtl" className="text-primary text-xl mt-6">
                 يحتوي هذا الاختبار على {items.quiz.length > 0 ? items.quiz[0].mcq.length : 0} اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ.
             </p>
-            <p className="text-primary text-xl">
+            <p dir="rtl" className="text-primary text-xl">
                 يُسمح بتقديم هذا الاختبار ثلات مرات فقط خلال فترة إتاحته، ويتم احتساب الدرجة الأعلى للطالب من بين تلك المحاولات.
             </p>
-            <p className="text-primary text-xl mb-6">درجة هذا الاختبار تسهم في درجة الطالب النهائية في المقرر بنسبة 10%.</p>
+            <p dir="rtl" className="text-primary text-xl mb-6">درجة هذا الاختبار تسهم في درجة الطالب النهائية في المقرر بنسبة 10%.</p>
             <div className="w-full h-[1px] mt-3 bg-[#385044] "></div>
             <div className="flex flex-col-reverse md:flex-row items-center justify-center md:justify-between w-full mt-6">
                 <div className=" text-center">
