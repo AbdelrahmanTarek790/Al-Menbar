@@ -7,7 +7,7 @@ const SupportContact = () => {
             <p className="text-center text-2xl lg:text-3xl mt-6 text-[#2A3E34]">محمد مساعدك الالي للدعم الفني والاكاديمي موجود هنا لمساعدتك</p>
 
             <iframe
-                src="https://www.chatbase.co/chatbot-iframe/AteBIBV12Zn_Ji3VWD_qz"
+                src="https://www.chatbase.co/chatbot-iframe/fJrHLEqumXUBgG7gduOn0"
                 width="100%"
                 className="mx-auto h-[90vh] max-h-[720px] rounded-lg mt-8 "
                 style={{ width: "95%", boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.1)" }}

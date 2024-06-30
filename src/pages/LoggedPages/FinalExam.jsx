@@ -143,8 +143,8 @@ export const FinalExam = () => {
                 <p className="text-primary text-lg font-bold mt-6 ">
                     يحتوي هذا الاختبار على {data.mcqs?.length} اسئلة فقط من نوع اختيار من متعدد أو صح وخطأ. و {data.meqs?.length} اسئلة من مقالي
                 </p>
-                <p dir="rtl" className="mb-6">
-                    ركز جيداً اثناء الحل. تنويه: يتم تصحيح الأسئلة المقالية بأستخدام الذكاء الاصطناعي.
+                <p className="mb-6">
+                    يُسمح بتقديم هذا الاختبار ثلاث مرات فقط خلال فترة إتاحته، ويتم احتساب الدرجة الأعلى للطالب من بين تلك المحاولات.
                 </p>
                 <Show>
                     <Show.When
@@ -438,18 +438,18 @@ const QuizAnswer = ({ finalAnswers }) => {
                                             console.log(res)
                                             if (res.status === "Success") {
                                                 toast({
-                                                    title: "تم ارسال البلاغ بنجاح",
+                                                    title: "تم ارسال التقرير بنجاح",
                                                 })
                                             } else {
                                                 toast({
-                                                    title: "حدث خطأ اثناء ارسال البلاغ",
+                                                    title: "حدث خطأ اثناء ارسال التقرير",
                                                     variant: "destructive",
                                                 })
                                             }
                                         })
                                     }}
                                 >
-                                    إبلاغ
+                                    تقرير
                                 </Button>
                             </div>
                         </div>
