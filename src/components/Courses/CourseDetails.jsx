@@ -19,7 +19,7 @@ export const CourseDetails = ({ items }) => {
 
         getMethod(`/students/${items.id}/stats`, localStorage.getItem("token")).then((res) => {
             setLectures(res.data.courseStat.lectureStats)
-            console.log(res.data.courseStat)
+            // console.log(res.data.courseStat)
         })
     }, [items])
     return (
@@ -42,16 +42,16 @@ export const CourseDetails = ({ items }) => {
                                     >
                                         {item.lecture.name}
                                     </Button>
-                                    <p>{item.lecture.description ? item.lecture.description : "التفاصيل غير متوفرة"}</p>
                                 </div>
                                 <Show>
-                                    <Show.When isTrue={item.done} children={<i className="fa-solid fa-circle-check text-2xl"></i>}></Show.When>
-                                    <Show.Else children={<i className="fa-regular fa-circle-check  text-2xl"></i>}></Show.Else>
+                                <Show.When isTrue={item.done} children={<i className="fa-solid fa-circle-check text-2xl"></i>}></Show.When>
+                                <Show.When isTrue={item.open} children={<i className="fa-regular fa-circle-check text-[#2A3E34] text-2xl"></i>}></Show.When>
+                                <Show.Else children={<i className="fa-regular fa-circle-check text-[#949e99] text-2xl"></i>}></Show.Else>
                                 </Show>
                             </div>
                         )
                     }}
-                ></Each>
+                ></Each> 
             </div>
         </div>
     )
