@@ -251,7 +251,7 @@ export const SignUp = () => {
                     />
                 </div>
 
-                <div className="flex justify-center gap-5 mt-10 mb-12">
+                <div className="flex justify-center gap-5 mt-10">
                     <Button
                         className="rounded-lg bg-white text-base text-[#466746] font-bold px-10 hover:bg-[#f6fffa]"
                         disabled={loading}
@@ -262,6 +262,12 @@ export const SignUp = () => {
                         </Show>
                         إنشاء حساب جديد
                     </Button>
+                </div>
+                <div className="flex justify-center gap-2 mt-8 mb-8">
+                    <Link to={"/login"} className="opacity-100">
+                        يمكنك تسجيل الدخول
+                    </Link>
+                    <span className="opacity-65">لديك حساب ؟</span>
                 </div>
             </div>
             <br />
