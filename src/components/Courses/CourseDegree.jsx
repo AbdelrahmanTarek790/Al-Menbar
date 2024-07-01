@@ -26,19 +26,22 @@ export const CourseDegree = ({ items }) => {
                         of={item.lectureStats}
                         render={(item, index) => {
                             return (
+                                <div>
                                 <div className="flex justify-between">
                                     <div className="ml-8 text-[#2A3E34] text-center">
                                         {/* النتيجه */}
-                                        <p>النتيجة</p>
+                                        <p>:النتيجة</p>
                                         <p>
-                                            ({item.latestQuizScore}/{item.bestQuizScore})
-                                        </p>
+                                        {item.latestQuizScore != null ? (
+                                        `(${item.latestQuizScore}/${item.bestQuizScore})`
+                                        ) : ('لم يُحل')}
+                                    </p>
                                     </div>
                                     <div className="mr-8 flex items-center justify-end gap-2 text-[#2A3E34]">
                                         <div>
-                                            <p className=" text-lg  font-bold">الاختبار الاسبوعي </p>
 
-                                            <p className=" text-lg  font-bold "> {item.lecture.name} على محاضرة</p>
+                                            <p dir="rtl" className=" text-lg  font-bold ">اختبار محاضرة: {item.lecture.name}  </p>
+                                            
                                             {/* <p>{item.lecture.description ? item.lecture.description : "التفاصيل غير متوفرة"}</p> */}
                                         </div>
                                         <Show>
@@ -50,6 +53,8 @@ export const CourseDegree = ({ items }) => {
                                         </Show>
                                     </div>
                                 </div>
+                                <div className="w-full h-[0.5px] mt-3 bg-[#385044] "></div>
+                                </div>
                             )
                         }}
                     ></Each>
@@ -59,12 +64,6 @@ export const CourseDegree = ({ items }) => {
                 <div className="w-full h-[2px] mt-3 bg-[#385044] "></div>
                 <p className="mr-8  mt-3">
                     مجموع الاختبارات المنتهية : {item.lectureStats.filter((item) => item.done).length} / {item.lectureStats.length}
-                </p>
-                <p className="mr-8">
-                    متوسط درجات الاختبارات :{" "}
-                    {item.lectureStats.length > 0
-                        ? item.lectureStats.reduce((acc, item) => acc + item.latestQuizScore, 0) / item.lectureStats.length
-                        : 0}{" "}
                 </p>
 
                 <p className="mr-8  mb-3">درجة الاختبار النهائي : {item?.finalExamScore ? item.finalExamScore : "لم يتم الحل"}</p>
