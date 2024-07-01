@@ -61,9 +61,9 @@ export const HomeLoggedOut = () => {
                 <img src={back1} alt="" className="absolute z-[-1] left-[-400px] w-[800px] opacity-35   top-[-400px] origin-center" />
                 <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   bottom-[-400px] origin-center" />
                 <div>
-                    <img src={main1} className="hidden lg:block w-[520px] mb-8" alt="" data-aos="fade-right" />
+                    <img src={main1} className="hidden lg:block w-[580px] mb-8" alt="" data-aos="fade-right" />
                 </div>
-                <div className="flex flex-col items-center space-y-8 pt-28 lg:mb-0  gap-8 lg:gap-0 lg:text-right">
+                <div className="flex flex-col items-center space-y-8 pt-36 lg:mb-0  gap-8 lg:gap-0 lg:text-right">
                     <p className="text-4xl lg:text-6xl  font-extrabold text-[#2A3E34]" data-aos="fade-down">
                         أكاديمية المنبـــــر
                     </p>
