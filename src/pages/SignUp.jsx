@@ -251,7 +251,7 @@ export const SignUp = () => {
                     />
                 </div>
 
-                <div className="flex justify-center gap-5 mt-10">
+                <div className="flex justify-center gap-5 mt-10 mb-12">
                     <Button
                         className="rounded-lg bg-white text-base text-[#466746] font-bold px-10 hover:bg-[#f6fffa]"
                         disabled={loading}
@@ -262,23 +262,6 @@ export const SignUp = () => {
                         </Show>
                         إنشاء حساب جديد
                     </Button>
-                </div>
-                <div className="relative mt-12 flex justify-center">
-                    <span className="absolute sm:left-[200px] z-10 bg-[#2A3E34] flex justify-center items-center top-[-6px] text-sm text-center w-[150px]">
-                        او بأستخدام
-                    </span>
-                    <div className="h-px bg-gray-400 w-[85%]"></div>
-                </div>
-                <div className="flex justify-center gap-5 mt-10">
-                    <Button className="rounded-lg bg-[#466746] text-base text-white font-bold px-10 hover:bg-[#395346]">
-                        {<i className="fa-brands fa-google mr-4"></i>}تسجيل بواسطة جوجل
-                    </Button>
-                </div>
-                <div className="flex justify-center gap-2 mt-8 mb-8">
-                    <Link to={"/login"} className="opacity-100">
-                        يمكنك تسجيل الدخول
-                    </Link>
-                    <span className="opacity-65">لديك حساب ؟</span>
                 </div>
             </div>
             <br />
