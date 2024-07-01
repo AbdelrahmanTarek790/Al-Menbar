@@ -1,31 +1,30 @@
-import { SideBarLearn } from "@/components/SideBarLearn"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/components/ui/use-toast"
-import { Subjects } from "@/data"
-import { getMethod, postMethod } from "@/utils/ApiMethods"
-import { Each } from "@/utils/Each"
-import { Show } from "@/utils/Show"
-import { DialogTrigger } from "@radix-ui/react-dialog"
-import { Item } from "@radix-ui/react-dropdown-menu"
-import { CornerTopRightIcon } from "@radix-ui/react-icons"
-import { set } from "date-fns"
-import { CornerRightUpIcon, Loader, ReplyIcon } from "lucide-react"
-import { useEffect, useState } from "react"
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
+import { SideBarLearn } from "@/components/SideBarLearn";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/components/ui/use-toast";
+import { Subjects } from "@/data";
+import { getMethod, postMethod } from "@/utils/ApiMethods";
+import { Each } from "@/utils/Each";
+import { Show } from "@/utils/Show";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Item } from "@radix-ui/react-dropdown-menu";
+import { CornerTopRightIcon } from "@radix-ui/react-icons";
+import { set } from "date-fns";
+import { CornerRightUpIcon, Loader, ReplyIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const QuizPage = () => {
-    const { id } = useParams()
-    const {toast}= useToast()
-    const navigate = useNavigate()
-    const [open, setOpen] = useState(false)
-    const [showAnswers, setShowAnswers] = useState(false)
-    const [finalAnswers, setFinalAnswers] = useState({})
+    const { id } = useParams();
+    const { toast } = useToast();
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const [showAnswers, setShowAnswers] = useState(false);
+    const [finalAnswers, setFinalAnswers] = useState({});
 
-    const location = useLocation()
+    const location = useLocation();
     const [data, setData] = useState({
         course: {
             subject: "",
@@ -33,71 +32,79 @@ export const QuizPage = () => {
         name: "",
         comments: [],
         replies: [],
-    })
+    });
 
-    const [comment, setComment] = useState("")
-    const [reload, setReload] = useState(false)
+    const [comment, setComment] = useState("");
+    const [reload, setReload] = useState(false);
     const [quizes, setQuizes] = useState({
         mcq: [],
-    })
+    });
 
     const [answers, setAnswers] = useState({
         scoreFrom: 2,
         durationInMins: 30,
         lectureQuizzesGrades: [],
-    })
-    const [isSubmitted, setIsSubmitted] = useState(false)
-    const [nextLecture, setNextLecture] = useState("")
-    const [isReload, setIsReload] = useState(true)
+    });
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [nextLecture, setNextLecture] = useState("");
+    const [isReload, setIsReload] = useState(true);
+    const [bookUrl, setBookurl] = useState([]);
 
     useEffect(() => {
+        getMethod(`/books/`, localStorage.getItem("token")).then((res) => {
+            setBookurl(res.data.data);
+        });
         getMethod(`/lectures/${id}`, localStorage.getItem("token")).then((res) => {
-            setData(res.data)
-        })
+            setData(res.data);
+        });
         getMethod(`/lectures/${id}/quiz/`, localStorage.getItem("token")).then((res) => {
-            setQuizes(res.data[0])
+            setQuizes(res.data[0]);
             setAnswers({
                 ...answers,
                 scoreFrom: res.data[0].scoreFrom,
                 durationInMins: res.data[0].durationInMins,
                 lectureQuizzesGrades: [],
-            })
+            });
 
-            setIsReload(false)
-        })
-    }, [])
+            setIsReload(false);
+        });
+    }, []);
+
+    const getBookReadLink = (courseId) => {
+        const book = bookUrl.find((book) => book.course._id === courseId);
+        return book ? book.readLink : "";
+    };
 
     const submitAnswers = () => {
-        setReload(true)
-        let mcqs = []
+        setReload(true);
+        let mcqs = [];
         for (let i = 0; i < quizes.mcq.length; i++) {
             if (answers.lectureQuizzesGrades[i]?.answer >= 0) {
                 mcqs.push({
                     mcq: answers.lectureQuizzesGrades[i].mcq,
                     answer: answers.lectureQuizzesGrades[i].answer,
-                })
+                });
             }
         }
         if (mcqs.length !== quizes.mcq.length) {
             toast({
                 title: "الرجاء الاجابة على جميع الاسئلة",
                 variant: "destructive",
-            })
-            setReload(false)
-            return
+            });
+            setReload(false);
+            return;
         }
         postMethod(`/lectures/${id}/quiz/answers/submit`, answers, localStorage.getItem("token")).then((res) => {
-            setReload(false)
+            setReload(false);
 
             if (res.status === "Success") {
-                setIsSubmitted(true)
-                setFinalAnswers(res.data.answer ? res.data.answer.lectureQuizzesGrades : res.data.lectureQuizzesGrades)
-                setNextLecture(res.data.nextLecture ? res.data.nextLecture.lecture._id : undefined)
-                setShowAnswers(true)
+                setIsSubmitted(true);
+                setFinalAnswers(res.data.answer ? res.data.answer.lectureQuizzesGrades : res.data.lectureQuizzesGrades);
+                setNextLecture(res.data.nextLecture ? res.data.nextLecture.lecture._id : undefined);
+                setShowAnswers(true);
             }
-            
-        })
-    }
+        });
+    };
 
     return (
         <div className="flex justify-end flex-col-reverse lg:flex-row  h-full">
@@ -123,7 +130,7 @@ export const QuizPage = () => {
                         children={
                             <div className="w-full">
                                 <Show>
-                                    <Show.When isTrue={showAnswers} children={<QuizAnswer finalAnswers={finalAnswers}></QuizAnswer>}></Show.When>
+                                    <Show.When isTrue={showAnswers} children={<QuizAnswer finalAnswers={finalAnswers} getBookReadLink={getBookReadLink}></QuizAnswer>}></Show.When>
                                     <Show.Else
                                         children={
                                             <Each
@@ -143,10 +150,10 @@ export const QuizPage = () => {
                                                             onValueChange={(e) => {
                                                                 // console.log(item.id);
                                                                 //find the index of the item in the array and update the answer
-                                                                let newAnswers = answers.lectureQuizzesGrades
-                                                                newAnswers[index] = { mcq: item.id, answer: e }
-                                                                setAnswers({ ...answers, lectureQuizzesGrades: newAnswers })
-                                                                console.log(answers)
+                                                                let newAnswers = answers.lectureQuizzesGrades;
+                                                                newAnswers[index] = { mcq: item.id, answer: e };
+                                                                setAnswers({ ...answers, lectureQuizzesGrades: newAnswers });
+                                                                console.log(answers);
                                                             }}
                                                             className="mr-5 mb-5"
                                                         >
@@ -198,14 +205,14 @@ export const QuizPage = () => {
                                                 <Dialog
                                                     open={open}
                                                     onOpenChange={() => {
-                                                        setOpen(!open)
+                                                        setOpen(!open);
                                                     }}
                                                 >
                                                     <DialogTrigger asChild>
                                                         <p
                                                             className="cursor-pointer text-primary text-base font-bold hover:underline"
                                                             onClick={() => {
-                                                                setAnswers({ ...answers, lectureQuizzesGrades: [] })
+                                                                setAnswers({ ...answers, lectureQuizzesGrades: [] });
                                                             }}
                                                         >
                                                             حذف جميع الاجابات
@@ -220,7 +227,7 @@ export const QuizPage = () => {
                                                             <Button
                                                                 variant="secondary"
                                                                 onClick={() => {
-                                                                    setOpen(false)
+                                                                    setOpen(false);
                                                                 }}
                                                             >
                                                                 لا، الغاء
@@ -231,8 +238,8 @@ export const QuizPage = () => {
                                                                     setAnswers({
                                                                         ...answers,
                                                                         lectureQuizzesGrades: [],
-                                                                    })
-                                                                    setOpen(false)
+                                                                    });
+                                                                    setOpen(false);
                                                                 }}
                                                             >
                                                                 نعم، حذف
@@ -251,11 +258,10 @@ export const QuizPage = () => {
             </div>
             <SideBarLearn name={data.course.subject} courseID={data.course.id}></SideBarLearn>
         </div>
-    )
-}
+    );
+};
 
-const QuizAnswer = ({ finalAnswers }) => {
-    console.log(finalAnswers)
+const QuizAnswer = ({ finalAnswers, getBookReadLink }) => {
     return (
         <div className="w-full">
             <p className="text-3xl font-bold text-primary"> نتائج الاختبار</p>
@@ -265,7 +271,7 @@ const QuizAnswer = ({ finalAnswers }) => {
                     <div className="w-full border-2 border-primary rounded-xl mt-4">
                         <div className="flex justify-between items-center">
                             <p className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-sm font-bold mt-6 mb-4 ml-5`}>
-                                {item.correct ? "اجابه صحيحة" : `الاجابة الصحيحة: ${item.mcq.choices[item.mcq.answer]}`}
+                                {item.correct ? "اجابة صحيحة" : `الاجابة الصحيحة: ${item.mcq.choices[item.mcq.answer]}`}
                             </p>
                             <p
                                 className={`${item.correct ? " text-[#2A3E34] " : " text-red-500 "} text-lg font-bold mt-6 mb-4 mr-5`}
@@ -293,10 +299,15 @@ const QuizAnswer = ({ finalAnswers }) => {
                                     </div>
                                 )}
                             ></Each>
+                            <div className="flex flex-left ml-4">
+                            <Link to={`${getBookReadLink(item.mcq.course)}#page=${item.mcq.page}`} target="_blank">
+                                <Button>مرجع السؤال</Button>
+                            </Link>
+                            </div>
                         </RadioGroup>
                     </div>
                 )}
             ></Each>
         </div>
-    )
-}
+    );
+};
