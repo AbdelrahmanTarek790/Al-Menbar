@@ -21,8 +21,8 @@ export const CourseAbout = ({ items }) => {
                             of={items.teachers}
                             render={(item, index) => (
                                 <div className="text-2xl text-center my-8 flex justify-end gap-2  items-center">
-                                    <p className=" text-2xl font-bold ">{item.Fname + " " + item.Mname + " " + item.Lname}</p>
-                                    <p> : يُدرَس بواسطة</p>
+                                    <p className="text-[#2A3E34] text-2xl font-bold ">{item.Fname + " " + item.Mname + " " + item.Lname}</p>
+                                    <p className="text-[#2A3E34]"> : يُدرَس بواسطة</p>
                                     <img
                                         src={item?.photo ? item.photo : "https://placehold.co/150x150"}
                                         alt=""
@@ -43,7 +43,7 @@ export const CourseAbout = ({ items }) => {
                 <Show.When
                     isTrue={items.book ? true : false}
                     children={
-                        <div className="flex flex-col items-center">
+                        <div className="text-[#2A3E34] flex flex-col items-center">
                             <p className="text-right font-extrabold">الكتاب الخاص بالمقرر</p>
                             <p className="text-right">{"الكتاب:" + (items.book.title ? items.book.title : "لا يوجد")}</p>
                             <img
@@ -72,8 +72,9 @@ export const CourseAbout = ({ items }) => {
                 ></Show.When>
                 <Show.Else children={<div className="text-2xl text-center my-8 ">لا يوجد كتب مسؤولة عن هذا المقرر</div>}></Show.Else>
             </Show>
-            <div className="w-full h-[1px] mt-3 bg-[#e4e4e4] "></div>
-            <p className="text-right font-extrabold">عن المنهج</p>
+            <div className="w-full h-[1px] mt-3 bg-[#e4e4e4]  "></div>
+            <div dir="rtl" className="text-[#2A3E34]">
+            <p className=" text-right font-extrabold">عن المنهج</p>
             <p className="text-right">
                 يُقدم هذا المنهج شرحًا شاملاً لعلم التفسير، ذلك العلم الجليل الذي يُعنى بفهم معاني القرآن الكريم وتفسيره. يُقدم هذا الفهم من خلال
                 محاضرات تفاعلية تُغطي مختلف جوانب هذا العلم، بدءًا من تعريفه ونشأته، مرورًا بأهم كتبه وطرقه، وصولًا إلى تفسير سورة الفاتحة وآية
@@ -91,6 +92,7 @@ export const CourseAbout = ({ items }) => {
             <p>ستتعلم كيفية تفسير القرآن الكريم بالطريقة الصحيحة.</p>
             <p>ستتعرف على أهم كتب التفسير وطرقه.</p>
             <p>ستتمكن من تفسير سورة الفاتحة وآية الكرسي.</p>
+            </div>
         </div>
     )
 }
