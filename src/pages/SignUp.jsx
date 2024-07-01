@@ -263,6 +263,9 @@ export const SignUp = () => {
                         إنشاء حساب جديد
                     </Button>
                 </div>
+                <div className="relative mt-10 flex justify-center">
+                    <div className="h-px bg-gray-400 w-[85%]"></div>
+                </div>
                 <div className="flex justify-center gap-2 mt-8 mb-8">
                     <Link to={"/login"} className="opacity-100">
                         يمكنك تسجيل الدخول
