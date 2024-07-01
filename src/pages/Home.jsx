@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button"
+import { DownloadIcon } from "lucide-react"
+
 import main1 from "../assets/main1.png"
 import back1 from "../assets/back1.png"
 import main2 from "../assets/main2.png"
@@ -59,9 +61,9 @@ export const HomeLoggedOut = () => {
                 <img src={back1} alt="" className="absolute z-[-1] left-[-400px] w-[800px] opacity-35   top-[-400px] origin-center" />
                 <img src={back1} alt="" className="absolute z-[-1] right-[-400px] w-[800px] opacity-35   bottom-[-400px] origin-center" />
                 <div>
-                    <img src={main1} className="hidden lg:block w-[561px]" alt="" data-aos="fade-right" />
+                    <img src={main1} className="hidden lg:block w-[520px] mb-8" alt="" data-aos="fade-right" />
                 </div>
-                <div className="flex flex-col items-center space-y-8 pt-36 lg:mb-0  gap-8 lg:gap-0 lg:text-right">
+                <div className="flex flex-col items-center space-y-8 pt-28 lg:mb-0  gap-8 lg:gap-0 lg:text-right">
                     <p className="text-4xl lg:text-6xl  font-extrabold text-[#2A3E34]" data-aos="fade-down">
                         أكاديمية المنبـــــر
                     </p>
@@ -71,11 +73,14 @@ export const HomeLoggedOut = () => {
                             وجعلها اكثر تفاعلية مع الطالب.
                         </p>
                         <div className="flex justify-center flex-wrap gap-5 mt-4">
+                            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+                                <Button className="rounded-full bg-[#466746] text-xl px-7">
+                                <DownloadIcon className="mr-4" />
+                                 تحميل التطبيق
+                                </Button>
+                            </a>
                             <Link to={"/login"}>
                                 <Button className="rounded-full bg-[#2a3e34] text-xl  px-7 hover:bg-[#395346]">تسجيل الدخول</Button>
-                            </Link>
-                            <Link to={"/register"}>
-                                <Button className="rounded-full bg-[#466746] text-xl px-7 ">إنشاء حساب</Button>
                             </Link>
                         </div>
                     </div>
@@ -83,7 +88,7 @@ export const HomeLoggedOut = () => {
             </div>
             <div className="h-auto bg-[#2a3e34] mt-3 pb-4" data-aos="fade-up" data-aos-offset="200" data-aos-duration="1000">
                 <p className="text-center text-white font-cairo text-3xl font-bold pt-8">ماذا تقدم أكاديمية منبـر</p>
-                <div className="flex text-center justify-evenly mt-8 flex-wrap h-auto">
+                <div dir="rtl" className="flex text-center justify-evenly mt-8 mb-4 flex-wrap h-auto">
                     <Each
                         of={List1}
                         render={(item, index) => (
@@ -110,7 +115,7 @@ export const HomeLoggedOut = () => {
                     >
                         <p className="text-4xl font-bold text-[#466746]">رسالة أكاديمية المنبر</p>
                         <div className="w-auto lg:w-[470px]">
-                            <p className="text-[#2A3E34] text-xl">
+                            <p dir="rtl" className="text-[#2A3E34] text-xl">
                                 أكاديمية المنبر هي الوجهة المثالية لتعلم <span className="font-bold">العلوم الشرعية الإسلامية</span> بسهولة ويسر. تأتي
                                 رسالة المنبر كجواب على تحديات العصر الحديث، حيث يعاني الكثيرون من البعد عن دراسة العلوم الشرعية، اعتقاداً منهم
                                 بصعوبتها او تلاهيهم بملهيات الحياة. تسعى المنبر لتغيير هذه النظرة وتحقيق تقدم حقيقي في تعلم العلوم الشرعية
@@ -226,8 +231,8 @@ export const HomeLoggedOut = () => {
                         </div>
                     </div>
                 </div>
-                {/* <ChatEmbed></ChatEmbed> */}
             </div>
+            <ChatEmbed/>
         </div>
     )
 }
