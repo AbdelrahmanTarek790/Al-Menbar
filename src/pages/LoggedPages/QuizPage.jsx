@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogDescription } from "@/components/ui/dialog
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
+import { useToast } from "@/components/ui/use-toast"
 import { Subjects } from "@/data"
 import { getMethod, postMethod } from "@/utils/ApiMethods"
 import { Each } from "@/utils/Each"
@@ -18,6 +19,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 
 export const QuizPage = () => {
     const { id } = useParams()
+    const {toast}= useToast()
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     const [showAnswers, setShowAnswers] = useState(false)
@@ -58,7 +60,7 @@ export const QuizPage = () => {
                 ...answers,
                 scoreFrom: res.data[0].scoreFrom,
                 durationInMins: res.data[0].durationInMins,
-                lectureQuizzesGrades: [...res.data[0].mcq.map((item) => ({ mcq: item.id, answer: 6 }))],
+                lectureQuizzesGrades: [],
             })
 
             setIsReload(false)
@@ -66,18 +68,24 @@ export const QuizPage = () => {
     }, [])
 
     const submitAnswers = () => {
-        // setReload(true)
-        // console.log(.forEach((item) => console.log(item)))
-        // console.log(answers.lectureQuizzesGrades)
-        // // for (let index = 0; index < answers.lectureQuizzesGrades.length; index++) {
-        // //     if (answers.lectureQuizzesGrades[index] === undefined ) {
-        // //         let newAnswers = answers.lectureQuizzesGrades
-        // //         newAnswers[index] = { mcq: quizes.mcq[index].id, answer: 6 }
-        // //         setAnswers({ ...answers, lectureQuizzesGrades: newAnswers })
-        // //         console.log(newAnswers)
-        // //     }
-        // // }
-
+        setReload(true)
+        let mcqs = []
+        for (let i = 0; i < quizes.mcq.length; i++) {
+            if (answers.lectureQuizzesGrades[i]?.answer >= 0) {
+                mcqs.push({
+                    mcq: answers.lectureQuizzesGrades[i].mcq,
+                    answer: answers.lectureQuizzesGrades[i].answer,
+                })
+            }
+        }
+        if (mcqs.length !== quizes.mcq.length) {
+            toast({
+                title: "الرجاء الاجابة على جميع الاسئلة",
+                variant: "destructive",
+            })
+            setReload(false)
+            return
+        }
         postMethod(`/lectures/${id}/quiz/answers/submit`, answers, localStorage.getItem("token")).then((res) => {
             setReload(false)
 
@@ -87,6 +95,7 @@ export const QuizPage = () => {
                 setNextLecture(res.data.nextLecture ? res.data.nextLecture.lecture._id : undefined)
                 setShowAnswers(true)
             }
+            
         })
     }
 
