@@ -73,7 +73,7 @@ export const HomeLoggedOut = () => {
                             وجعلها اكثر تفاعلية مع الطالب.
                         </p>
                         <div className="flex justify-center flex-wrap gap-5 mt-4">
-                            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+                            <a href="https://drive.google.com/file/d/16EA2D4KQGzas_6pzqvK-7davsIOeu0lj/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                                 <Button className="rounded-full bg-[#466746] text-xl px-7">
                                 <DownloadIcon className="mr-4" />
                                  تحميل التطبيق
