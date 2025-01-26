@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BaseUrl2 = "https://almenber.codepeak.live/api/v1"
+const BaseUrl2 = "https://almenber.codepeak.software/api/v1"
 // const baseUrl = "https://pharmacy.codepeak.live/api"
 const baseUrl = import.meta.env.VITE_BASE_URL
 // console.log(baseUrl);
